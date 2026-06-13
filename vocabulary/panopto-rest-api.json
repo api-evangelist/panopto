@@ -1,0 +1,1386 @@
+{
+  "vocabulary": "Panopto REST API",
+  "description": "Domain terms and concepts from the Panopto public REST API",
+  "terms": [
+    {
+      "term": "RemoteRecorderRegistrationResponse",
+      "label": "remote recorder registration response",
+      "definition": "A RemoteRecorderRegistrationResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "APIError",
+      "label": "a p i error",
+      "definition": "A APIError object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "APIErrorInternal",
+      "label": "a p i error internal",
+      "definition": "A APIErrorInternal object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderRegistrationRequest",
+      "label": "remote recorder registration request",
+      "definition": "A RemoteRecorderRegistrationRequest object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderHeartbeatResponse",
+      "label": "remote recorder heartbeat response",
+      "definition": "A RemoteRecorderHeartbeatResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderConfiguration",
+      "label": "remote recorder configuration",
+      "definition": "A RemoteRecorderConfiguration object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "LiveMonitoringHeartbeatResponseData",
+      "label": "live monitoring heartbeat response data",
+      "definition": "A LiveMonitoringHeartbeatResponseData object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "LiveMonitoringMode",
+      "label": "live monitoring mode",
+      "definition": "A LiveMonitoringMode object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "QualitySettings",
+      "label": "quality settings",
+      "definition": "A QualitySettings object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderExtendedConfiguration",
+      "label": "remote recorder extended configuration",
+      "definition": "A RemoteRecorderExtendedConfiguration object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderAudioHistogramType",
+      "label": "remote recorder audio histogram type",
+      "definition": "A RemoteRecorderAudioHistogramType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderHeartbeatData",
+      "label": "remote recorder heartbeat data",
+      "definition": "A RemoteRecorderHeartbeatData object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderState",
+      "label": "remote recorder state",
+      "definition": "A RemoteRecorderState object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "DeviceDescriptionWithPreview",
+      "label": "device description with preview",
+      "definition": "A DeviceDescriptionWithPreview object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Device",
+      "label": "device",
+      "definition": "A Device object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "DeviceType",
+      "label": "device type",
+      "definition": "A DeviceType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderDevicePreview",
+      "label": "remote recorder device preview",
+      "definition": "A RemoteRecorderDevicePreview object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "DeviceThumbnailFormat",
+      "label": "device thumbnail format",
+      "definition": "A DeviceThumbnailFormat object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderSchedule",
+      "label": "remote recorder schedule",
+      "definition": "A RemoteRecorderSchedule object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderScheduledRecording",
+      "label": "remote recorder scheduled recording",
+      "definition": "A RemoteRecorderScheduledRecording object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderError",
+      "label": "remote recorder error",
+      "definition": "A RemoteRecorderError object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderErrorSeverity",
+      "label": "remote recorder error severity",
+      "definition": "A RemoteRecorderErrorSeverity object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderErrorType",
+      "label": "remote recorder error type",
+      "definition": "A RemoteRecorderErrorType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderPauseRecordingRequest",
+      "label": "remote recorder pause recording request",
+      "definition": "A RemoteRecorderPauseRecordingRequest object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderResumeRecordingRequest",
+      "label": "remote recorder resume recording request",
+      "definition": "A RemoteRecorderResumeRecordingRequest object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderURLsUpdateRequest",
+      "label": "remote recorder u r ls update request",
+      "definition": "A RemoteRecorderURLsUpdateRequest object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderURL",
+      "label": "remote recorder u r l",
+      "definition": "A RemoteRecorderURL object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderURLType",
+      "label": "remote recorder u r l type",
+      "definition": "A RemoteRecorderURLType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcConnectPostData",
+      "label": "web rtc connect post data",
+      "definition": "A WebRtcConnectPostData object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcConnectOperationType",
+      "label": "web rtc connect operation type",
+      "definition": "A WebRtcConnectOperationType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcDisconnectPostData",
+      "label": "web rtc disconnect post data",
+      "definition": "A WebRtcDisconnectPostData object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcDisconnectOperationType",
+      "label": "web rtc disconnect operation type",
+      "definition": "A WebRtcDisconnectOperationType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcEventsResponse",
+      "label": "web rtc events response",
+      "definition": "A WebRtcEventsResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcEvent",
+      "label": "web rtc event",
+      "definition": "A WebRtcEvent object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcEventType",
+      "label": "web rtc event type",
+      "definition": "A WebRtcEventType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcIceCandidates",
+      "label": "web rtc ice candidates",
+      "definition": "A WebRtcIceCandidates object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcIceCandidate",
+      "label": "web rtc ice candidate",
+      "definition": "A WebRtcIceCandidate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "WebRtcSdpOfferPostData",
+      "label": "web rtc sdp offer post data",
+      "definition": "A WebRtcSdpOfferPostData object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityBulkPreviewResponse",
+      "label": "accessibility bulk preview response",
+      "definition": "A AccessibilityBulkPreviewResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityRequestType",
+      "label": "accessibility request type",
+      "definition": "A AccessibilityRequestType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityOverwriteBehavior",
+      "label": "accessibility overwrite behavior",
+      "definition": "A AccessibilityOverwriteBehavior object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityProviderPreview",
+      "label": "accessibility provider preview",
+      "definition": "A AccessibilityProviderPreview object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilitySessionPreview",
+      "label": "accessibility session preview",
+      "definition": "A AccessibilitySessionPreview object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "EligibilityState",
+      "label": "eligibility state",
+      "definition": "A EligibilityState object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ExclusionReason",
+      "label": "exclusion reason",
+      "definition": "A ExclusionReason object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "TranslationDetails",
+      "label": "translation details",
+      "definition": "A TranslationDetails object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ContentLanguage",
+      "label": "content language",
+      "definition": "Language of content such as sessions, streams, or captions.",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityPreviewSummary",
+      "label": "accessibility preview summary",
+      "definition": "A AccessibilityPreviewSummary object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityBulkPreviewRequest",
+      "label": "accessibility bulk preview request",
+      "definition": "A AccessibilityBulkPreviewRequest object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityBulkScheduleResponse",
+      "label": "accessibility bulk schedule response",
+      "definition": "A AccessibilityBulkScheduleResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityScheduleResult",
+      "label": "accessibility schedule result",
+      "definition": "A AccessibilityScheduleResult object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessibilityBulkScheduleRequest",
+      "label": "accessibility bulk schedule request",
+      "definition": "A AccessibilityBulkScheduleRequest object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfTranscriptionProviderInstance",
+      "label": "list response of transcription provider instance",
+      "definition": "A ListResponseOfTranscriptionProviderInstance object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "TranscriptionProviderInstance",
+      "label": "transcription provider instance",
+      "definition": "A TranscriptionProviderInstance object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ModelBaseOfGuid",
+      "label": "model base of guid",
+      "definition": "A ModelBaseOfGuid object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "TranscriptionProviderInstanceSortFields",
+      "label": "transcription provider instance sort fields",
+      "definition": "A TranscriptionProviderInstanceSortFields object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SortOrder",
+      "label": "sort order",
+      "definition": "A SortOrder object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "XfpUserProfile",
+      "label": "xfp user profile",
+      "definition": "A XfpUserProfile object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "XfpUserProfileCreate",
+      "label": "xfp user profile create",
+      "definition": "A XfpUserProfileCreate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "XfpUserRole",
+      "label": "xfp user role",
+      "definition": "A XfpUserRole object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "XfpUserProfileUpdate",
+      "label": "xfp user profile update",
+      "definition": "A XfpUserProfileUpdate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Folder",
+      "label": "folder",
+      "definition": "A Folder object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "BasicFolder",
+      "label": "basic folder",
+      "definition": "A BasicFolder object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "FolderUrls",
+      "label": "folder urls",
+      "definition": "A FolderUrls object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfFolder",
+      "label": "list response of folder",
+      "definition": "A ListResponseOfFolder object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "FolderSortFields",
+      "label": "folder sort fields",
+      "definition": "A FolderSortFields object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfSession",
+      "label": "list response of session",
+      "definition": "A ListResponseOfSession object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Session",
+      "label": "session",
+      "definition": "A Session object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "User",
+      "label": "user",
+      "definition": "A User object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionUrls",
+      "label": "session urls",
+      "definition": "A SessionUrls object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SearchResultContext",
+      "label": "search result context",
+      "definition": "A SearchResultContext object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionSortFields",
+      "label": "session sort fields",
+      "definition": "A SessionSortFields object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfPlaylist",
+      "label": "list response of playlist",
+      "definition": "A ListResponseOfPlaylist object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Playlist",
+      "label": "playlist",
+      "definition": "A Playlist object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PlaylistUrls",
+      "label": "playlist urls",
+      "definition": "A PlaylistUrls object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PlaylistSortFields",
+      "label": "playlist sort fields",
+      "definition": "A PlaylistSortFields object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessSettings",
+      "label": "access settings",
+      "definition": "A AccessSettings object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AccessLevel",
+      "label": "access level",
+      "definition": "A AccessLevel object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "FolderSettings",
+      "label": "folder settings",
+      "definition": "A FolderSettings object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfPermission",
+      "label": "list response of permission",
+      "definition": "A ListResponseOfPermission object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Permission",
+      "label": "permission",
+      "definition": "A Permission object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Principal",
+      "label": "principal",
+      "definition": "A Principal object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PrincipalType",
+      "label": "principal type",
+      "definition": "A PrincipalType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Role",
+      "label": "role",
+      "definition": "A Role object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PermissionCreate",
+      "label": "permission create",
+      "definition": "A PermissionCreate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "BuiltInRoleType",
+      "label": "built in role type",
+      "definition": "A BuiltInRoleType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PermissionDelete",
+      "label": "permission delete",
+      "definition": "A PermissionDelete object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "FolderCreate",
+      "label": "folder create",
+      "definition": "A FolderCreate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "FolderUpdate",
+      "label": "folder update",
+      "definition": "A FolderUpdate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfGroup",
+      "label": "list response of group",
+      "definition": "A ListResponseOfGroup object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Group",
+      "label": "group",
+      "definition": "A Group object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PlaylistUpdate",
+      "label": "playlist update",
+      "definition": "A PlaylistUpdate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PlaylistSessionSortFields",
+      "label": "playlist session sort fields",
+      "definition": "A PlaylistSessionSortFields object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PlaylistCreate",
+      "label": "playlist create",
+      "definition": "A PlaylistCreate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "PlaylistAddSession",
+      "label": "playlist add session",
+      "definition": "A PlaylistAddSession object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfRemoteRecorder",
+      "label": "list response of remote recorder",
+      "definition": "A ListResponseOfRemoteRecorder object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorder",
+      "label": "remote recorder",
+      "definition": "A RemoteRecorder object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RemoteRecorderSortFields",
+      "label": "remote recorder sort fields",
+      "definition": "A RemoteRecorderSortFields object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ScheduledRecording",
+      "label": "scheduled recording",
+      "definition": "A ScheduledRecording object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "RecorderScheduleEntry",
+      "label": "recorder schedule entry",
+      "definition": "A RecorderScheduleEntry object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ScheduledRecordingUpdate",
+      "label": "scheduled recording update",
+      "definition": "A ScheduledRecordingUpdate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ScheduledRecordingCreate",
+      "label": "scheduled recording create",
+      "definition": "A ScheduledRecordingCreate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ScheduledRecordingRemoteRecorder",
+      "label": "scheduled recording remote recorder",
+      "definition": "A ScheduledRecordingRemoteRecorder object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SearchIndexSyncUpdateResponse",
+      "label": "search index sync update response",
+      "definition": "A SearchIndexSyncUpdateResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ModelBase",
+      "label": "model base",
+      "definition": "A ModelBase object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SearchIndexSyncContentResponse",
+      "label": "search index sync content response",
+      "definition": "A SearchIndexSyncContentResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionUpdate",
+      "label": "session update",
+      "definition": "A SessionUpdate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfSessionViewerStats",
+      "label": "list response of session viewer stats",
+      "definition": "A ListResponseOfSessionViewerStats object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionViewerStats",
+      "label": "session viewer stats",
+      "definition": "A SessionViewerStats object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionViewerStatsSortFields",
+      "label": "session viewer stats sort fields",
+      "definition": "A SessionViewerStatsSortFields object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfTag",
+      "label": "list response of tag",
+      "definition": "A ListResponseOfTag object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Tag",
+      "label": "tag",
+      "definition": "A Tag object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "TagSortFields",
+      "label": "tag sort fields",
+      "definition": "A TagSortFields object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionTagUpdate",
+      "label": "session tag update",
+      "definition": "A SessionTagUpdate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionScormManifestType",
+      "label": "session scorm manifest type",
+      "definition": "A SessionScormManifestType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionCopyResponse",
+      "label": "session copy response",
+      "definition": "A SessionCopyResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionCopyCreate",
+      "label": "session copy create",
+      "definition": "A SessionCopyCreate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionCopyType",
+      "label": "session copy type",
+      "definition": "A SessionCopyType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionInteractivityUploadResponse",
+      "label": "session interactivity upload response",
+      "definition": "A SessionInteractivityUploadResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SignedUrl",
+      "label": "signed url",
+      "definition": "A SignedUrl object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "HttpMethod",
+      "label": "http method",
+      "definition": "A HttpMethod object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "UploadAPIResponse",
+      "label": "upload a p i response",
+      "definition": "A UploadAPIResponse object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "SessionInteractivityCreate",
+      "label": "session interactivity create",
+      "definition": "A SessionInteractivityCreate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "TagCreate",
+      "label": "tag create",
+      "definition": "A TagCreate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "TagUpdate",
+      "label": "tag update",
+      "definition": "A TagUpdate object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "TagMerge",
+      "label": "tag merge",
+      "definition": "A TagMerge object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ListResponseOfUser",
+      "label": "list response of user",
+      "definition": "A ListResponseOfUser object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "HttpRequestMessage",
+      "label": "http request message",
+      "definition": "A HttpRequestMessage object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ExternalProviderType",
+      "label": "external provider type",
+      "definition": "A ExternalProviderType object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "FindImportEligibilityAndProvisionMeetingFolderForUserDto",
+      "label": "find import eligibility and provision meeting folder for user dto",
+      "definition": "A FindImportEligibilityAndProvisionMeetingFolderForUserDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "CreateSessionForSessionGroupIdAndUserIdDto",
+      "label": "create session for session group id and user id dto",
+      "definition": "A CreateSessionForSessionGroupIdAndUserIdDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "ProvisionExternalContextForSessionByExternalProviderWithPublicIdDto",
+      "label": "provision external context for session by external provider with public id dto",
+      "definition": "A ProvisionExternalContextForSessionByExternalProviderWithPublicIdDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "CreateMeetingImportStreamDto",
+      "label": "create meeting import stream dto",
+      "definition": "A CreateMeetingImportStreamDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "CreateZoomImportEditsByProviderDto",
+      "label": "create zoom import edits by provider dto",
+      "definition": "A CreateZoomImportEditsByProviderDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "GetMappedUserIdsByEmailDto",
+      "label": "get mapped user ids by email dto",
+      "definition": "A GetMappedUserIdsByEmailDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "AddMeetingParticipantsForSessionDto",
+      "label": "add meeting participants for session dto",
+      "definition": "A AddMeetingParticipantsForSessionDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "CreateIntegrationMediaImportJobDto",
+      "label": "create integration media import job dto",
+      "definition": "A CreateIntegrationMediaImportJobDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "CreateCustomThumbnailFromUploadDto",
+      "label": "create custom thumbnail from upload dto",
+      "definition": "A CreateCustomThumbnailFromUploadDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "BatchAddCommentThreadsToSessionDto",
+      "label": "batch add comment threads to session dto",
+      "definition": "A BatchAddCommentThreadsToSessionDto object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "LtiSpecLogin",
+      "label": "lti spec login",
+      "definition": "A LtiSpecLogin object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "LtiAgsScore",
+      "label": "lti ags score",
+      "definition": "A LtiAgsScore object in the Panopto REST API",
+      "source": "schema"
+    },
+    {
+      "term": "Auth_LegacyLogin",
+      "label": "auth_ legacy login",
+      "definition": "Get a legacy authentication cookie",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_RegisterRemoteRecorder",
+      "label": "remote recorder a p i_ register remote recorder",
+      "definition": "Register a new remote recorder",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_Connect",
+      "label": "remote recorder a p i_ connect",
+      "definition": "Connect as the provided remote recorder",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_Disconnect",
+      "label": "remote recorder a p i_ disconnect",
+      "definition": "Disconnect as the provided remote recorder, identified via the GUID public id",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_Heartbeat",
+      "label": "remote recorder a p i_ heartbeat",
+      "definition": "Heartbeat and preview as the provided remote recorder",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_GetSchedule",
+      "label": "remote recorder a p i_ get schedule",
+      "definition": "Retrieve a schedule for the next 7 days for the provided remote recorder.As a best practice a new scheduled should be fetched every day even if the schedule version in the heartbeat hasn't changed",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_UpdateSchedule",
+      "label": "remote recorder a p i_ update schedule",
+      "definition": "Update or add a set of scheduled recordings for the provided remote recorder. To add a scheduled recording, the recording should have all relevant fields filled in but an empty (all zeros) guid",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_Error",
+      "label": "remote recorder a p i_ error",
+      "definition": "Register an error with the provided remote recorder on the server",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_LegacyLogin",
+      "label": "remote recorder a p i_ legacy login",
+      "definition": "Retrieve a legacy ASPXAUTH cookie",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_PauseRecording",
+      "label": "remote recorder a p i_ pause recording",
+      "definition": "Pause the recording of the specified session on the server",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_ResumeRecording",
+      "label": "remote recorder a p i_ resume recording",
+      "definition": "Resume the recording of the specified session on the server",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_ReportRemoteRecorderURLs",
+      "label": "remote recorder a p i_ report remote recorder u r ls",
+      "definition": "Provides a list of URLs and URL types to present to administrators to help them manage this remote recorder.Calling this replaces all previously reported URLs. URLs are preserved until replaced, so this only needs to be called when they have changed",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_WebRtcConnect",
+      "label": "remote recorder a p i_ web rtc connect",
+      "definition": "Establishes a new connection which enables the WebRTC-based media preview feature.  After this, the client should commence WebRTC session negotiation by sending us an SDP offer.",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_WebRtcDisconnect",
+      "label": "remote recorder a p i_ web rtc disconnect",
+      "definition": "Destroys the connection which enables the WebRTC-based media preview feature.",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_WebRtcGetEvents",
+      "label": "remote recorder a p i_ web rtc get events",
+      "definition": "After the client has sent us an SDP offer, they should poll this  endpoint periodically to receive messages.",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_WebRtcIceCandidates",
+      "label": "remote recorder a p i_ web rtc ice candidates",
+      "definition": "Sends a batch of ICE candidates from client to signaling server.",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorderAPI_WebRtcSdpOffer",
+      "label": "remote recorder a p i_ web rtc sdp offer",
+      "definition": "The client begins WebRTC session negotiation by submitting an SDP offer.",
+      "source": "operation"
+    },
+    {
+      "term": "Accessibility_PreviewBulkAccessibility",
+      "label": "accessibility_ preview bulk accessibility",
+      "definition": "Preview bulk accessibility request eligibility",
+      "source": "operation"
+    },
+    {
+      "term": "Accessibility_ScheduleBulkAccessibility",
+      "label": "accessibility_ schedule bulk accessibility",
+      "definition": "Schedule bulk accessibility requests",
+      "source": "operation"
+    },
+    {
+      "term": "CaptionProviders_GetCaptionProviders",
+      "label": "caption providers_ get caption providers",
+      "definition": "Get caption providers",
+      "source": "operation"
+    },
+    {
+      "term": "Reports_GetReportFromId",
+      "label": "reports_ get report from id",
+      "definition": "Get a report by Id",
+      "source": "operation"
+    },
+    {
+      "term": "XfpUserProfiles_Create",
+      "label": "xfp user profiles_ create",
+      "definition": "Create XFP user profile",
+      "source": "operation"
+    },
+    {
+      "term": "XfpUserProfiles_List",
+      "label": "xfp user profiles_ list",
+      "definition": "Get XFP user profiles according to the filter",
+      "source": "operation"
+    },
+    {
+      "term": "XfpUserProfiles_Delete",
+      "label": "xfp user profiles_ delete",
+      "definition": "Delete an XFP user profile",
+      "source": "operation"
+    },
+    {
+      "term": "XfpUserProfiles_Update",
+      "label": "xfp user profiles_ update",
+      "definition": "Update an XFP user profile",
+      "source": "operation"
+    },
+    {
+      "term": "XfpUserProfiles_BulkCreate",
+      "label": "xfp user profiles_ bulk create",
+      "definition": "Bulk Create XFP users",
+      "source": "operation"
+    },
+    {
+      "term": "XfpUserProfiles_BulkDelete",
+      "label": "xfp user profiles_ bulk delete",
+      "definition": "Bulk Delete XFP users",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_GetFolderById",
+      "label": "folders_ get folder by id",
+      "definition": "Get a folder by Id",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_UpdateFolderMetadata",
+      "label": "folders_ update folder metadata",
+      "definition": "Update a folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_DeleteFolder",
+      "label": "folders_ delete folder",
+      "definition": "Delete a folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_GetChildFolders",
+      "label": "folders_ get child folders",
+      "definition": "Get a list of child folders from the given parent",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_GetSessions",
+      "label": "folders_ get sessions",
+      "definition": "Get a list of sessions in the given folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_SearchSessionsInFolder",
+      "label": "folders_ search sessions in folder",
+      "definition": "Search for sessions within this folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_GetPlaylists",
+      "label": "folders_ get playlists",
+      "definition": "Get a list of playlists in the given folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_GetAccessSettings",
+      "label": "folders_ get access settings",
+      "definition": "Get the access settings for the given folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_UpdateAccessSettings",
+      "label": "folders_ update access settings",
+      "definition": "Update the access settings for the given folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_GetSettings",
+      "label": "folders_ get settings",
+      "definition": "Get the folder settings for the given folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_UpdateSettings",
+      "label": "folders_ update settings",
+      "definition": "Update folder settings for a specified folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_GetPermissions",
+      "label": "folders_ get permissions",
+      "definition": "Get the user and group permissions for the given folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_CreatePermission",
+      "label": "folders_ create permission",
+      "definition": "Create a folder permission by assigning a role to a user or group",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_DeletePermission",
+      "label": "folders_ delete permission",
+      "definition": "Remove permission from the folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_CreateFolder",
+      "label": "folders_ create folder",
+      "definition": "Create a new folder",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_SearchForFolders",
+      "label": "folders_ search for folders",
+      "definition": "Search for folders based on a keyword",
+      "source": "operation"
+    },
+    {
+      "term": "Folders_GetCreatorFoldersList",
+      "label": "folders_ get creator folders list",
+      "definition": "Lists all the folders the user is a creator in",
+      "source": "operation"
+    },
+    {
+      "term": "Groups_Search",
+      "label": "groups_ search",
+      "definition": "Search for groups based on a keyword",
+      "source": "operation"
+    },
+    {
+      "term": "Playlists_GetPlaylistById",
+      "label": "playlists_ get playlist by id",
+      "definition": "Get a playlist by Id",
+      "source": "operation"
+    },
+    {
+      "term": "Playlists_UpdatePlaylistMetadata",
+      "label": "playlists_ update playlist metadata",
+      "definition": "Update a playlist",
+      "source": "operation"
+    },
+    {
+      "term": "Playlists_DeletePlaylist",
+      "label": "playlists_ delete playlist",
+      "definition": "Delete a playlist",
+      "source": "operation"
+    },
+    {
+      "term": "Playlists_GetSessionsForPlaylist",
+      "label": "playlists_ get sessions for playlist",
+      "definition": "Get a list of sessions in the given playlist",
+      "source": "operation"
+    },
+    {
+      "term": "Playlists_AddSessionToPlaylist",
+      "label": "playlists_ add session to playlist",
+      "definition": "Add a session to a playlist",
+      "source": "operation"
+    },
+    {
+      "term": "Playlists_CreatePlaylist",
+      "label": "playlists_ create playlist",
+      "definition": "Create a new playlist",
+      "source": "operation"
+    },
+    {
+      "term": "Playlists_SearchForPlaylists",
+      "label": "playlists_ search for playlists",
+      "definition": "Search for playlists based on a keyword",
+      "source": "operation"
+    },
+    {
+      "term": "Playlists_RemoveSessionFromPlaylist",
+      "label": "playlists_ remove session from playlist",
+      "definition": "Remove a session from a playlist",
+      "source": "operation"
+    },
+    {
+      "term": "RemoteRecorders_SearchForRemoteRecorders",
+      "label": "remote recorders_ search for remote recorders",
+      "definition": "Search for remote recorders based on a keyword",
+      "source": "operation"
+    },
+    {
+      "term": "ScheduledRecordings_GetScheduledRecordingById",
+      "label": "scheduled recordings_ get scheduled recording by id",
+      "definition": "Get the scheduled recording information for a session",
+      "source": "operation"
+    },
+    {
+      "term": "ScheduledRecordings_UpdateScheduledRecording",
+      "label": "scheduled recordings_ update scheduled recording",
+      "definition": "Update the start or end time of a scheduled recording.",
+      "source": "operation"
+    },
+    {
+      "term": "ScheduledRecordings_CancelScheduledRecording",
+      "label": "scheduled recordings_ cancel scheduled recording",
+      "definition": "Cancel a scheduled recording",
+      "source": "operation"
+    },
+    {
+      "term": "ScheduledRecordings_CreateScheduledRecording",
+      "label": "scheduled recordings_ create scheduled recording",
+      "definition": "Create a new scheduled recording",
+      "source": "operation"
+    },
+    {
+      "term": "SearchIndexSyncUpdates_GetUpdates",
+      "label": "search index sync updates_ get updates",
+      "definition": "Get IDs for videos and playlists updated after a specified UTC date time",
+      "source": "operation"
+    },
+    {
+      "term": "SearchIndexSyncUpdates_GetContent",
+      "label": "search index sync updates_ get content",
+      "definition": "Get the content for Search Index Integration for a video or playlist by ID",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_GetSessionById",
+      "label": "sessions_ get session by id",
+      "definition": "Get a session by Id",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_UpdateSessionMetadata",
+      "label": "sessions_ update session metadata",
+      "definition": "Update a session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_DeleteSession",
+      "label": "sessions_ delete session",
+      "definition": "Delete a session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_SearchForSessions",
+      "label": "sessions_ search for sessions",
+      "definition": "Search for sessions based on a keyword",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_GetInProgressWebcasts",
+      "label": "sessions_ get in progress webcasts",
+      "definition": "Get a list of webcasts (live sessions) that are currently in progress.",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_GetInProgressRecordings",
+      "label": "sessions_ get in progress recordings",
+      "definition": "Get a list of recordings that are currently in progress.",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_GetSessionViewingStats",
+      "label": "sessions_ get session viewing stats",
+      "definition": "Get a list of users who have viewed this session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_GetTagsForSession",
+      "label": "sessions_ get tags for session",
+      "definition": "Get a list of tags associated with the given session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_UpdateTagsForSession",
+      "label": "sessions_ update tags for session",
+      "definition": "Update the tags associated with the given session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_UploadCaptionsToSession",
+      "label": "sessions_ upload captions to session",
+      "definition": "Upload a caption file (in SRT or VTT format) to this session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_DeleteSessionCaptions",
+      "label": "sessions_ delete session captions",
+      "definition": "Deletes all captions for this session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_DeleteSessionCaptionsForLanguage",
+      "label": "sessions_ delete session captions for language",
+      "definition": "Deletes all captions for this session in the specified language.",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_GetAccessSettings",
+      "label": "sessions_ get access settings",
+      "definition": "Get the access settings for the given session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_UpdateAccessSettings",
+      "label": "sessions_ update access settings",
+      "definition": "Update the access settings for the given session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_GetPermissions",
+      "label": "sessions_ get permissions",
+      "definition": "Get the user and group permissions for the given session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_CreatePermission",
+      "label": "sessions_ create permission",
+      "definition": "Create a session permission by assigning a role to a user or group",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_DeletePermission",
+      "label": "sessions_ delete permission",
+      "definition": "Remove permission from the session",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_GetScormManifestById",
+      "label": "sessions_ get scorm manifest by id",
+      "definition": "Download a SCORM manifest by session ID",
+      "source": "operation"
+    },
+    {
+      "term": "Sessions_Copy",
+      "label": "sessions_ copy",
+      "definition": "Perform a session copy",
+      "source": "operation"
+    },
+    {
+      "term": "Streams_UploadCaptionsToStream",
+      "label": "streams_ upload captions to stream",
+      "definition": "Upload a caption file (in SRT or VTT format) to this stream",
+      "source": "operation"
+    },
+    {
+      "term": "Tags_CreateTag",
+      "label": "tags_ create tag",
+      "definition": "Create a new tag.",
+      "source": "operation"
+    },
+    {
+      "term": "Tags_GetTags",
+      "label": "tags_ get tags",
+      "definition": "Get a paged list of tags.",
+      "source": "operation"
+    },
+    {
+      "term": "Tags_GetTagById",
+      "label": "tags_ get tag by id",
+      "definition": "Get a tag by ID.",
+      "source": "operation"
+    },
+    {
+      "term": "Tags_UpdateTag",
+      "label": "tags_ update tag",
+      "definition": "Update a tag.",
+      "source": "operation"
+    },
+    {
+      "term": "Tags_DeleteTag",
+      "label": "tags_ delete tag",
+      "definition": "Delete a tag.",
+      "source": "operation"
+    },
+    {
+      "term": "Tags_MergeTags",
+      "label": "tags_ merge tags",
+      "definition": "Merge one or more tags into the tag represented by {id}.",
+      "source": "operation"
+    },
+    {
+      "term": "Users_GetMyViewedSessions",
+      "label": "users_ get my viewed sessions",
+      "definition": "Get a list of partially viewed sessions for the current user",
+      "source": "operation"
+    },
+    {
+      "term": "Users_GetUsersViewedSessions",
+      "label": "users_ get users viewed sessions",
+      "definition": "Get a list of partially viewed sessions for the specified user",
+      "source": "operation"
+    },
+    {
+      "term": "Users_Search",
+      "label": "users_ search",
+      "definition": "Search for users based on a keyword",
+      "source": "operation"
+    }
+  ]
+}

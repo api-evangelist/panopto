@@ -1,0 +1,1604 @@
+[
+  {
+    "path": "/api/v1/auth/legacyLogin",
+    "method": "GET",
+    "operationId": "Auth_LegacyLogin",
+    "summary": "Get a legacy authentication cookie",
+    "tags": [
+      "Auth"
+    ],
+    "responseExample": "string",
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder",
+    "method": "PUT",
+    "operationId": "RemoteRecorderAPI_RegisterRemoteRecorder",
+    "summary": "Register a new remote recorder",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "MachineUniqueIdentifier": "string",
+      "RecorderVersion": "string",
+      "RecorderBuild": "string",
+      "Capabilities": [
+        "string"
+      ],
+      "Description": "string"
+    },
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/connect",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_Connect",
+    "summary": "Connect as the provided remote recorder",
+    "tags": [
+      "RemoteRecorderAPI"
+    ]
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/disconnect",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_Disconnect",
+    "summary": "Disconnect as the provided remote recorder, identified via the GUID public id",
+    "tags": [
+      "RemoteRecorderAPI"
+    ]
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/heartbeat",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_Heartbeat",
+    "summary": "Heartbeat and preview as the provided remote recorder",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "State": "Stopped",
+      "DiskSpaceFreeMegabytes": 0,
+      "CurrentRecordingSessionId": "string",
+      "ConnectedDevicesWithPreviews": [
+        {
+          "Device": {
+            "DeviceId": null,
+            "Name": null,
+            "Type": null
+          },
+          "Preview": {
+            "AudioFormat": null,
+            "AudioPreviewData": null,
+            "VideoFormat": null,
+            "VideoPreviewData": null,
+            "StreamID": null
+          }
+        }
+      ],
+      "LiveMonitoringBlocked": true
+    },
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/schedule",
+    "method": "GET",
+    "operationId": "RemoteRecorderAPI_GetSchedule",
+    "summary": "Retrieve a schedule for the next 7 days for the provided remote recorder.As a best practice a new scheduled should be fetched every day even if the schedule version in the heartbeat hasn't changed",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/schedule",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_UpdateSchedule",
+    "summary": "Update or add a set of scheduled recordings for the provided remote recorder. To add a scheduled recording, the recording should have all relevant fields filled in but an empty (all zeros) guid",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": [
+      {
+        "Id": "string",
+        "SessionId": "string",
+        "SessionName": "string",
+        "FolderId": "string",
+        "FolderName": "string"
+      }
+    ]
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/error",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_Error",
+    "summary": "Register an error with the provided remote recorder on the server",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "Severity": "Invalid",
+      "ErrorType": "Invalid",
+      "ErrorCode": 0,
+      "Message": "string",
+      "AssociatedSessionId": "string"
+    }
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/legacyLogin",
+    "method": "GET",
+    "operationId": "RemoteRecorderAPI_LegacyLogin",
+    "summary": "Retrieve a legacy ASPXAUTH cookie",
+    "tags": [
+      "RemoteRecorderAPI"
+    ]
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/session/{sessionId}/pause",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_PauseRecording",
+    "summary": "Pause the recording of the specified session on the server",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "PauseRecordingTime": 0.0
+    }
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/session/{sessionId}/resume",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_ResumeRecording",
+    "summary": "Resume the recording of the specified session on the server",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "ResumeRecordingTime": 0.0
+    }
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/urls",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_ReportRemoteRecorderURLs",
+    "summary": "Provides a list of URLs and URL types to present to administrators to help them manage this remote recorder.Calling this replaces all previously reported URLs. URLs are preserved until replaced, so this only needs to be called when they have changed",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "URLs": [
+        {
+          "URLType": "Management",
+          "URL": "string"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/connect",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_WebRtcConnect",
+    "summary": "Establishes a new connection which enables the WebRTC-based media preview feature.  After this, the client should commence WebRTC session negotiation by sending us an SDP offer.",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "OperationType": "Unknown"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/disconnect",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_WebRtcDisconnect",
+    "summary": "Destroys the connection which enables the WebRTC-based media preview feature.",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "OperationType": "Unknown"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/events",
+    "method": "GET",
+    "operationId": "RemoteRecorderAPI_WebRtcGetEvents",
+    "summary": "After the client has sent us an SDP offer, they should poll this  endpoint periodically to receive messages.",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/iceCandidates",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_WebRtcIceCandidates",
+    "summary": "Sends a batch of ICE candidates from client to signaling server.",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "Candidates": [
+        {
+          "Candidate": "string",
+          "Index": 0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/sdpOffer",
+    "method": "POST",
+    "operationId": "RemoteRecorderAPI_WebRtcSdpOffer",
+    "summary": "The client begins WebRTC session negotiation by submitting an SDP offer.",
+    "tags": [
+      "RemoteRecorderAPI"
+    ],
+    "requestBody": {
+      "SessionDescription": "string"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/accessibility/bulk/preview",
+    "method": "POST",
+    "operationId": "Accessibility_PreviewBulkAccessibility",
+    "summary": "Preview bulk accessibility request eligibility",
+    "tags": [
+      "Accessibility"
+    ],
+    "requestBody": {
+      "Type": "AudioDescription",
+      "SessionIds": [
+        "string"
+      ]
+    },
+    "responseExample": {
+      "Type": "AudioDescription",
+      "SiteOverwriteBehavior": "DoNotOverwrite",
+      "AvailableCaptionCredits": 0.0,
+      "Providers": [
+        {
+          "ProviderInstanceId": 0,
+          "DisplayName": "string",
+          "PricePerMinute": 0.0,
+          "PriceKnown": true
+        }
+      ],
+      "SessionEvaluations": [
+        {
+          "SessionId": "string",
+          "SessionName": "string",
+          "DurationSeconds": 0.0,
+          "EligibilityState": "Eligible",
+          "ReasonCode": "None"
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/accessibility/bulk/schedule",
+    "method": "POST",
+    "operationId": "Accessibility_ScheduleBulkAccessibility",
+    "summary": "Schedule bulk accessibility requests",
+    "tags": [
+      "Accessibility"
+    ],
+    "requestBody": {
+      "Type": "AudioDescription",
+      "SessionIds": [
+        "string"
+      ],
+      "ProviderInstanceId": 0,
+      "SourceLanguage": "English_USA",
+      "TargetLanguages": [
+        "English_USA"
+      ]
+    },
+    "responseExample": {
+      "Type": "AudioDescription",
+      "Results": [
+        {
+          "SessionId": "string",
+          "SessionName": "string",
+          "Scheduled": true,
+          "ReasonCode": "None",
+          "RequestCount": 0
+        }
+      ],
+      "ScheduledCount": 0,
+      "SkippedCount": 0
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/captionproviders",
+    "method": "GET",
+    "operationId": "CaptionProviders_GetCaptionProviders",
+    "summary": "Get caption providers",
+    "tags": [
+      "CaptionProviders"
+    ],
+    "responseExample": {
+      "Results": [
+        {}
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/reports/{id}",
+    "method": "GET",
+    "operationId": "Reports_GetReportFromId",
+    "summary": "Get a report by Id",
+    "tags": [
+      "Reports"
+    ],
+    "responseExample": "string",
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/portal/{portalId}/user",
+    "method": "POST",
+    "operationId": "XfpUserProfiles_Create",
+    "summary": "Create XFP user profile",
+    "tags": [
+      "XfpUserProfiles"
+    ],
+    "requestBody": {
+      "FirstName": "string",
+      "LastName": "string",
+      "EmailAddress": "string",
+      "XfpRole": "Viewer",
+      "TemporaryPassword": "string"
+    },
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/portal/{portalId}/user",
+    "method": "GET",
+    "operationId": "XfpUserProfiles_List",
+    "summary": "Get XFP user profiles according to the filter",
+    "tags": [
+      "XfpUserProfiles"
+    ],
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/portal/{portalId}/user/{userId}",
+    "method": "DELETE",
+    "operationId": "XfpUserProfiles_Delete",
+    "summary": "Delete an XFP user profile",
+    "tags": [
+      "XfpUserProfiles"
+    ],
+    "responseExample": true,
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/portal/{portalId}/user/{userId}",
+    "method": "PUT",
+    "operationId": "XfpUserProfiles_Update",
+    "summary": "Update an XFP user profile",
+    "tags": [
+      "XfpUserProfiles"
+    ],
+    "requestBody": {
+      "XfpRole": "string",
+      "FirstName": "string",
+      "LastName": "string"
+    },
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/portal/{portalId}/user/bulk-create",
+    "method": "POST",
+    "operationId": "XfpUserProfiles_BulkCreate",
+    "summary": "Bulk Create XFP users",
+    "tags": [
+      "XfpUserProfiles"
+    ],
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/portal/{portalId}/user/bulk-delete",
+    "method": "POST",
+    "operationId": "XfpUserProfiles_BulkDelete",
+    "summary": "Bulk Delete XFP users",
+    "tags": [
+      "XfpUserProfiles"
+    ],
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}",
+    "method": "GET",
+    "operationId": "Folders_GetFolderById",
+    "summary": "Get a folder by Id",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "Description": "string",
+      "ParentFolder": {
+        "Id": "string",
+        "Name": "string"
+      },
+      "Urls": {
+        "FolderUrl": "string",
+        "EmbedUrl": "string",
+        "ShareSettingsUrl": "string"
+      }
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}",
+    "method": "PUT",
+    "operationId": "Folders_UpdateFolderMetadata",
+    "summary": "Update a folder",
+    "tags": [
+      "Folders"
+    ],
+    "requestBody": {
+      "Name": "string",
+      "Description": "string",
+      "Parent": "string"
+    },
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "Description": "string",
+      "ParentFolder": {
+        "Id": "string",
+        "Name": "string"
+      },
+      "Urls": {
+        "FolderUrl": "string",
+        "EmbedUrl": "string",
+        "ShareSettingsUrl": "string"
+      }
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}",
+    "method": "DELETE",
+    "operationId": "Folders_DeleteFolder",
+    "summary": "Delete a folder",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": "string",
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/children",
+    "method": "GET",
+    "operationId": "Folders_GetChildFolders",
+    "summary": "Get a list of child folders from the given parent",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "ParentFolder": {
+            "Id": null,
+            "Name": null
+          },
+          "Urls": {
+            "FolderUrl": null,
+            "EmbedUrl": null,
+            "ShareSettingsUrl": null
+          }
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/sessions",
+    "method": "GET",
+    "operationId": "Folders_GetSessions",
+    "summary": "Get a list of sessions in the given folder",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/sessions/search",
+    "method": "GET",
+    "operationId": "Folders_SearchSessionsInFolder",
+    "summary": "Search for sessions within this folder",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/playlists",
+    "method": "GET",
+    "operationId": "Folders_GetPlaylists",
+    "summary": "Get a list of playlists in the given folder",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "Results": [
+        {}
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/settings/access",
+    "method": "GET",
+    "operationId": "Folders_GetAccessSettings",
+    "summary": "Get the access settings for the given folder",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "IsInherited": true,
+      "Level": "Restricted"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/settings/access",
+    "method": "PUT",
+    "operationId": "Folders_UpdateAccessSettings",
+    "summary": "Update the access settings for the given folder",
+    "tags": [
+      "Folders"
+    ],
+    "requestBody": {
+      "IsInherited": true,
+      "Level": "Restricted"
+    },
+    "responseExample": {
+      "IsInherited": true,
+      "Level": "Restricted"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/settings",
+    "method": "GET",
+    "operationId": "Folders_GetSettings",
+    "summary": "Get the folder settings for the given folder",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "AutomaticCaptionProviderId": "string",
+      "AutomaticCaptionProviderName": "string"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/settings",
+    "method": "PUT",
+    "operationId": "Folders_UpdateSettings",
+    "summary": "Update folder settings for a specified folder",
+    "tags": [
+      "Folders"
+    ],
+    "requestBody": {
+      "AutomaticCaptionProviderId": "string",
+      "AutomaticCaptionProviderName": "string"
+    },
+    "responseExample": {
+      "AutomaticCaptionProviderId": "string",
+      "AutomaticCaptionProviderName": "string"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/permissions",
+    "method": "GET",
+    "operationId": "Folders_GetPermissions",
+    "summary": "Get the user and group permissions for the given folder",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "IsInherited": true,
+          "Principal": {
+            "Id": null,
+            "Type": null
+          },
+          "Role": {
+            "Id": null,
+            "Name": null
+          }
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/permissions",
+    "method": "POST",
+    "operationId": "Folders_CreatePermission",
+    "summary": "Create a folder permission by assigning a role to a user or group",
+    "tags": [
+      "Folders"
+    ],
+    "requestBody": {
+      "RoleId": "string",
+      "RoleType": "None",
+      "PrincipalId": "string",
+      "PrincipalType": "User"
+    },
+    "responseExample": {
+      "IsInherited": true,
+      "Principal": {
+        "Id": "string",
+        "Type": "User"
+      },
+      "Role": {
+        "Id": "string",
+        "Name": "string"
+      }
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/{id}/permissions",
+    "method": "DELETE",
+    "operationId": "Folders_DeletePermission",
+    "summary": "Remove permission from the folder",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "RoleId": "string",
+      "RoleType": "None",
+      "PrincipalId": "string",
+      "PrincipalType": "User"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders",
+    "method": "POST",
+    "operationId": "Folders_CreateFolder",
+    "summary": "Create a new folder",
+    "tags": [
+      "Folders"
+    ],
+    "requestBody": {
+      "Name": "string",
+      "Description": "string",
+      "Parent": "string"
+    },
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "Description": "string",
+      "ParentFolder": {
+        "Id": "string",
+        "Name": "string"
+      },
+      "Urls": {
+        "FolderUrl": "string",
+        "EmbedUrl": "string",
+        "ShareSettingsUrl": "string"
+      }
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/search",
+    "method": "GET",
+    "operationId": "Folders_SearchForFolders",
+    "summary": "Search for folders based on a keyword",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "ParentFolder": {
+            "Id": null,
+            "Name": null
+          },
+          "Urls": {
+            "FolderUrl": null,
+            "EmbedUrl": null,
+            "ShareSettingsUrl": null
+          }
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/folders/creator",
+    "method": "GET",
+    "operationId": "Folders_GetCreatorFoldersList",
+    "summary": "Lists all the folders the user is a creator in",
+    "tags": [
+      "Folders"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "ParentFolder": {
+            "Id": null,
+            "Name": null
+          },
+          "Urls": {
+            "FolderUrl": null,
+            "EmbedUrl": null,
+            "ShareSettingsUrl": null
+          }
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/groups/search",
+    "method": "GET",
+    "operationId": "Groups_Search",
+    "summary": "Search for groups based on a keyword",
+    "tags": [
+      "Groups"
+    ],
+    "responseExample": {
+      "Results": [
+        {}
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/playlists/{id}",
+    "method": "GET",
+    "operationId": "Playlists_GetPlaylistById",
+    "summary": "Get a playlist by Id",
+    "tags": [
+      "Playlists"
+    ],
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/playlists/{id}",
+    "method": "PUT",
+    "operationId": "Playlists_UpdatePlaylistMetadata",
+    "summary": "Update a playlist",
+    "tags": [
+      "Playlists"
+    ],
+    "requestBody": {
+      "Name": "string",
+      "Description": "string",
+      "Folder": "string"
+    },
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/playlists/{id}",
+    "method": "DELETE",
+    "operationId": "Playlists_DeletePlaylist",
+    "summary": "Delete a playlist",
+    "tags": [
+      "Playlists"
+    ],
+    "responseExample": "string",
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/playlists/{id}/sessions",
+    "method": "GET",
+    "operationId": "Playlists_GetSessionsForPlaylist",
+    "summary": "Get a list of sessions in the given playlist",
+    "tags": [
+      "Playlists"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/playlists/{id}/sessions",
+    "method": "PUT",
+    "operationId": "Playlists_AddSessionToPlaylist",
+    "summary": "Add a session to a playlist",
+    "tags": [
+      "Playlists"
+    ],
+    "requestBody": {
+      "SessionId": "string",
+      "Index": 0
+    },
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/playlists",
+    "method": "POST",
+    "operationId": "Playlists_CreatePlaylist",
+    "summary": "Create a new playlist",
+    "tags": [
+      "Playlists"
+    ],
+    "requestBody": {
+      "Name": "string",
+      "Description": "string",
+      "FolderId": "string",
+      "Sessions": [
+        "string"
+      ]
+    },
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/playlists/search",
+    "method": "GET",
+    "operationId": "Playlists_SearchForPlaylists",
+    "summary": "Search for playlists based on a keyword",
+    "tags": [
+      "Playlists"
+    ],
+    "responseExample": {
+      "Results": [
+        {}
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/playlists/{id}/sessions/{sessionId}",
+    "method": "DELETE",
+    "operationId": "Playlists_RemoveSessionFromPlaylist",
+    "summary": "Remove a session from a playlist",
+    "tags": [
+      "Playlists"
+    ],
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "Description": "string",
+      "StartTime": "2024-01-15T10:30:00Z",
+      "Duration": 0.0
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/remoteRecorders/search",
+    "method": "GET",
+    "operationId": "RemoteRecorders_SearchForRemoteRecorders",
+    "summary": "Search for remote recorders based on a keyword",
+    "tags": [
+      "RemoteRecorders"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "State": "Stopped",
+          "DefaultRecordingFolder": {
+            "Id": null,
+            "Name": null
+          }
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/scheduledRecordings/{id}",
+    "method": "GET",
+    "operationId": "ScheduledRecordings_GetScheduledRecordingById",
+    "summary": "Get the scheduled recording information for a session",
+    "tags": [
+      "ScheduledRecordings"
+    ],
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "RecorderScheduleEntries": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "RecorderId": "string",
+          "SuppressPrimaryCapture": true,
+          "SuppressSecondaryCapture": true
+        }
+      ],
+      "StartTime": "2024-01-15T10:30:00Z",
+      "EndTime": "2024-01-15T10:30:00Z"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/scheduledRecordings/{id}",
+    "method": "PUT",
+    "operationId": "ScheduledRecordings_UpdateScheduledRecording",
+    "summary": "Update the start or end time of a scheduled recording.",
+    "tags": [
+      "ScheduledRecordings"
+    ],
+    "requestBody": {
+      "StartTime": "2024-01-15T10:30:00Z",
+      "EndTime": "2024-01-15T10:30:00Z"
+    },
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "RecorderScheduleEntries": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "RecorderId": "string",
+          "SuppressPrimaryCapture": true,
+          "SuppressSecondaryCapture": true
+        }
+      ],
+      "StartTime": "2024-01-15T10:30:00Z",
+      "EndTime": "2024-01-15T10:30:00Z"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/scheduledRecordings/{id}",
+    "method": "DELETE",
+    "operationId": "ScheduledRecordings_CancelScheduledRecording",
+    "summary": "Cancel a scheduled recording",
+    "tags": [
+      "ScheduledRecordings"
+    ],
+    "responseExample": "string",
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/scheduledRecordings",
+    "method": "POST",
+    "operationId": "ScheduledRecordings_CreateScheduledRecording",
+    "summary": "Create a new scheduled recording",
+    "tags": [
+      "ScheduledRecordings"
+    ],
+    "requestBody": {
+      "Name": "string",
+      "Description": "string",
+      "StartTime": "2024-01-15T10:30:00Z",
+      "EndTime": "2024-01-15T10:30:00Z",
+      "FolderId": "string"
+    },
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "RecorderScheduleEntries": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "RecorderId": "string",
+          "SuppressPrimaryCapture": true,
+          "SuppressSecondaryCapture": true
+        }
+      ],
+      "StartTime": "2024-01-15T10:30:00Z",
+      "EndTime": "2024-01-15T10:30:00Z"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/searchIndexSync/updates",
+    "method": "GET",
+    "operationId": "SearchIndexSyncUpdates_GetUpdates",
+    "summary": "Get IDs for videos and playlists updated after a specified UTC date time",
+    "tags": [
+      "SearchIndexSyncUpdates"
+    ],
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/searchIndexSync/content",
+    "method": "GET",
+    "operationId": "SearchIndexSyncUpdates_GetContent",
+    "summary": "Get the content for Search Index Integration for a video or playlist by ID",
+    "tags": [
+      "SearchIndexSyncUpdates"
+    ],
+    "responseExample": {},
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}",
+    "method": "GET",
+    "operationId": "Sessions_GetSessionById",
+    "summary": "Get a session by Id",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "Description": "string",
+      "StartTime": "2024-01-15T10:30:00Z",
+      "Duration": 0.0
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}",
+    "method": "PUT",
+    "operationId": "Sessions_UpdateSessionMetadata",
+    "summary": "Update a session",
+    "tags": [
+      "Sessions"
+    ],
+    "requestBody": {
+      "Name": "string",
+      "Description": "string",
+      "Folder": "string"
+    },
+    "responseExample": {
+      "Id": "string",
+      "Name": "string",
+      "Description": "string",
+      "StartTime": "2024-01-15T10:30:00Z",
+      "Duration": 0.0
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}",
+    "method": "DELETE",
+    "operationId": "Sessions_DeleteSession",
+    "summary": "Delete a session",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": "string",
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/search",
+    "method": "GET",
+    "operationId": "Sessions_SearchForSessions",
+    "summary": "Search for sessions based on a keyword",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/inProgress/webcast",
+    "method": "GET",
+    "operationId": "Sessions_GetInProgressWebcasts",
+    "summary": "Get a list of webcasts (live sessions) that are currently in progress.",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/inProgress/recording",
+    "method": "GET",
+    "operationId": "Sessions_GetInProgressRecordings",
+    "summary": "Get a list of recordings that are currently in progress.",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/viewers",
+    "method": "GET",
+    "operationId": "Sessions_GetSessionViewingStats",
+    "summary": "Get a list of users who have viewed this session",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "User": {
+            "Id": null,
+            "Username": null
+          },
+          "PercentCompleted": 0.0,
+          "LastViewedDateTime": "2024-01-15T10:30:00Z",
+          "MostRecentViewPositionInSeconds": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/tags",
+    "method": "GET",
+    "operationId": "Sessions_GetTagsForSession",
+    "summary": "Get a list of tags associated with the given session",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Content": "string",
+          "UsageCount": 0,
+          "CreateDate": "2024-01-15T10:30:00Z",
+          "MostRecentUseDate": "2024-01-15T10:30:00Z"
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/tags",
+    "method": "PUT",
+    "operationId": "Sessions_UpdateTagsForSession",
+    "summary": "Update the tags associated with the given session",
+    "tags": [
+      "Sessions"
+    ],
+    "requestBody": {
+      "Tags": [
+        "string"
+      ]
+    },
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Content": "string",
+          "UsageCount": 0,
+          "CreateDate": "2024-01-15T10:30:00Z",
+          "MostRecentUseDate": "2024-01-15T10:30:00Z"
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/captions",
+    "method": "POST",
+    "operationId": "Sessions_UploadCaptionsToSession",
+    "summary": "Upload a caption file (in SRT or VTT format) to this session",
+    "tags": [
+      "Sessions"
+    ],
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/captions",
+    "method": "DELETE",
+    "operationId": "Sessions_DeleteSessionCaptions",
+    "summary": "Deletes all captions for this session",
+    "tags": [
+      "Sessions"
+    ],
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/captions/languages/{language}",
+    "method": "DELETE",
+    "operationId": "Sessions_DeleteSessionCaptionsForLanguage",
+    "summary": "Deletes all captions for this session in the specified language.",
+    "tags": [
+      "Sessions"
+    ],
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/settings/access",
+    "method": "GET",
+    "operationId": "Sessions_GetAccessSettings",
+    "summary": "Get the access settings for the given session",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "IsInherited": true,
+      "Level": "Restricted"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/settings/access",
+    "method": "PUT",
+    "operationId": "Sessions_UpdateAccessSettings",
+    "summary": "Update the access settings for the given session",
+    "tags": [
+      "Sessions"
+    ],
+    "requestBody": {
+      "IsInherited": true,
+      "Level": "Restricted"
+    },
+    "responseExample": {
+      "IsInherited": true,
+      "Level": "Restricted"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/permissions",
+    "method": "GET",
+    "operationId": "Sessions_GetPermissions",
+    "summary": "Get the user and group permissions for the given session",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "IsInherited": true,
+          "Principal": {
+            "Id": null,
+            "Type": null
+          },
+          "Role": {
+            "Id": null,
+            "Name": null
+          }
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/permissions",
+    "method": "POST",
+    "operationId": "Sessions_CreatePermission",
+    "summary": "Create a session permission by assigning a role to a user or group",
+    "tags": [
+      "Sessions"
+    ],
+    "requestBody": {
+      "RoleId": "string",
+      "RoleType": "None",
+      "PrincipalId": "string",
+      "PrincipalType": "User"
+    },
+    "responseExample": {
+      "IsInherited": true,
+      "Principal": {
+        "Id": "string",
+        "Type": "User"
+      },
+      "Role": {
+        "Id": "string",
+        "Name": "string"
+      }
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/permissions",
+    "method": "DELETE",
+    "operationId": "Sessions_DeletePermission",
+    "summary": "Remove permission from the session",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": {
+      "RoleId": "string",
+      "RoleType": "None",
+      "PrincipalId": "string",
+      "PrincipalType": "User"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/manage/scorm",
+    "method": "GET",
+    "operationId": "Sessions_GetScormManifestById",
+    "summary": "Download a SCORM manifest by session ID",
+    "tags": [
+      "Sessions"
+    ],
+    "responseExample": "string",
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/sessions/{id}/sessioncopy",
+    "method": "POST",
+    "operationId": "Sessions_Copy",
+    "summary": "Perform a session copy",
+    "tags": [
+      "Sessions"
+    ],
+    "requestBody": {
+      "CopyType": "Reference",
+      "FolderId": "string",
+      "Name": "string"
+    },
+    "responseExample": {
+      "NewDeliveryId": "string",
+      "NewSessionId": "string"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/streams/{id}/captions",
+    "method": "POST",
+    "operationId": "Streams_UploadCaptionsToStream",
+    "summary": "Upload a caption file (in SRT or VTT format) to this stream",
+    "tags": [
+      "Streams"
+    ],
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/tags",
+    "method": "POST",
+    "operationId": "Tags_CreateTag",
+    "summary": "Create a new tag.",
+    "tags": [
+      "Tags"
+    ],
+    "requestBody": {
+      "Content": "string"
+    },
+    "responseExample": {
+      "Id": "string",
+      "Content": "string",
+      "UsageCount": 0,
+      "CreateDate": "2024-01-15T10:30:00Z",
+      "MostRecentUseDate": "2024-01-15T10:30:00Z"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/tags",
+    "method": "GET",
+    "operationId": "Tags_GetTags",
+    "summary": "Get a paged list of tags.",
+    "tags": [
+      "Tags"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Content": "string",
+          "UsageCount": 0,
+          "CreateDate": "2024-01-15T10:30:00Z",
+          "MostRecentUseDate": "2024-01-15T10:30:00Z"
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/tags/{id}",
+    "method": "GET",
+    "operationId": "Tags_GetTagById",
+    "summary": "Get a tag by ID.",
+    "tags": [
+      "Tags"
+    ],
+    "responseExample": {
+      "Id": "string",
+      "Content": "string",
+      "UsageCount": 0,
+      "CreateDate": "2024-01-15T10:30:00Z",
+      "MostRecentUseDate": "2024-01-15T10:30:00Z"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/tags/{id}",
+    "method": "PUT",
+    "operationId": "Tags_UpdateTag",
+    "summary": "Update a tag.",
+    "tags": [
+      "Tags"
+    ],
+    "requestBody": {},
+    "responseExample": {
+      "Id": "string",
+      "Content": "string",
+      "UsageCount": 0,
+      "CreateDate": "2024-01-15T10:30:00Z",
+      "MostRecentUseDate": "2024-01-15T10:30:00Z"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/tags/{id}",
+    "method": "DELETE",
+    "operationId": "Tags_DeleteTag",
+    "summary": "Delete a tag.",
+    "tags": [
+      "Tags"
+    ],
+    "responseExample": "string",
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/tags/{id}/merge",
+    "method": "POST",
+    "operationId": "Tags_MergeTags",
+    "summary": "Merge one or more tags into the tag represented by {id}.",
+    "tags": [
+      "Tags"
+    ],
+    "requestBody": {
+      "TagIdsToMerge": [
+        "string"
+      ]
+    },
+    "responseExample": {
+      "Id": "string",
+      "Content": "string",
+      "UsageCount": 0,
+      "CreateDate": "2024-01-15T10:30:00Z",
+      "MostRecentUseDate": "2024-01-15T10:30:00Z"
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/users/me/sessions/viewed",
+    "method": "GET",
+    "operationId": "Users_GetMyViewedSessions",
+    "summary": "Get a list of partially viewed sessions for the current user",
+    "tags": [
+      "Users"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/users/{id}/sessions/viewed",
+    "method": "GET",
+    "operationId": "Users_GetUsersViewedSessions",
+    "summary": "Get a list of partially viewed sessions for the specified user",
+    "tags": [
+      "Users"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Name": "string",
+          "Description": "string",
+          "StartTime": "2024-01-15T10:30:00Z",
+          "Duration": 0.0
+        }
+      ]
+    },
+    "responseCode": "200"
+  },
+  {
+    "path": "/api/v1/users/search",
+    "method": "GET",
+    "operationId": "Users_Search",
+    "summary": "Search for users based on a keyword",
+    "tags": [
+      "Users"
+    ],
+    "responseExample": {
+      "Results": [
+        {
+          "Id": "string",
+          "Username": "string"
+        }
+      ]
+    },
+    "responseCode": "200"
+  }
+]

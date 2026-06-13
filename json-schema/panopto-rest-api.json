@@ -1,0 +1,2618 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Panopto REST API Schemas",
+  "definitions": {
+    "RemoteRecorderRegistrationResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/APIError"
+        },
+        {
+          "type": "object",
+          "required": [
+            "RemoteRecorderPublicId",
+            "ClientKey"
+          ],
+          "properties": {
+            "RemoteRecorderPublicId": {
+              "type": "string",
+              "format": "guid"
+            },
+            "ClientKey": {
+              "type": "string",
+              "format": "guid"
+            },
+            "ClientSecret": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "APIError": {
+      "type": "object",
+      "properties": {
+        "Error": {
+          "description": "Error result returned if an error occurs in Panopto, otherwise null or missing",
+          "$ref": "#/definitions/APIErrorInternal"
+        }
+      }
+    },
+    "APIErrorInternal": {
+      "type": "object",
+      "required": [
+        "Success"
+      ],
+      "properties": {
+        "ErrorCode": {
+          "type": "string",
+          "description": "Internal error code"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "Success": {
+          "type": "boolean",
+          "description": "If true the call succeed and this is a partial failure (or warning). If false the call failed overall"
+        },
+        "ErrorSource": {
+          "type": "string",
+          "description": "Unique identifier of what caused this error"
+        }
+      }
+    },
+    "RemoteRecorderRegistrationRequest": {
+      "type": "object",
+      "properties": {
+        "MachineUniqueIdentifier": {
+          "type": "string",
+          "description": "Static, non-changing value uniquely identifing this remote recorder"
+        },
+        "RecorderVersion": {
+          "type": "string",
+          "description": "Must be in the format of \"Vendor.Product.Major.Minor.Servicing\""
+        },
+        "RecorderBuild": {
+          "type": "string",
+          "description": "Vendor specfic build version. Format is up to the vendor but must be less than 255 characters"
+        },
+        "Capabilities": {
+          "type": "array",
+          "description": "Capabilities of this recorder. Options include: screencapture, slidecapture, highlightmousecursor, capturesystemaudio, 1080p, devicetemplates",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string",
+          "description": "Description of this remote recorder - the name presented to users"
+        }
+      }
+    },
+    "RemoteRecorderHeartbeatResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/APIError"
+        },
+        {
+          "type": "object",
+          "required": [
+            "ScheduleVersion",
+            "SettingsVersion",
+            "PingInterval"
+          ],
+          "properties": {
+            "ScheduleVersion": {
+              "type": "string",
+              "format": "guid"
+            },
+            "SettingsVersion": {
+              "type": "string",
+              "format": "guid"
+            },
+            "PingInterval": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "Configuration": {
+              "$ref": "#/definitions/RemoteRecorderConfiguration"
+            },
+            "RecordingSessionIsPaused": {
+              "type": "boolean",
+              "description": "Indicates whether the current recording (as per CurrentRecordingSessionId) is in a paused state. This parameter will not be emitted if no CurrentRecordingSessionId is provided."
+            },
+            "LiveMonitoring": {
+              "description": "This is an object that tells the Remote Recorder how to perform live monitoring.  If null then the Remote Recorder\r\nshould NOT perform live monitoring.  This object has 2 fields:\r\n  \r\n'Mode': The type of live monitoring to perform.\r\n\r\n'Id': This is a string id.  If this string changes, then the Remote Recorder needs to shut down\r\n    its existing WebRTC session (if there is one) and negotiate a new one.",
+              "$ref": "#/definitions/LiveMonitoringHeartbeatResponseData"
+            },
+            "DefaultFolder": {
+              "type": "string",
+              "format": "guid"
+            },
+            "DefaultPrimaryQualitySettings": {
+              "$ref": "#/definitions/QualitySettings"
+            },
+            "DefaultSecondaryQualitySettings": {
+              "$ref": "#/definitions/QualitySettings"
+            },
+            "ExtendedConfiguration": {
+              "description": "Extended configuration for the client. The configuration is only returned if the client specified 'extendedConfigurations' in the request's included options.",
+              "$ref": "#/definitions/RemoteRecorderExtendedConfiguration"
+            }
+          }
+        }
+      ]
+    },
+    "RemoteRecorderConfiguration": {
+      "type": "object",
+      "required": [
+        "CaptureScreen",
+        "CaptureSlides",
+        "CaptureSystemAudio",
+        "HighlightMouseCursor"
+      ],
+      "properties": {
+        "PrimaryVideoDevice": {
+          "type": "string"
+        },
+        "PrimaryAudioDevice": {
+          "type": "string"
+        },
+        "DevicesToIgnore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "DevicesToCapture": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CaptureScreen": {
+          "type": "boolean"
+        },
+        "CaptureSlides": {
+          "type": "boolean"
+        },
+        "CaptureSystemAudio": {
+          "type": "boolean"
+        },
+        "HighlightMouseCursor": {
+          "type": "boolean"
+        }
+      }
+    },
+    "LiveMonitoringHeartbeatResponseData": {
+      "type": "object",
+      "required": [
+        "Mode"
+      ],
+      "properties": {
+        "Mode": {
+          "$ref": "#/definitions/LiveMonitoringMode"
+        },
+        "Id": {
+          "type": "string"
+        }
+      }
+    },
+    "LiveMonitoringMode": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Disabled",
+        "WebRtcPrimaryAudio"
+      ],
+      "enum": [
+        "Disabled",
+        "WebRtcPrimaryAudio"
+      ]
+    },
+    "QualitySettings": {
+      "type": "object",
+      "required": [
+        "AudioBitrate",
+        "Framerate",
+        "MultipleBitrateCount",
+        "PixelCount",
+        "VideoBitrate"
+      ],
+      "properties": {
+        "AudioBitrate": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Framerate": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "MultipleBitrateCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PixelCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "VideoBitrate": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RemoteRecorderExtendedConfiguration": {
+      "type": "object",
+      "required": [
+        "AudioHistogramModeType"
+      ],
+      "properties": {
+        "SecondsToUseNextRecordingTemplate": {
+          "type": "number",
+          "description": "The number of seconds prior to the start of the next scheduled recording to apply the recording's template configurations.",
+          "format": "double"
+        },
+        "SecondsToDeleteRecordingAfterUpload": {
+          "type": "number",
+          "description": "The number of seconds to retain the recording on the client after successful upload of the recording",
+          "format": "double"
+        },
+        "ServerTime": {
+          "type": "number",
+          "description": "The server time in UTC file seconds",
+          "format": "double"
+        },
+        "AudioHistogramModeType": {
+          "description": "Preferred audio histogram type",
+          "$ref": "#/definitions/RemoteRecorderAudioHistogramType"
+        }
+      }
+    },
+    "RemoteRecorderAudioHistogramType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Automatic",
+        "AlwaysStereoHistograms",
+        "AlwaysMonoHistograms"
+      ],
+      "enum": [
+        "Automatic",
+        "AlwaysStereoHistograms",
+        "AlwaysMonoHistograms"
+      ]
+    },
+    "RemoteRecorderHeartbeatData": {
+      "type": "object",
+      "required": [
+        "State",
+        "DiskSpaceFreeMegabytes",
+        "LiveMonitoringBlocked"
+      ],
+      "properties": {
+        "State": {
+          "$ref": "#/definitions/RemoteRecorderState"
+        },
+        "DiskSpaceFreeMegabytes": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CurrentRecordingSessionId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "ConnectedDevicesWithPreviews": {
+          "type": "array",
+          "description": "List of connected devices and available previews. If excluded or null, the list of connected devices will not be updated.",
+          "items": {
+            "$ref": "#/definitions/DeviceDescriptionWithPreview"
+          }
+        },
+        "LiveMonitoringBlocked": {
+          "type": "boolean",
+          "description": "If supported, whether or not live audio monitoring is currently blocked."
+        }
+      }
+    },
+    "RemoteRecorderState": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Stopped",
+        "Previewing",
+        "Recording",
+        "Paused",
+        "Faulted",
+        "Disconnected",
+        "RecorderRunning"
+      ],
+      "enum": [
+        "Stopped",
+        "Previewing",
+        "Recording",
+        "Paused",
+        "Faulted",
+        "Disconnected",
+        "RecorderRunning"
+      ]
+    },
+    "DeviceDescriptionWithPreview": {
+      "type": "object",
+      "properties": {
+        "Device": {
+          "$ref": "#/definitions/Device"
+        },
+        "Preview": {
+          "$ref": "#/definitions/RemoteRecorderDevicePreview"
+        }
+      }
+    },
+    "Device": {
+      "type": "object",
+      "required": [
+        "Type"
+      ],
+      "properties": {
+        "DeviceId": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Type": {
+          "$ref": "#/definitions/DeviceType"
+        }
+      }
+    },
+    "DeviceType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Unknown",
+        "Audio",
+        "Video",
+        "AudioVideo"
+      ],
+      "enum": [
+        "Unknown",
+        "Audio",
+        "Video",
+        "AudioVideo"
+      ]
+    },
+    "RemoteRecorderDevicePreview": {
+      "type": "object",
+      "required": [
+        "AudioFormat",
+        "VideoFormat"
+      ],
+      "properties": {
+        "AudioFormat": {
+          "$ref": "#/definitions/DeviceThumbnailFormat"
+        },
+        "AudioPreviewData": {
+          "type": "string"
+        },
+        "VideoFormat": {
+          "$ref": "#/definitions/DeviceThumbnailFormat"
+        },
+        "VideoPreviewData": {
+          "type": "string"
+        },
+        "StreamID": {
+          "type": "string",
+          "format": "guid"
+        }
+      }
+    },
+    "DeviceThumbnailFormat": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "None",
+        "AudioHist",
+        "VideoJpeg",
+        "AudioHist2Channel"
+      ],
+      "enum": [
+        "None",
+        "AudioHist",
+        "VideoJpeg",
+        "AudioHist2Channel"
+      ]
+    },
+    "RemoteRecorderSchedule": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/APIError"
+        },
+        {
+          "type": "object",
+          "required": [
+            "ScheduleId",
+            "ServerTime"
+          ],
+          "properties": {
+            "ScheduleId": {
+              "type": "string",
+              "format": "guid"
+            },
+            "ServerTime": {
+              "type": "number",
+              "format": "double"
+            },
+            "Recordings": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RemoteRecorderScheduledRecording"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RemoteRecorderScheduledRecording": {
+      "type": "object",
+      "required": [
+        "SessionId",
+        "FolderId",
+        "StartTime",
+        "EndTime",
+        "IsBroadcast",
+        "SuppressPrimaryDevices",
+        "SuppressSecondaryDevices"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "SessionId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "SessionName": {
+          "type": "string"
+        },
+        "FolderId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "FolderName": {
+          "type": "string"
+        },
+        "UserId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "StartTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "EndTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "IsBroadcast": {
+          "type": "boolean"
+        },
+        "SuppressPrimaryDevices": {
+          "type": "boolean"
+        },
+        "SuppressSecondaryDevices": {
+          "type": "boolean"
+        },
+        "PrimaryQualitySettings": {
+          "$ref": "#/definitions/QualitySettings"
+        },
+        "SecondaryQualitySettings": {
+          "$ref": "#/definitions/QualitySettings"
+        },
+        "Configuration": {
+          "$ref": "#/definitions/RemoteRecorderConfiguration"
+        }
+      }
+    },
+    "RemoteRecorderError": {
+      "type": "object",
+      "required": [
+        "Severity",
+        "ErrorType",
+        "ErrorCode"
+      ],
+      "properties": {
+        "Severity": {
+          "description": "Error severity, must be a value other than Invalid",
+          "$ref": "#/definitions/RemoteRecorderErrorSeverity"
+        },
+        "ErrorType": {
+          "description": "Error category, must be a value other than Invalid",
+          "$ref": "#/definitions/RemoteRecorderErrorType"
+        },
+        "ErrorCode": {
+          "type": "integer",
+          "description": "Vendor-specific error code",
+          "format": "int32"
+        },
+        "Message": {
+          "type": "string",
+          "description": "Error message with a maximum length of 250 characters"
+        },
+        "AssociatedSessionId": {
+          "type": "string",
+          "description": "If this error is associated with a session, which session",
+          "format": "guid"
+        }
+      }
+    },
+    "RemoteRecorderErrorSeverity": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Invalid",
+        "Critical",
+        "Error",
+        "Warning"
+      ],
+      "enum": [
+        "Invalid",
+        "Critical",
+        "Error",
+        "Warning"
+      ]
+    },
+    "RemoteRecorderErrorType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Invalid",
+        "General",
+        "Device",
+        "Network",
+        "Storage"
+      ],
+      "enum": [
+        "Invalid",
+        "General",
+        "Device",
+        "Network",
+        "Storage"
+      ]
+    },
+    "RemoteRecorderPauseRecordingRequest": {
+      "type": "object",
+      "required": [
+        "PauseRecordingTime"
+      ],
+      "properties": {
+        "PauseRecordingTime": {
+          "type": "number",
+          "description": "Pause recording time in UTC file time seconds",
+          "format": "double"
+        }
+      }
+    },
+    "RemoteRecorderResumeRecordingRequest": {
+      "type": "object",
+      "required": [
+        "ResumeRecordingTime"
+      ],
+      "properties": {
+        "ResumeRecordingTime": {
+          "type": "number",
+          "description": "Resume recording time in UTC file time seconds",
+          "format": "double"
+        }
+      }
+    },
+    "RemoteRecorderURLsUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "URLs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RemoteRecorderURL"
+          }
+        }
+      }
+    },
+    "RemoteRecorderURL": {
+      "type": "object",
+      "required": [
+        "URLType"
+      ],
+      "properties": {
+        "URLType": {
+          "$ref": "#/definitions/RemoteRecorderURLType"
+        },
+        "URL": {
+          "type": "string",
+          "description": "Must be a well formed URL"
+        }
+      }
+    },
+    "RemoteRecorderURLType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Management",
+        "PrimaryPreview",
+        "SecondaryPreview",
+        "Support",
+        "SecondaryPreview2",
+        "SecondaryPreview3",
+        "SecondaryPreview4"
+      ],
+      "enum": [
+        "Management",
+        "PrimaryPreview",
+        "SecondaryPreview",
+        "Support",
+        "SecondaryPreview2",
+        "SecondaryPreview3",
+        "SecondaryPreview4"
+      ]
+    },
+    "WebRtcConnectPostData": {
+      "type": "object",
+      "required": [
+        "OperationType"
+      ],
+      "properties": {
+        "OperationType": {
+          "$ref": "#/definitions/WebRtcConnectOperationType"
+        }
+      }
+    },
+    "WebRtcConnectOperationType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Unknown",
+        "Initialize"
+      ],
+      "enum": [
+        "Unknown",
+        "Initialize"
+      ]
+    },
+    "WebRtcDisconnectPostData": {
+      "type": "object",
+      "required": [
+        "OperationType"
+      ],
+      "properties": {
+        "OperationType": {
+          "description": "The type of operation.",
+          "$ref": "#/definitions/WebRtcDisconnectOperationType"
+        }
+      }
+    },
+    "WebRtcDisconnectOperationType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Unknown",
+        "Destroy"
+      ],
+      "enum": [
+        "Unknown",
+        "Destroy"
+      ]
+    },
+    "WebRtcEventsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/APIError"
+        },
+        {
+          "type": "object",
+          "required": [
+            "PingFastInterval",
+            "PingSlowInterval"
+          ],
+          "properties": {
+            "Events": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WebRtcEvent"
+              }
+            },
+            "PingFastInterval": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "PingSlowInterval": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      ]
+    },
+    "WebRtcEvent": {
+      "type": "object",
+      "required": [
+        "EventType"
+      ],
+      "properties": {
+        "EventType": {
+          "$ref": "#/definitions/WebRtcEventType"
+        },
+        "Payload": {
+          "type": "string"
+        }
+      }
+    },
+    "WebRtcEventType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Unknown",
+        "IceCandidate",
+        "SdpAnswer",
+        "TemporaryFailure",
+        "PermanentFailure"
+      ],
+      "enum": [
+        "Unknown",
+        "IceCandidate",
+        "SdpAnswer",
+        "TemporaryFailure",
+        "PermanentFailure"
+      ]
+    },
+    "WebRtcIceCandidates": {
+      "type": "object",
+      "properties": {
+        "Candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebRtcIceCandidate"
+          }
+        }
+      }
+    },
+    "WebRtcIceCandidate": {
+      "type": "object",
+      "required": [
+        "Index"
+      ],
+      "properties": {
+        "Candidate": {
+          "type": "string"
+        },
+        "Index": {
+          "type": "integer"
+        }
+      }
+    },
+    "WebRtcSdpOfferPostData": {
+      "type": "object",
+      "properties": {
+        "SessionDescription": {
+          "type": "string",
+          "description": "The session description document, as defined by the Session Description Protocol (SDP) standard."
+        }
+      }
+    },
+    "AccessibilityBulkPreviewResponse": {
+      "type": "object",
+      "required": [
+        "Type",
+        "SiteOverwriteBehavior"
+      ],
+      "properties": {
+        "Type": {
+          "description": "The normalized accessibility type: AudioDescription, Transcription, or Translation.",
+          "$ref": "#/definitions/AccessibilityRequestType"
+        },
+        "SiteOverwriteBehavior": {
+          "description": "The site-level overwrite behavior. For AudioDescription: DoNotOverwrite or Overwrite. For Transcription/Translation: DoNotOverwrite, OverwriteASR, or OverwriteAny.",
+          "$ref": "#/definitions/AccessibilityOverwriteBehavior"
+        },
+        "AvailableCaptionCredits": {
+          "type": "number",
+          "description": "Remaining caption credits for the active transcription contract. Null when no finite credit pool applies (no active contract, or unlimited credits). Zero means the contract's finite pool has been fully consumed.",
+          "format": "double"
+        },
+        "Providers": {
+          "type": "array",
+          "description": "Available providers for the requested type, with display names and pricing metadata.",
+          "items": {
+            "$ref": "#/definitions/AccessibilityProviderPreview"
+          }
+        },
+        "SessionEvaluations": {
+          "type": "array",
+          "description": "Per-session eligibility evaluation results.",
+          "items": {
+            "$ref": "#/definitions/AccessibilitySessionPreview"
+          }
+        },
+        "Summary": {
+          "description": "Aggregate counts of eligible, conditionally eligible, and excluded sessions with total duration.",
+          "$ref": "#/definitions/AccessibilityPreviewSummary"
+        }
+      }
+    },
+    "AccessibilityRequestType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "AudioDescription",
+        "Transcription",
+        "Translation"
+      ],
+      "enum": [
+        "AudioDescription",
+        "Transcription",
+        "Translation"
+      ]
+    },
+    "AccessibilityOverwriteBehavior": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "DoNotOverwrite",
+        "OverwriteAD",
+        "OverwriteASR",
+        "OverwriteAnyCaptions"
+      ],
+      "enum": [
+        "DoNotOverwrite",
+        "OverwriteAD",
+        "OverwriteASR",
+        "OverwriteAnyCaptions"
+      ]
+    },
+    "AccessibilityProviderPreview": {
+      "type": "object",
+      "required": [
+        "ProviderInstanceId",
+        "PriceKnown"
+      ],
+      "properties": {
+        "ProviderInstanceId": {
+          "type": "integer",
+          "description": "Provider instance identifier, used when scheduling an accessibility request.",
+          "format": "int32"
+        },
+        "DisplayName": {
+          "type": "string",
+          "description": "Display name of the provider (e.g. \"Captions Service\")."
+        },
+        "PricePerMinute": {
+          "type": "number",
+          "description": "Price per minute in caption credits. Null when pricing is not applicable.",
+          "format": "double"
+        },
+        "PriceKnown": {
+          "type": "boolean",
+          "description": "Whether the price is known."
+        }
+      }
+    },
+    "AccessibilitySessionPreview": {
+      "type": "object",
+      "required": [
+        "SessionId",
+        "DurationSeconds",
+        "EligibilityState",
+        "ReasonCode"
+      ],
+      "properties": {
+        "SessionId": {
+          "type": "string",
+          "description": "The public ID of the evaluated session.",
+          "format": "guid"
+        },
+        "SessionName": {
+          "type": "string",
+          "description": "The display name of the session. Null if the session was not found."
+        },
+        "DurationSeconds": {
+          "type": "number",
+          "description": "Total duration in seconds of the session's streams. Zero if the session was not found or has no primary streams.",
+          "format": "double"
+        },
+        "EligibilityState": {
+          "description": "The eligibility classification: Eligible, ConditionallyEligible, or Excluded.",
+          "$ref": "#/definitions/EligibilityState"
+        },
+        "ReasonCode": {
+          "description": "The reason the session is not fully eligible. None when EligibilityState is Eligible.",
+          "$ref": "#/definitions/ExclusionReason"
+        },
+        "Details": {
+          "description": "Translation-specific details (source languages, existing captions, pending translations). Null for AudioDescription and Transcription types.",
+          "$ref": "#/definitions/TranslationDetails"
+        }
+      }
+    },
+    "EligibilityState": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Eligible",
+        "ConditionallyEligible",
+        "Excluded"
+      ],
+      "enum": [
+        "Eligible",
+        "ConditionallyEligible",
+        "Excluded"
+      ]
+    },
+    "ExclusionReason": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "None",
+        "NotFound",
+        "InsufficientPermissions",
+        "InvalidTranscriptionRequestType",
+        "NoActiveDelivery",
+        "NoPrimaryStream",
+        "PendingEdits",
+        "PendingRequest",
+        "UnsupportedLanguage",
+        "AlreadyHasAudioDescription",
+        "AlreadyHasCaptions",
+        "AlreadyHasAsrCaptions",
+        "NoSourceCaptions",
+        "SchedulingFailed"
+      ],
+      "enum": [
+        "None",
+        "NotFound",
+        "InsufficientPermissions",
+        "InvalidTranscriptionRequestType",
+        "NoActiveDelivery",
+        "NoPrimaryStream",
+        "PendingEdits",
+        "PendingRequest",
+        "UnsupportedLanguage",
+        "AlreadyHasAudioDescription",
+        "AlreadyHasCaptions",
+        "AlreadyHasAsrCaptions",
+        "NoSourceCaptions",
+        "SchedulingFailed"
+      ]
+    },
+    "TranslationDetails": {
+      "type": "object",
+      "properties": {
+        "AvailableSourceLanguages": {
+          "type": "array",
+          "description": "Caption languages available as a translation source. Only non-translated captions are included.",
+          "items": {
+            "$ref": "#/definitions/ContentLanguage"
+          }
+        },
+        "ExistingCaptionLanguages": {
+          "type": "array",
+          "description": "All caption languages that already exist on the delivery, useful for identifying redundant translation targets.",
+          "items": {
+            "$ref": "#/definitions/ContentLanguage"
+          }
+        },
+        "PendingTranslationTargets": {
+          "type": "array",
+          "description": "Target languages with in-flight translation requests, useful for preventing duplicate requests.",
+          "items": {
+            "$ref": "#/definitions/ContentLanguage"
+          }
+        }
+      }
+    },
+    "ContentLanguage": {
+      "type": "string",
+      "description": "Language of content such as sessions, streams, or captions.",
+      "x-enumNames": [
+        "English_USA",
+        "English_GBR",
+        "Spanish_MEX",
+        "Spanish_ESP",
+        "German",
+        "French",
+        "Dutch",
+        "Thai",
+        "Chinese_Simplified",
+        "Chinese_Traditional",
+        "Korean",
+        "Japanese",
+        "Russian",
+        "Portuguese",
+        "Polish",
+        "English_AUS",
+        "Danish",
+        "Finnish",
+        "Hungarian",
+        "Norwegian",
+        "Swedish",
+        "Italian",
+        "Welsh",
+        "Catalan",
+        "Galician",
+        "Basque",
+        "Arabic",
+        "Hindi",
+        "French_CAN",
+        "Hebrew",
+        "Vietnamese"
+      ],
+      "enum": [
+        "English_USA",
+        "English_GBR",
+        "Spanish_MEX",
+        "Spanish_ESP",
+        "German",
+        "French",
+        "Dutch",
+        "Thai",
+        "Chinese_Simplified",
+        "Chinese_Traditional",
+        "Korean",
+        "Japanese",
+        "Russian",
+        "Portuguese",
+        "Polish",
+        "English_AUS",
+        "Danish",
+        "Finnish",
+        "Hungarian",
+        "Norwegian",
+        "Swedish",
+        "Italian",
+        "Welsh",
+        "Catalan",
+        "Galician",
+        "Basque",
+        "Arabic",
+        "Hindi",
+        "French_CAN",
+        "Hebrew",
+        "Vietnamese"
+      ]
+    },
+    "AccessibilityPreviewSummary": {
+      "type": "object",
+      "required": [
+        "TotalSessions",
+        "EligibleCount",
+        "ConditionallyEligibleCount",
+        "ExcludedCount",
+        "TotalDurationSeconds"
+      ],
+      "properties": {
+        "TotalSessions": {
+          "type": "integer",
+          "description": "Total number of sessions evaluated (after de-duplication).",
+          "format": "int32"
+        },
+        "EligibleCount": {
+          "type": "integer",
+          "description": "Number of sessions that are fully eligible and included by default.",
+          "format": "int32"
+        },
+        "ConditionallyEligibleCount": {
+          "type": "integer",
+          "description": "Number of sessions excluded by default but eligible if the user opts in (e.g. overwrite existing content).",
+          "format": "int32"
+        },
+        "ExcludedCount": {
+          "type": "integer",
+          "description": "Number of sessions that cannot be included in the request.",
+          "format": "int32"
+        },
+        "TotalDurationSeconds": {
+          "type": "number",
+          "description": "Total duration of all evaluated sessions in seconds.",
+          "format": "double"
+        }
+      }
+    },
+    "AccessibilityBulkPreviewRequest": {
+      "type": "object",
+      "required": [
+        "Type"
+      ],
+      "properties": {
+        "Type": {
+          "description": "The accessibility request type: AudioDescription, Transcription, or Translation.",
+          "$ref": "#/definitions/AccessibilityRequestType"
+        },
+        "SessionIds": {
+          "type": "array",
+          "description": "List of session or delivery public IDs (GUIDs) to evaluate. Duplicates are de-duplicated. Maximum 100 IDs.",
+          "items": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      }
+    },
+    "AccessibilityBulkScheduleResponse": {
+      "type": "object",
+      "required": [
+        "Type",
+        "ScheduledCount",
+        "SkippedCount"
+      ],
+      "properties": {
+        "Type": {
+          "description": "The accessibility request type that was scheduled.",
+          "$ref": "#/definitions/AccessibilityRequestType"
+        },
+        "Results": {
+          "type": "array",
+          "description": "Per-session scheduling outcomes.",
+          "items": {
+            "$ref": "#/definitions/AccessibilityScheduleResult"
+          }
+        },
+        "ScheduledCount": {
+          "type": "integer",
+          "description": "Number of sessions that were successfully scheduled.",
+          "format": "int32"
+        },
+        "SkippedCount": {
+          "type": "integer",
+          "description": "Number of sessions that were skipped.",
+          "format": "int32"
+        }
+      }
+    },
+    "AccessibilityScheduleResult": {
+      "type": "object",
+      "required": [
+        "SessionId",
+        "Scheduled",
+        "ReasonCode",
+        "RequestCount"
+      ],
+      "properties": {
+        "SessionId": {
+          "type": "string",
+          "description": "The public ID of the session.",
+          "format": "guid"
+        },
+        "SessionName": {
+          "type": "string",
+          "description": "The display name of the session. Null if the session was not found."
+        },
+        "Scheduled": {
+          "type": "boolean",
+          "description": "Whether accessibility requests were created for this session."
+        },
+        "ReasonCode": {
+          "description": "The reason the session was skipped. None when Scheduled is true.",
+          "$ref": "#/definitions/ExclusionReason"
+        },
+        "RequestCount": {
+          "type": "integer",
+          "description": "Number of transcription requests created for this session.",
+          "format": "int32"
+        }
+      }
+    },
+    "AccessibilityBulkScheduleRequest": {
+      "type": "object",
+      "required": [
+        "Type",
+        "ProviderInstanceId"
+      ],
+      "properties": {
+        "Type": {
+          "description": "The accessibility request type: AudioDescription, Transcription, or Translation.",
+          "$ref": "#/definitions/AccessibilityRequestType"
+        },
+        "SessionIds": {
+          "type": "array",
+          "description": "List of session or delivery public IDs (GUIDs) to schedule. Duplicates are de-duplicated. Maximum 100 IDs.",
+          "items": {
+            "type": "string",
+            "format": "guid"
+          }
+        },
+        "ProviderInstanceId": {
+          "type": "integer",
+          "description": "The provider instance ID to use, from the preview response's Providers list.",
+          "format": "int32"
+        },
+        "SourceLanguage": {
+          "description": "Translation only: the source caption language to translate from.",
+          "$ref": "#/definitions/ContentLanguage"
+        },
+        "TargetLanguages": {
+          "type": "array",
+          "description": "Translation only: the target languages to translate to.",
+          "items": {
+            "$ref": "#/definitions/ContentLanguage"
+          }
+        }
+      }
+    },
+    "ListResponseOfTranscriptionProviderInstance": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/TranscriptionProviderInstance"
+          }
+        }
+      }
+    },
+    "TranscriptionProviderInstance": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelBaseOfGuid"
+        },
+        {
+          "type": "object",
+          "required": [
+            "Enabled"
+          ],
+          "properties": {
+            "Enabled": {
+              "type": "boolean"
+            },
+            "DisplayName": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "ModelBaseOfGuid": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string"
+        }
+      }
+    },
+    "TranscriptionProviderInstanceSortFields": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Name"
+      ],
+      "enum": [
+        "Name"
+      ]
+    },
+    "SortOrder": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Asc",
+        "Desc"
+      ],
+      "enum": [
+        "Asc",
+        "Desc"
+      ]
+    },
+    "XfpUserProfile": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelBaseOfGuid"
+        },
+        {
+          "type": "object",
+          "required": [
+            "UserId",
+            "PortalPublicId",
+            "CreatedDate"
+          ],
+          "properties": {
+            "UserId": {
+              "type": "string",
+              "format": "guid"
+            },
+            "FirstName": {
+              "type": "string"
+            },
+            "LastName": {
+              "type": "string"
+            },
+            "EmailAddress": {
+              "type": "string"
+            },
+            "PortalPublicId": {
+              "type": "string",
+              "format": "guid"
+            },
+            "XfpRole": {
+              "type": "string"
+            },
+            "CreatedDate": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      ]
+    },
+    "XfpUserProfileCreate": {
+      "type": "object",
+      "required": [
+        "XfpRole"
+      ],
+      "properties": {
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "EmailAddress": {
+          "type": "string"
+        },
+        "XfpRole": {
+          "$ref": "#/definitions/XfpUserRole"
+        },
+        "TemporaryPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "XfpUserRole": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Viewer",
+        "PortalManager"
+      ],
+      "enum": [
+        "Viewer",
+        "PortalManager"
+      ]
+    },
+    "XfpUserProfileUpdate": {
+      "type": "object",
+      "properties": {
+        "XfpRole": {
+          "type": "string"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        }
+      }
+    },
+    "Folder": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ParentFolder": {
+          "$ref": "#/definitions/BasicFolder"
+        },
+        "Urls": {
+          "$ref": "#/definitions/FolderUrls"
+        }
+      }
+    },
+    "BasicFolder": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string"
+        }
+      }
+    },
+    "FolderUrls": {
+      "type": "object",
+      "properties": {
+        "FolderUrl": {
+          "type": "string",
+          "description": "The URL to open this folder in Panopto"
+        },
+        "EmbedUrl": {
+          "type": "string",
+          "description": "The URL to an embedded version of this folder"
+        },
+        "ShareSettingsUrl": {
+          "type": "string",
+          "description": "The URL to change how this folder is shared. May be blank if permission is not granted."
+        }
+      }
+    },
+    "ListResponseOfFolder": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/Folder"
+          }
+        }
+      }
+    },
+    "FolderSortFields": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Name",
+        "Relevance"
+      ],
+      "enum": [
+        "Name",
+        "Relevance"
+      ]
+    },
+    "ListResponseOfSession": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/Session"
+          }
+        }
+      }
+    },
+    "Session": {
+      "type": "object",
+      "required": [
+        "Folder"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "StartTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Duration": {
+          "type": "number",
+          "description": "The duration of the session (in seconds)",
+          "format": "double"
+        },
+        "MostRecentViewPosition": {
+          "type": "number",
+          "format": "double"
+        },
+        "CreatedBy": {
+          "$ref": "#/definitions/User"
+        },
+        "Urls": {
+          "$ref": "#/definitions/SessionUrls"
+        },
+        "Folder": {
+          "type": "string",
+          "format": "guid"
+        },
+        "FolderDetails": {
+          "$ref": "#/definitions/BasicFolder"
+        },
+        "Context": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SearchResultContext"
+          }
+        },
+        "PercentCompleted": {
+          "type": "integer",
+          "description": "The percentage from 0-100 of the session watched by the requested user",
+          "format": "int32"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "The id of the user.",
+          "format": "guid"
+        },
+        "Username": {
+          "type": "string",
+          "description": "The username for this user."
+        }
+      }
+    },
+    "SessionUrls": {
+      "type": "object",
+      "properties": {
+        "ViewerUrl": {
+          "type": "string",
+          "description": "The URL to view this session in Panopto"
+        },
+        "EmbedUrl": {
+          "type": "string",
+          "description": "The URL to an embedded version of this session"
+        },
+        "ShareSettingsUrl": {
+          "type": "string"
+        },
+        "DownloadUrl": {
+          "type": "string",
+          "description": "The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed."
+        },
+        "AudioDescriptionDownloadUrl": {
+          "type": "string"
+        },
+        "CaptionDownloadUrl": {
+          "type": "string",
+          "description": "The URL to download captions for this session, if available."
+        },
+        "EditorUrl": {
+          "type": "string",
+          "description": "The URL to edit this session in Panopto, if you are a creator."
+        },
+        "ThumbnailUrl": {
+          "type": "string",
+          "description": "The URL to retrieve the thumbnail for this session"
+        }
+      }
+    },
+    "SearchResultContext": {
+      "type": "object",
+      "properties": {
+        "Text": {
+          "type": "string"
+        },
+        "Time": {
+          "type": "number",
+          "format": "double"
+        },
+        "ThumbnailUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "SessionSortFields": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Name",
+        "CreatedDate",
+        "Relevance"
+      ],
+      "enum": [
+        "Name",
+        "CreatedDate",
+        "Relevance"
+      ]
+    },
+    "ListResponseOfPlaylist": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/Playlist"
+          }
+        }
+      }
+    },
+    "Playlist": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelBaseOfGuid"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Folder": {
+              "$ref": "#/definitions/BasicFolder"
+            },
+            "Urls": {
+              "$ref": "#/definitions/PlaylistUrls"
+            }
+          }
+        }
+      ]
+    },
+    "PlaylistUrls": {
+      "type": "object",
+      "properties": {
+        "ViewerUrl": {
+          "type": "string",
+          "description": "The URL to view this playlist in Panopto"
+        },
+        "EmbedUrl": {
+          "type": "string",
+          "description": "The URL to an embedded version of this playlist"
+        },
+        "ThumbnailUrl": {
+          "type": "string",
+          "description": "The URL to retrieve the thumbnail for this playlist"
+        }
+      }
+    },
+    "PlaylistSortFields": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Name",
+        "CreatedDate",
+        "Relevance"
+      ],
+      "enum": [
+        "Name",
+        "CreatedDate",
+        "Relevance"
+      ]
+    },
+    "AccessSettings": {
+      "type": "object",
+      "required": [
+        "IsInherited",
+        "Level"
+      ],
+      "properties": {
+        "IsInherited": {
+          "type": "boolean",
+          "description": "Indicates whether or not the access settings are inherited."
+        },
+        "Level": {
+          "description": "Indicates the level of access set for this item.",
+          "$ref": "#/definitions/AccessLevel"
+        }
+      }
+    },
+    "AccessLevel": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Restricted",
+        "OrganizationUnlisted",
+        "Organization",
+        "PublicUnlisted",
+        "Public"
+      ],
+      "enum": [
+        "Restricted",
+        "OrganizationUnlisted",
+        "Organization",
+        "PublicUnlisted",
+        "Public"
+      ]
+    },
+    "FolderSettings": {
+      "type": "object",
+      "required": [
+        "AutomaticCaptionProviderId"
+      ],
+      "properties": {
+        "AutomaticCaptionProviderId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "AutomaticCaptionProviderName": {
+          "type": "string"
+        }
+      }
+    },
+    "ListResponseOfPermission": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/Permission"
+          }
+        }
+      }
+    },
+    "Permission": {
+      "type": "object",
+      "required": [
+        "IsInherited"
+      ],
+      "properties": {
+        "IsInherited": {
+          "type": "boolean",
+          "description": "Indicates whether or not the permission is inherited."
+        },
+        "Principal": {
+          "description": "The principal, either a user or group, to which the role is assigned.",
+          "$ref": "#/definitions/Principal"
+        },
+        "Role": {
+          "description": "The role assigned to the principal.",
+          "$ref": "#/definitions/Role"
+        }
+      }
+    },
+    "Principal": {
+      "type": "object",
+      "required": [
+        "Type"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "The unique id that represents this principal.",
+          "format": "guid"
+        },
+        "Type": {
+          "description": "Type of the principal, either a user or group.",
+          "$ref": "#/definitions/PrincipalType"
+        }
+      }
+    },
+    "PrincipalType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "User",
+        "Group"
+      ],
+      "enum": [
+        "User",
+        "Group"
+      ]
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "The unique id that identifies the role.",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string",
+          "description": "The name of this role."
+        }
+      }
+    },
+    "PermissionCreate": {
+      "type": "object",
+      "required": [
+        "PrincipalId",
+        "PrincipalType"
+      ],
+      "properties": {
+        "RoleId": {
+          "type": "string",
+          "description": "Id of the role to assign to the user or group. Required when RoleType is null or None.",
+          "format": "guid"
+        },
+        "RoleType": {
+          "description": "Type of the role to assign to the user or group. Required when RoleId is not set.",
+          "$ref": "#/definitions/BuiltInRoleType"
+        },
+        "PrincipalId": {
+          "type": "string",
+          "description": "Id of the user or group to which the role is being assigned.",
+          "format": "guid"
+        },
+        "PrincipalType": {
+          "description": "Type of principal, either a user or group.",
+          "$ref": "#/definitions/PrincipalType"
+        }
+      }
+    },
+    "BuiltInRoleType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "None",
+        "Viewer",
+        "Creator",
+        "Publisher"
+      ],
+      "enum": [
+        "None",
+        "Viewer",
+        "Creator",
+        "Publisher"
+      ]
+    },
+    "PermissionDelete": {
+      "type": "object",
+      "required": [
+        "PrincipalId",
+        "PrincipalType"
+      ],
+      "properties": {
+        "RoleId": {
+          "type": "string",
+          "description": "Id of the role to remove from the user or group. Required when RoleType is null or None.",
+          "format": "guid"
+        },
+        "RoleType": {
+          "description": "Type of the role to remove from the user or group. Required when RoleId is null.",
+          "$ref": "#/definitions/BuiltInRoleType"
+        },
+        "PrincipalId": {
+          "type": "string",
+          "description": "Id of the user or group from which the role is being removed.",
+          "format": "guid"
+        },
+        "PrincipalType": {
+          "description": "Type of principal, either a user or group.",
+          "$ref": "#/definitions/PrincipalType"
+        }
+      }
+    },
+    "FolderCreate": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The name of the new folder."
+        },
+        "Description": {
+          "type": "string",
+          "description": "The description of the new folder."
+        },
+        "Parent": {
+          "type": "string",
+          "description": "Optional Id of the parent folder to create this under. The folder must already exist, and you must have create permission on the target folder.",
+          "format": "guid"
+        }
+      }
+    },
+    "FolderUpdate": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The new name for the folder."
+        },
+        "Description": {
+          "type": "string",
+          "description": "The new description for the folder."
+        },
+        "Parent": {
+          "type": "string",
+          "description": "The Id of the folder to move this to. The folder must already exist, and you must have create permission on the target folder.\nTo move to a top level folder, set this to \"00000000-0000-0000-0000-000000000000\"",
+          "format": "guid"
+        }
+      }
+    },
+    "ListResponseOfGroup": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/Group"
+          }
+        }
+      }
+    },
+    "Group": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelBaseOfGuid"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "PlaylistUpdate": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The new name for the playlist."
+        },
+        "Description": {
+          "type": "string",
+          "description": "The new description for the playlist."
+        },
+        "Folder": {
+          "type": "string",
+          "description": "The id of the folder to move this playlist to.",
+          "format": "guid"
+        }
+      }
+    },
+    "PlaylistSessionSortFields": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Name",
+        "CreatedDate",
+        "Relevance",
+        "Order"
+      ],
+      "enum": [
+        "Name",
+        "CreatedDate",
+        "Relevance",
+        "Order"
+      ]
+    },
+    "PlaylistCreate": {
+      "type": "object",
+      "required": [
+        "FolderId"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The name of the playlist."
+        },
+        "Description": {
+          "type": "string",
+          "description": "An optional description for the playlist."
+        },
+        "FolderId": {
+          "type": "string",
+          "description": "The folder to add this playlist to.",
+          "format": "guid"
+        },
+        "Sessions": {
+          "type": "array",
+          "description": "A list of session IDs to add to this playlist. They will be added in order.",
+          "items": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      }
+    },
+    "PlaylistAddSession": {
+      "type": "object",
+      "required": [
+        "SessionId"
+      ],
+      "properties": {
+        "SessionId": {
+          "type": "string",
+          "description": "The id of the session to add to this playlist.",
+          "format": "guid"
+        },
+        "Index": {
+          "type": "integer",
+          "description": "The index to insert the item at (starting with 0 as the beginning of the list). If this is not specified, the session will be added to the end.",
+          "format": "int32"
+        }
+      }
+    },
+    "ListResponseOfRemoteRecorder": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/RemoteRecorder"
+          }
+        }
+      }
+    },
+    "RemoteRecorder": {
+      "type": "object",
+      "required": [
+        "State"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "State": {
+          "$ref": "#/definitions/RemoteRecorderState"
+        },
+        "DefaultRecordingFolder": {
+          "$ref": "#/definitions/BasicFolder"
+        }
+      }
+    },
+    "RemoteRecorderSortFields": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Name"
+      ],
+      "enum": [
+        "Name"
+      ]
+    },
+    "ScheduledRecording": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "RecorderScheduleEntries": {
+          "type": "array",
+          "description": "A list of recorders and their associated properties",
+          "items": {
+            "$ref": "#/definitions/RecorderScheduleEntry"
+          }
+        },
+        "StartTime": {
+          "type": "string",
+          "description": "The start time for the recording",
+          "format": "date-time"
+        },
+        "EndTime": {
+          "type": "string",
+          "description": "The end time for the recording",
+          "format": "date-time"
+        }
+      }
+    },
+    "RecorderScheduleEntry": {
+      "type": "object",
+      "required": [
+        "RecorderId",
+        "SuppressPrimaryCapture",
+        "SuppressSecondaryCapture"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "RecorderId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "SuppressPrimaryCapture": {
+          "type": "boolean"
+        },
+        "SuppressSecondaryCapture": {
+          "type": "boolean"
+        },
+        "RecorderDescription": {
+          "type": "string"
+        }
+      }
+    },
+    "ScheduledRecordingUpdate": {
+      "type": "object",
+      "properties": {
+        "StartTime": {
+          "type": "string",
+          "description": "The new start time. Times should be UTC. Must be later than the current time",
+          "format": "date-time"
+        },
+        "EndTime": {
+          "type": "string",
+          "description": "The new end time. Times should be UTC. Must be later than the current time",
+          "format": "date-time"
+        }
+      }
+    },
+    "ScheduledRecordingCreate": {
+      "type": "object",
+      "required": [
+        "StartTime",
+        "EndTime",
+        "FolderId",
+        "IsBroadcast"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The name of the scheduled recording."
+        },
+        "Description": {
+          "type": "string",
+          "description": "An optional description for the scheduled recording."
+        },
+        "StartTime": {
+          "type": "string",
+          "description": "The date and time the scheduled recording should start.",
+          "format": "date-time"
+        },
+        "EndTime": {
+          "type": "string",
+          "description": "The date and time the scheduled recording should end.",
+          "format": "date-time"
+        },
+        "FolderId": {
+          "type": "string",
+          "description": "The folder to add this scheduled recording to.",
+          "format": "guid"
+        },
+        "Recorders": {
+          "type": "array",
+          "description": "A list of recorders that will be used for this recording",
+          "items": {
+            "$ref": "#/definitions/ScheduledRecordingRemoteRecorder"
+          }
+        },
+        "IsBroadcast": {
+          "type": "boolean",
+          "description": "Set to true if this recording should be broadcast live when it starts."
+        }
+      }
+    },
+    "ScheduledRecordingRemoteRecorder": {
+      "type": "object",
+      "required": [
+        "RemoteRecorderId",
+        "SuppressPrimary",
+        "SuppressSecondary"
+      ],
+      "properties": {
+        "RemoteRecorderId": {
+          "type": "string",
+          "description": "The id of the remote recorder to use for this recording. Only one can be specified at this time.",
+          "format": "guid"
+        },
+        "SuppressPrimary": {
+          "type": "boolean",
+          "description": "True if the primary stream should be suppressed from this recorder. At least one recorder in a scheduled recording must not suppress the primary stream."
+        },
+        "SuppressSecondary": {
+          "type": "boolean",
+          "description": "True if the secondary stream should be suppressed from this recorder."
+        }
+      }
+    },
+    "SearchIndexSyncUpdateResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelBase"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "ModelBase": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "The unique identifier for this item.",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string",
+          "description": "The name of this item."
+        }
+      }
+    },
+    "SearchIndexSyncContentResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelBase"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "SessionUpdate": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The new name for the session."
+        },
+        "Description": {
+          "type": "string",
+          "description": "The new description for the session."
+        },
+        "Folder": {
+          "type": "string",
+          "description": "The id of the folder to move this session to.",
+          "format": "guid"
+        }
+      }
+    },
+    "ListResponseOfSessionViewerStats": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/SessionViewerStats"
+          }
+        }
+      }
+    },
+    "SessionViewerStats": {
+      "type": "object",
+      "required": [
+        "LastViewedDateTime"
+      ],
+      "properties": {
+        "User": {
+          "$ref": "#/definitions/User"
+        },
+        "PercentCompleted": {
+          "type": "number",
+          "format": "double"
+        },
+        "LastViewedDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "MostRecentViewPositionInSeconds": {
+          "type": "number",
+          "description": "The most recent timestamp (in seconds) that was viewed by the user in this session",
+          "format": "float"
+        }
+      }
+    },
+    "SessionViewerStatsSortFields": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "UserName",
+        "LastViewedDateTime"
+      ],
+      "enum": [
+        "UserName",
+        "LastViewedDateTime"
+      ]
+    },
+    "ListResponseOfTag": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "required": [
+        "UsageCount",
+        "CreateDate"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Content": {
+          "type": "string"
+        },
+        "UsageCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CreateDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "MostRecentUseDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CreatedBy": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "TagSortFields": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "CreateDate",
+        "UsageCount",
+        "Content",
+        "Creator",
+        "MostRecentUseDate"
+      ],
+      "enum": [
+        "CreateDate",
+        "UsageCount",
+        "Content",
+        "Creator",
+        "MostRecentUseDate"
+      ]
+    },
+    "SessionTagUpdate": {
+      "type": "object",
+      "properties": {
+        "Tags": {
+          "type": "array",
+          "description": "The tags for the session.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SessionScormManifestType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Interactive",
+        "Embed"
+      ],
+      "enum": [
+        "Interactive",
+        "Embed"
+      ]
+    },
+    "SessionCopyResponse": {
+      "type": "object",
+      "properties": {
+        "NewDeliveryId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "NewSessionId": {
+          "type": "string",
+          "format": "guid"
+        }
+      }
+    },
+    "SessionCopyCreate": {
+      "type": "object",
+      "required": [
+        "CopyType",
+        "FolderId",
+        "Name"
+      ],
+      "properties": {
+        "CopyType": {
+          "description": "Specifies how the session is copied. Allowed values are Full and Reference",
+          "$ref": "#/definitions/SessionCopyType"
+        },
+        "FolderId": {
+          "type": "string",
+          "description": "The ID of the folder into which the new session will go.",
+          "format": "guid"
+        },
+        "Name": {
+          "type": "string",
+          "description": "The name of the new session."
+        }
+      }
+    },
+    "SessionCopyType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Reference",
+        "Full",
+        "Destructive"
+      ],
+      "enum": [
+        "Reference",
+        "Full",
+        "Destructive"
+      ]
+    },
+    "SessionInteractivityUploadResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/UploadAPIResponse"
+        },
+        {
+          "type": "object",
+          "required": [
+            "FileId"
+          ],
+          "properties": {
+            "Id": {
+              "type": "string",
+              "description": "A unique identifier for the interactivity asset. This ID is used to match the interactivity element with its corresponding upload target."
+            },
+            "FileId": {
+              "type": "string",
+              "description": "The unique identifier for the uploaded file.",
+              "format": "guid"
+            },
+            "UploadTarget": {
+              "description": "The signed URL where the interactivity asset should be uploaded. This URL is temporary and should be used immediately to upload the asset.",
+              "$ref": "#/definitions/SignedUrl"
+            }
+          }
+        }
+      ]
+    },
+    "SignedUrl": {
+      "type": "object",
+      "required": [
+        "Expiration"
+      ],
+      "properties": {
+        "Url": {
+          "type": "string",
+          "description": "The complete URL for uploading content."
+        },
+        "HttpMethod": {
+          "description": "The HTTP method (PUT, POST) required for the upload.",
+          "$ref": "#/definitions/HttpMethod"
+        },
+        "Expiration": {
+          "type": "string",
+          "description": "The timestamp when the signed URL expires.",
+          "format": "date-time"
+        }
+      }
+    },
+    "HttpMethod": {
+      "type": "object"
+    },
+    "UploadAPIResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/APIError"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "SessionInteractivityCreate": {
+      "type": "object",
+      "required": [
+        "FileSize"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "A unique identifier string that matches to a specific interactivity element. This ID is used to track and reference the interactivity element throughout the upload process."
+        },
+        "FileSize": {
+          "type": "integer",
+          "description": "The size of the file being uploaded for this specific interactivity element. ",
+          "format": "int32"
+        }
+      }
+    },
+    "TagCreate": {
+      "type": "object",
+      "properties": {
+        "Content": {
+          "type": "string",
+          "description": "The content of the tag."
+        }
+      }
+    },
+    "TagUpdate": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagCreate"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "TagMerge": {
+      "type": "object",
+      "properties": {
+        "TagIdsToMerge": {
+          "type": "array",
+          "description": "The IDs of the tags that should be merged and then deleted.",
+          "items": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      }
+    },
+    "ListResponseOfUser": {
+      "type": "object",
+      "properties": {
+        "Results": {
+          "type": "array",
+          "description": "The list of results from the API call",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        }
+      }
+    },
+    "HttpRequestMessage": {
+      "type": "object"
+    },
+    "ExternalProviderType": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Zoom",
+        "Hive",
+        "Kollective",
+        "Webex",
+        "TeamsTenant",
+        "Kombo"
+      ],
+      "enum": [
+        "Zoom",
+        "Hive",
+        "Kollective",
+        "Webex",
+        "TeamsTenant",
+        "Kombo"
+      ]
+    },
+    "FindImportEligibilityAndProvisionMeetingFolderForUserDto": {
+      "type": "object"
+    },
+    "CreateSessionForSessionGroupIdAndUserIdDto": {
+      "type": "object"
+    },
+    "ProvisionExternalContextForSessionByExternalProviderWithPublicIdDto": {
+      "type": "object"
+    },
+    "CreateMeetingImportStreamDto": {
+      "type": "object"
+    },
+    "CreateZoomImportEditsByProviderDto": {
+      "type": "object"
+    },
+    "GetMappedUserIdsByEmailDto": {
+      "type": "object"
+    },
+    "AddMeetingParticipantsForSessionDto": {
+      "type": "object"
+    },
+    "CreateIntegrationMediaImportJobDto": {
+      "type": "object"
+    },
+    "CreateCustomThumbnailFromUploadDto": {
+      "type": "object"
+    },
+    "BatchAddCommentThreadsToSessionDto": {
+      "type": "object"
+    },
+    "LtiSpecLogin": {
+      "type": "object"
+    },
+    "LtiAgsScore": {
+      "type": "object"
+    }
+  }
+}

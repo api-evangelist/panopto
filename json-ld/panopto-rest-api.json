@@ -1,0 +1,263 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "api": "https://www.w3.org/ns/hydra/core#",
+    "openapi": "https://spec.openapis.org/oas/v3.1.0#"
+  },
+  "@type": "WebAPI",
+  "@id": "https://www.panopto.com/api",
+  "name": "Panopto Public API",
+  "description": "The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration",
+  "version": "1",
+  "url": "https://www.panopto.com/",
+  "documentation": "https://support.panopto.com/s/topic/0TO39000000EowMGAS/api",
+  "termsOfService": "https://www.panopto.com/terms-of-use/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Panopto",
+    "url": "https://www.panopto.com",
+    "sameAs": [
+      "https://www.linkedin.com/company/panopto",
+      "https://x.com/Panopto",
+      "https://github.com/Panopto"
+    ]
+  },
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "https://demo.hosted.panopto.com/Panopto/api/v1"
+  },
+  "endpointUrl": "https://demo.hosted.panopto.com/Panopto/api/v1",
+  "potentialAction": [
+    {
+      "@type": "Action",
+      "name": "Auth_LegacyLogin",
+      "description": "Get a legacy authentication cookie",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/auth/legacyLogin",
+        "httpMethod": "GET"
+      },
+      "category": "Auth"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_RegisterRemoteRecorder",
+      "description": "Register a new remote recorder",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder",
+        "httpMethod": "PUT"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_Connect",
+      "description": "Connect as the provided remote recorder",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/connect",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_Disconnect",
+      "description": "Disconnect as the provided remote recorder, identified via the GUID public id",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/disconnect",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_Heartbeat",
+      "description": "Heartbeat and preview as the provided remote recorder",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/heartbeat",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_GetSchedule",
+      "description": "Retrieve a schedule for the next 7 days for the provided remote recorder.As a best practice a new scheduled should be fetched every day even if the schedule version in the heartbeat hasn't changed",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/schedule",
+        "httpMethod": "GET"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_UpdateSchedule",
+      "description": "Update or add a set of scheduled recordings for the provided remote recorder. To add a scheduled recording, the recording should have all relevant fields filled in but an empty (all zeros) guid",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/schedule",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_Error",
+      "description": "Register an error with the provided remote recorder on the server",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/error",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_LegacyLogin",
+      "description": "Retrieve a legacy ASPXAUTH cookie",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/legacyLogin",
+        "httpMethod": "GET"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_PauseRecording",
+      "description": "Pause the recording of the specified session on the server",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/session/{sessionId}/pause",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_ResumeRecording",
+      "description": "Resume the recording of the specified session on the server",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/session/{sessionId}/resume",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_ReportRemoteRecorderURLs",
+      "description": "Provides a list of URLs and URL types to present to administrators to help them manage this remote recorder.Calling this replaces all previously reported URLs. URLs are preserved until replaced, so this only needs to be called when they have changed",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/urls",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_WebRtcConnect",
+      "description": "Establishes a new connection which enables the WebRTC-based media preview feature.  After this, the client should commence WebRTC session negotiation by sending us an SDP offer.",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/connect",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_WebRtcDisconnect",
+      "description": "Destroys the connection which enables the WebRTC-based media preview feature.",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/disconnect",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_WebRtcGetEvents",
+      "description": "After the client has sent us an SDP offer, they should poll this  endpoint periodically to receive messages.",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/events",
+        "httpMethod": "GET"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_WebRtcIceCandidates",
+      "description": "Sends a batch of ICE candidates from client to signaling server.",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/iceCandidates",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "RemoteRecorderAPI_WebRtcSdpOffer",
+      "description": "The client begins WebRTC session negotiation by submitting an SDP offer.",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/sdpOffer",
+        "httpMethod": "POST"
+      },
+      "category": "RemoteRecorderAPI"
+    },
+    {
+      "@type": "Action",
+      "name": "Accessibility_PreviewBulkAccessibility",
+      "description": "Preview bulk accessibility request eligibility",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/accessibility/bulk/preview",
+        "httpMethod": "POST"
+      },
+      "category": "Accessibility"
+    },
+    {
+      "@type": "Action",
+      "name": "Accessibility_ScheduleBulkAccessibility",
+      "description": "Schedule bulk accessibility requests",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/accessibility/bulk/schedule",
+        "httpMethod": "POST"
+      },
+      "category": "Accessibility"
+    },
+    {
+      "@type": "Action",
+      "name": "CaptionProviders_GetCaptionProviders",
+      "description": "Get caption providers",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/captionproviders",
+        "httpMethod": "GET"
+      },
+      "category": "CaptionProviders"
+    },
+    {
+      "@type": "Action",
+      "name": "Reports_GetReportFromId",
+      "description": "Get a report by Id",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://demo.hosted.panopto.com/api/v1/reports/{id}",
+        "httpMethod": "GET"
+      },
+      "category": "Reports"
+    }
+  ]
+}

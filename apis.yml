@@ -35,6 +35,8 @@ apis:
         url: https://demo.hosted.panopto.com/Panopto/api/docs/index.html
       - type: Authentication
         url: https://github.com/Panopto/panopto-api-python-examples
+      - type: OpenAPI
+        url: openapi/panopto-rest-api.json
 common:
   - type: Website
     url: https://www.panopto.com/
