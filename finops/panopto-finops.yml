@@ -1,0 +1,46 @@
+name: Panopto FinOps
+description: Financial operations guidance for managing Panopto API and platform costs. Panopto uses custom enterprise pricing with no metered API billing; costs are primarily driven by user count, storage volume, and selected add-ons negotiated at contract time.
+url: https://www.panopto.com/pricing/
+cost_model:
+  type: contract_based
+  billing_frequency: annual
+  pricing_transparency: low
+  notes: Panopto does not publish standard pricing tiers. All costs are negotiated directly with the sales team based on organization-specific requirements.
+cost_drivers:
+  - driver: User count
+    description: Number of licensed users within the organization
+    impact: high
+  - driver: Storage volume
+    description: Amount of video storage required across the deployment
+    impact: high
+  - driver: Deployment model
+    description: Cloud-hosted vs. on-premises or hybrid deployment options
+    impact: medium
+  - driver: Integrations
+    description: LMS integrations (Canvas, Blackboard, Moodle, D2L), SSO, and other third-party connectors
+    impact: medium
+  - driver: Add-ons
+    description: Optional products such as AI Video Studio (Elai), Access AI, Connect, and Knowledge Insights are priced separately
+    impact: medium
+  - driver: Support tier
+    description: Level of implementation and customer success support included
+    impact: low
+cost_optimization:
+  - recommendation: Negotiate multi-year agreements for ramped pricing discounts
+    category: contract
+  - recommendation: Leverage included free speech-to-text captioning rather than third-party transcription services (especially for academic agreements)
+    category: features
+  - recommendation: Audit active user counts before renewal to right-size licensing
+    category: usage
+  - recommendation: Monitor storage consumption to avoid overage charges; archive or delete inactive content
+    category: storage
+  - recommendation: Use built-in LMS integrations rather than building custom API integrations where possible to reduce development costs
+    category: integration
+  - recommendation: Track API usage against rate limits (5 req/sec, 100 req/min, 5000 req/hr per endpoint) to avoid re-request overhead
+    category: api
+api_cost_notes:
+  - API access is included in enterprise plans at no additional per-call cost
+  - There are no metered API billing charges; rate limits are operational, not financial
+  - Exceeding rate limits results in HTTP 429 errors, not additional charges
+  - If higher rate limits are required, contact Panopto support to negotiate increased limits
+pricing_contact: https://www.panopto.com/plans/

@@ -1,0 +1,25 @@
+name: Panopto REST API Rate Limits
+description: Panopto enforces rate limits on its public REST API per endpoint per OAuth2 client ID or IP address. Limits apply separately to each API endpoint, so simultaneous calls to different endpoints each count independently against their own limits.
+url: https://community.panopto.com/discussion/2265/current-rate-limits-for-the-rest-api
+limits:
+  - scope: per_endpoint_per_client
+    description: Rate limits are calculated per incoming client ID (for OAuth2 token-based authenticated calls) or per incoming client IP address, and are applied separately for each specific API endpoint.
+    windows:
+      - window: per_second
+        limit: 5
+        unit: requests
+      - window: per_minute
+        limit: 100
+        unit: requests
+      - window: per_hour
+        limit: 5000
+        unit: requests
+error_handling:
+  http_status: 429
+  description: When a request is rate limited, Panopto returns HTTP 429 along with a response header indicating which limit was exceeded and by how much.
+notes:
+  - Rate limits apply per endpoint independently; calling 2 different endpoints simultaneously allows up to 10 calls per second total
+  - To request increased rate limits, contact Panopto support directly
+  - OAuth2 client ID is the primary identifier for rate limit tracking on authenticated calls
+  - Unauthenticated requests are tracked by client IP address
+contact_for_increases: https://support.panopto.com/

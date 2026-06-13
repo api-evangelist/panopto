@@ -1,0 +1,49 @@
+name: Panopto Plans and Pricing
+description: Panopto uses custom enterprise pricing with no publicly listed tiers. All enterprise plans include the full Video CMS feature set. A separate entry-level product called Panopto Essential is available for smaller teams.
+url: https://www.panopto.com/pricing/
+plans:
+  - name: Panopto Essential
+    description: Entry-level plan for smaller or non-enterprise teams with core video management capabilities.
+    type: self-serve
+    pricing_model: custom
+    features:
+      - Video recording and uploading
+      - Basic video library management
+      - Search within videos
+      - Viewer analytics
+  - name: Enterprise
+    description: Full-featured enterprise plan for higher education and corporate customers. Custom pricing based on organization size, user count, storage, integrations, and deployment model.
+    type: enterprise
+    pricing_model: custom
+    contact_sales: true
+    features:
+      - Unlimited users (by contract)
+      - Enterprise-scale storage (12+ supported formats)
+      - AI-powered intelligent search
+      - Auto-captions and smart chapters
+      - AI summaries
+      - Desktop and browser recorder
+      - Multi-camera recording
+      - Video editor
+      - SOC 2 Type II compliance
+      - GDPR and FERPA support
+      - SAML and OAuth 2.0 SSO
+      - LMS integrations (Canvas, Blackboard, Moodle, D2L, Brightspace)
+      - Dedicated implementation support
+      - Customer success manager
+      - REST API access
+    add_ons:
+      - name: AI Video Studio (Elai)
+        description: AI-powered video creation studio
+      - name: Access AI
+        description: Advanced AI access and content discovery
+      - name: Connect
+        description: Extended integration and connectivity features
+      - name: Knowledge Insights
+        description: Advanced analytics and knowledge management insights
+notes:
+  - Pricing is negotiated directly with the Panopto sales team
+  - Multi-year agreements may include ramped pricing
+  - Higher education institutions may receive discounted tier-based pricing
+  - Free speech-to-text captioning and no-cost integrations available for academic agreements
+contact: https://www.panopto.com/plans/

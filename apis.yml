@@ -1,0 +1,63 @@
+aid: panopto
+name: Panopto
+description: Panopto is a video management platform for education and enterprise that provides a REST API for managing recordings, folders, sessions, users, and video analytics. Organizations use Panopto to capture, store, search, and share video content in corporate training and academic settings. The API supports OAuth2 authentication and enables automation of recording schedules, user and group provisioning, content organization, and integration with LMS platforms such as Canvas, Blackboard, Moodle, and D2L.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/panopto/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Video Management
+  - Education Technology
+  - Enterprise Video
+  - Recording
+  - Learning Management
+  - Video Analytics
+  - Content Management
+apis:
+  - aid: panopto:panopto-rest-api
+    name: Panopto REST API
+    description: The Panopto public REST API enables programmatic management of video sessions, folders, scheduled recordings, users, and groups. It supports video analytics ingestion and content organization for both higher education and enterprise deployments. Authentication is via OAuth2 with support for server-side web application, user-based server application, and identity provider integration flows.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+    baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+    tags:
+      - Video
+      - Sessions
+      - Folders
+      - Recordings
+      - Users
+      - Analytics
+    properties:
+      - type: Documentation
+        url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+      - type: OpenAPI
+        url: https://demo.hosted.panopto.com/Panopto/api/docs/index.html
+      - type: Authentication
+        url: https://github.com/Panopto/panopto-api-python-examples
+common:
+  - type: Website
+    url: https://www.panopto.com/
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: GitHubOrg
+    url: https://github.com/Panopto
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/panopto
+  - type: Blog
+    url: https://www.panopto.com/blog/
+  - type: Pricing
+    url: https://www.panopto.com/pricing/
+  - type: StatusPage
+    url: https://status.panopto.com/
+  - type: X
+    url: https://x.com/Panopto
+  - type: Plans
+    url: plans/panopto-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/panopto-rate-limits.yml
+  - type: FinOps
+    url: finops/panopto-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
