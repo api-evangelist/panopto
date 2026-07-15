@@ -38,6 +38,8 @@ apis:
       - type: OpenAPI
         url: openapi/panopto-rest-api.json
 common:
+  - type: AgenticAccess
+    url: agentic-access/panopto-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/panopto-vulnerability-disclosure.yml
   - type: DomainSecurity
