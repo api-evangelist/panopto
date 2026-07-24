@@ -1,0 +1,160 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility RemoteRecorders API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: RemoteRecorders
+  description: Remote Recorder Management API
+paths:
+  /api/v1/remoteRecorders/search:
+    get:
+      tags:
+      - RemoteRecorders
+      summary: Search for remote recorders based on a keyword
+      description: To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
+      operationId: RemoteRecorders_SearchForRemoteRecorders
+      parameters:
+      - type: string
+        name: searchQuery
+        in: query
+        required: true
+        x-nullable: true
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/RemoteRecorderSortFields'
+        default: Name
+        x-nullable: false
+        enum:
+        - Name
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfRemoteRecorder'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+definitions:
+  ListResponseOfRemoteRecorder:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/RemoteRecorder'
+  RemoteRecorderState:
+    type: string
+    description: ''
+    x-enumNames:
+    - Stopped
+    - Previewing
+    - Recording
+    - Paused
+    - Faulted
+    - Disconnected
+    - RecorderRunning
+    enum:
+    - Stopped
+    - Previewing
+    - Recording
+    - Paused
+    - Faulted
+    - Disconnected
+    - RecorderRunning
+  SortOrder:
+    type: string
+    description: ''
+    x-enumNames:
+    - Asc
+    - Desc
+    enum:
+    - Asc
+    - Desc
+  APIErrorInternal:
+    type: object
+    required:
+    - Success
+    properties:
+      ErrorCode:
+        type: string
+        description: Internal error code
+      Message:
+        type: string
+      Success:
+        type: boolean
+        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+      ErrorSource:
+        type: string
+        description: Unique identifier of what caused this error
+  BasicFolder:
+    type: object
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+  RemoteRecorder:
+    type: object
+    required:
+    - State
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+      State:
+        $ref: '#/definitions/RemoteRecorderState'
+      DefaultRecordingFolder:
+        $ref: '#/definitions/BasicFolder'
+  RemoteRecorderSortFields:
+    type: string
+    description: ''
+    x-enumNames:
+    - Name
+    enum:
+    - Name
+  APIError:
+    type: object
+    properties:
+      Error:
+        description: Error result returned if an error occurs in Panopto, otherwise null or missing
+        $ref: '#/definitions/APIErrorInternal'
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

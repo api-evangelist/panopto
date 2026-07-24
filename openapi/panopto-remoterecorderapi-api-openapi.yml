@@ -1,0 +1,1033 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility RemoteRecorderAPI API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: RemoteRecorderAPI
+  description: 'Remote Recorder Device API. Warning: this endpoint is for Panopto''s hardware partners only and cannot be used without a partner API key.'
+paths:
+  /api/v1/remoteRecorderAPI/remoteRecorder:
+    put:
+      tags:
+      - RemoteRecorderAPI
+      summary: Register a new remote recorder
+      description: "Retrieves the remote recorder public ID and credentials to access the RR API.\r\n                  Uses BasicAuth requiring a remote recorder registration key from an admin"
+      operationId: RemoteRecorderAPI_RegisterRemoteRecorder
+      parameters:
+      - name: registrationRequest
+        in: body
+        schema:
+          $ref: '#/definitions/RemoteRecorderRegistrationRequest'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: The provided client credentials should be used with an oauth2 client flow for the rest of the API, using the 'api' and 'remoteRecorderApi' scopes
+          schema:
+            $ref: '#/definitions/RemoteRecorderRegistrationResponse'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/connect:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Connect as the provided remote recorder
+      description: "Remote recorder is identified via the GUID public id\r\n                recorderVersion is a version identifier in the form of \"<vendor>.<product>.<major>.<minor>.<servicing>\"\r\n                buildVersion is the vendor specific build string"
+      operationId: RemoteRecorderAPI_Connect
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: recorderVersion
+        in: query
+        required: true
+        x-nullable: true
+      - type: string
+        name: recorderBuild
+        in: query
+        required: true
+        x-nullable: true
+      responses:
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/disconnect:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Disconnect as the provided remote recorder, identified via the GUID public id
+      operationId: RemoteRecorderAPI_Disconnect
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/heartbeat:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Heartbeat and preview as the provided remote recorder
+      description: "Remote recorder is identified via the GUID public id\r\n                Include options: defaults (provides default quality settings and folder), extendedConfigurations (provides extended configurations)"
+      operationId: RemoteRecorderAPI_Heartbeat
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: updateData
+        in: body
+        schema:
+          $ref: '#/definitions/RemoteRecorderHeartbeatData'
+        x-nullable: true
+      - type: array
+        name: include
+        in: query
+        collectionFormat: multi
+        x-nullable: true
+        items:
+          type: string
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/RemoteRecorderHeartbeatResponse'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/schedule:
+    get:
+      tags:
+      - RemoteRecorderAPI
+      summary: Retrieve a schedule for the next 7 days for the provided remote recorder.As a best practice a new scheduled should be fetched every day even if the schedule version in the heartbeat hasn't changed
+      operationId: RemoteRecorderAPI_GetSchedule
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: array
+        name: include
+        in: query
+        collectionFormat: multi
+        x-nullable: true
+        items:
+          type: string
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/RemoteRecorderSchedule'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Update or add a set of scheduled recordings for the provided remote recorder. To add a scheduled recording, the recording should have all relevant fields filled in but an empty (all zeros) guid
+      operationId: RemoteRecorderAPI_UpdateSchedule
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: recordingsToUpdate
+        in: body
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/RemoteRecorderScheduledRecording'
+        x-nullable: true
+      responses:
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/error:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Register an error with the provided remote recorder on the server
+      operationId: RemoteRecorderAPI_Error
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: remoteRecorderError
+        in: body
+        schema:
+          $ref: '#/definitions/RemoteRecorderError'
+        x-nullable: true
+      responses:
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/legacyLogin:
+    get:
+      tags:
+      - RemoteRecorderAPI
+      summary: Retrieve a legacy ASPXAUTH cookie
+      operationId: RemoteRecorderAPI_LegacyLogin
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '401':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/session/{sessionId}/pause:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Pause the recording of the specified session on the server
+      operationId: RemoteRecorderAPI_PauseRecording
+      parameters:
+      - type: string
+        name: sessionId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: pauseRecordingRequest
+        in: body
+        schema:
+          $ref: '#/definitions/RemoteRecorderPauseRecordingRequest'
+        x-nullable: true
+      responses:
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/session/{sessionId}/resume:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Resume the recording of the specified session on the server
+      operationId: RemoteRecorderAPI_ResumeRecording
+      parameters:
+      - type: string
+        name: sessionId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: resumeRecordingRequest
+        in: body
+        schema:
+          $ref: '#/definitions/RemoteRecorderResumeRecordingRequest'
+        x-nullable: true
+      responses:
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/urls:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Provides a list of URLs and URL types to present to administrators to help them manage this remote recorder.Calling this replaces all previously reported URLs. URLs are preserved until replaced, so this only needs to be called when they have changed
+      operationId: RemoteRecorderAPI_ReportRemoteRecorderURLs
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: urlUpdateRequest
+        in: body
+        schema:
+          $ref: '#/definitions/RemoteRecorderURLsUpdateRequest'
+        x-nullable: true
+      responses:
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/connect:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Establishes a new connection which enables the WebRTC-based media preview feature.  After this, the client should commence WebRTC session negotiation by sending us an SDP offer.
+      operationId: RemoteRecorderAPI_WebRtcConnect
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: postData
+        in: body
+        schema:
+          $ref: '#/definitions/WebRtcConnectPostData'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema: {}
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '401':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '503':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/disconnect:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Destroys the connection which enables the WebRTC-based media preview feature.
+      operationId: RemoteRecorderAPI_WebRtcDisconnect
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: postData
+        in: body
+        schema:
+          $ref: '#/definitions/WebRtcDisconnectPostData'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema: {}
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '401':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/events:
+    get:
+      tags:
+      - RemoteRecorderAPI
+      summary: After the client has sent us an SDP offer, they should poll this  endpoint periodically to receive messages.
+      description: "After sending the SDP offer, the client should check here for events periodically.  This is not a long-polling call,\r\nso it will return quickly.\r\n\r\nPrior to receiving the SDP answer, the client should wait `PingFastInterval` seconds between requests.  Five seconds\r\nafter receiving the SDP answer, the client should wait `PingSlowInterval` seconds between requests.\r\n\r\n# Event Types\r\nThere are several types of events, each of which has a distinct payload.\r\n\r\n## IceCandidate\r\nThis event describes a single ICE candidate related to the SDP answer document.  Each ICE candidate\r\ndescribes a possible endpoint where the client can send SRTP (and SRTCP) payloads.\r\n\r\n  The payload is a **JSON serialized** object containing 2 fields.\r\n  1.  `Index`: This is a non-negative integer.  This is a zero-based index, corresponding to a specific\r\n      section within an SDP answer, where each section begins with an 'm='  line.\r\n  2.  `Candidate`:  A single line of text representing the ICE candidate, the format of which is consistent\r\n      with the standard definition for ICE Candidates as defined by SDP standard.\r\n\r\n## SdpAnswer\r\nThis event notifies of a the SDP answer. It is the final description of the session provided by the WebRTC\r\nsignaling service.\r\n\r\n  The payload is a Session Description document, as defined by the SDP protocol.\r\n\r\n## TemporaryFailure\r\nThis event notifies of a warning or error, but recovery may still be possible.  This is only\r\ninformational and the remote recorder is expected to take no action.\r\n\r\n  The payload is human readable additional information about the situation.\r\n\r\n## PermanentFailure\r\nThis event notifies that the WebRTC session is in unrecoverable state.  The remote recorder should\r\nrelease any resource associated with this WebRTC session.  It does not need to call the REST endpoint to explicitly\r\ndisconnect because the server is already aware that WebRTC session is in a bad state, and the standard method for\r\ngraceful cleanup is no longer possible.\r\n\r\n  The payload is human readable additional information about the situation."
+      operationId: RemoteRecorderAPI_WebRtcGetEvents
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/WebRtcEventsResponse'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '401':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/iceCandidates:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: Sends a batch of ICE candidates from client to signaling server.
+      description: "Sends a batch of ICE candidates from client (the RTP sender) to signaling server.  ICE Candidates are used for the\r\ntransmission of RTP and RTCP payloads.\r\n\r\nThis is a JSON array of ICE candidates, where each ICE candidate is an object containing 2 fields.\r\n\r\n1.  `Index`: This is a non-negative integer.  This is a zero-based index, corresponding to a specific section within an\r\n    SDP offer, where each section begins with an `m=`  line.\r\n2.  `Candidate`:  A single line of text representing the ICE candidate, the format of which is consistent with the\r\n    standard definition for ICE Candidates as defined by SDP standard.  For example:\r\n    `candidate:8 1 TCP 1015022335 fe80::52d3:1968:14ec:8246 9 typ host tcptype active`"
+      operationId: RemoteRecorderAPI_WebRtcIceCandidates
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: postData
+        in: body
+        schema:
+          $ref: '#/definitions/WebRtcIceCandidates'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema: {}
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '401':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/remoteRecorderAPI/remoteRecorder/{remoteRecorderPublicId}/liveMonitoring/webRtc/sdpOffer:
+    post:
+      tags:
+      - RemoteRecorderAPI
+      summary: The client begins WebRTC session negotiation by submitting an SDP offer.
+      description: "This is the next step after starting a new WebRTC connection.  The client submits an SDP offer to describe the session\r\nit hopes to create.  After this is sent, the client should begin 2 other activities:\r\n1.  The client should send ICE candidates as soon as they are known (using another REST endpoint).\r\n2.  The client should begin polling for events (using another REST endpoint).\r\n\r\n## SessionDescription\r\nThe SDP offer is sent as the  `SessionDescription` string which is a multi-line string, as defined\r\nby the SDP standard.  An example of a `SessionDescription` string is as follows:\r\n\r\n```\r\nv=0\r\no=- 2954795159668969744 0 IN IP4 0.0.0.0\r\ns=-\r\nt=0 0\r\na=ice-options:trickle\r\nm=audio 9 UDP/TLS/RTP/SAVPF 97\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=ice-ufrag:JAXcdSTGPa8I57dqpu8zggosj53FsI1P\r\na=ice-pwd:2bC1EVxNEIqNYm+Id1s7sw7RBmyAbNS2\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=sendrecv\r\na=rtpmap:97 OPUS/48000/2\r\na=rtcp-fb:97 nack pli\r\na=fmtp:97 sprop-maxcapturerate=48000;sprop-stereo=0\r\na=ssrc:2876771208 msid:user3992408561@host-b8077b5 webrtctransceiver0\r\na=ssrc:2876771208 cname:user3992408561@host-b8077b5\r\na=mid:audio0\r\na=fingerprint:sha-256 66:CD:30:01:9B:76:7E:4D:CA:F2:EF:BC:7C:61:BA:AC:AF:01:E8:72:37:92:9B:28:15:04:D8:D6:6B:0C:78:8B\r\n```"
+      operationId: RemoteRecorderAPI_WebRtcSdpOffer
+      parameters:
+      - type: string
+        name: remoteRecorderPublicId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: postData
+        in: body
+        schema:
+          $ref: '#/definitions/WebRtcSdpOfferPostData'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema: {}
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '401':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+definitions:
+  LiveMonitoringHeartbeatResponseData:
+    type: object
+    required:
+    - Mode
+    properties:
+      Mode:
+        $ref: '#/definitions/LiveMonitoringMode'
+      Id:
+        type: string
+  WebRtcEventType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Unknown
+    - IceCandidate
+    - SdpAnswer
+    - TemporaryFailure
+    - PermanentFailure
+    enum:
+    - Unknown
+    - IceCandidate
+    - SdpAnswer
+    - TemporaryFailure
+    - PermanentFailure
+  LiveMonitoringMode:
+    type: string
+    description: ''
+    x-enumNames:
+    - Disabled
+    - WebRtcPrimaryAudio
+    enum:
+    - Disabled
+    - WebRtcPrimaryAudio
+  WebRtcIceCandidates:
+    type: object
+    properties:
+      Candidates:
+        type: array
+        items:
+          $ref: '#/definitions/WebRtcIceCandidate'
+  RemoteRecorderDevicePreview:
+    type: object
+    required:
+    - AudioFormat
+    - VideoFormat
+    properties:
+      AudioFormat:
+        $ref: '#/definitions/DeviceThumbnailFormat'
+      AudioPreviewData:
+        type: string
+      VideoFormat:
+        $ref: '#/definitions/DeviceThumbnailFormat'
+      VideoPreviewData:
+        type: string
+      StreamID:
+        type: string
+        format: guid
+  Device:
+    type: object
+    required:
+    - Type
+    properties:
+      DeviceId:
+        type: string
+      Name:
+        type: string
+      Type:
+        $ref: '#/definitions/DeviceType'
+  RemoteRecorderAudioHistogramType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Automatic
+    - AlwaysStereoHistograms
+    - AlwaysMonoHistograms
+    enum:
+    - Automatic
+    - AlwaysStereoHistograms
+    - AlwaysMonoHistograms
+  RemoteRecorderPauseRecordingRequest:
+    type: object
+    required:
+    - PauseRecordingTime
+    properties:
+      PauseRecordingTime:
+        type: number
+        description: Pause recording time in UTC file time seconds
+        format: double
+  RemoteRecorderErrorType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Invalid
+    - General
+    - Device
+    - Network
+    - Storage
+    enum:
+    - Invalid
+    - General
+    - Device
+    - Network
+    - Storage
+  WebRtcDisconnectPostData:
+    type: object
+    required:
+    - OperationType
+    properties:
+      OperationType:
+        description: The type of operation.
+        $ref: '#/definitions/WebRtcDisconnectOperationType'
+  RemoteRecorderSchedule:
+    allOf:
+    - $ref: '#/definitions/APIError'
+    - type: object
+      required:
+      - ScheduleId
+      - ServerTime
+      properties:
+        ScheduleId:
+          type: string
+          format: guid
+        ServerTime:
+          type: number
+          format: double
+        Recordings:
+          type: array
+          items:
+            $ref: '#/definitions/RemoteRecorderScheduledRecording'
+  WebRtcSdpOfferPostData:
+    type: object
+    properties:
+      SessionDescription:
+        type: string
+        description: The session description document, as defined by the Session Description Protocol (SDP) standard.
+  RemoteRecorderState:
+    type: string
+    description: ''
+    x-enumNames:
+    - Stopped
+    - Previewing
+    - Recording
+    - Paused
+    - Faulted
+    - Disconnected
+    - RecorderRunning
+    enum:
+    - Stopped
+    - Previewing
+    - Recording
+    - Paused
+    - Faulted
+    - Disconnected
+    - RecorderRunning
+  RemoteRecorderURL:
+    type: object
+    required:
+    - URLType
+    properties:
+      URLType:
+        $ref: '#/definitions/RemoteRecorderURLType'
+      URL:
+        type: string
+        description: Must be a well formed URL
+  RemoteRecorderHeartbeatData:
+    type: object
+    required:
+    - State
+    - DiskSpaceFreeMegabytes
+    - LiveMonitoringBlocked
+    properties:
+      State:
+        $ref: '#/definitions/RemoteRecorderState'
+      DiskSpaceFreeMegabytes:
+        type: integer
+        format: int32
+      CurrentRecordingSessionId:
+        type: string
+        format: guid
+      ConnectedDevicesWithPreviews:
+        type: array
+        description: List of connected devices and available previews. If excluded or null, the list of connected devices will not be updated.
+        items:
+          $ref: '#/definitions/DeviceDescriptionWithPreview'
+      LiveMonitoringBlocked:
+        type: boolean
+        description: If supported, whether or not live audio monitoring is currently blocked.
+  WebRtcIceCandidate:
+    type: object
+    required:
+    - Index
+    properties:
+      Candidate:
+        type: string
+      Index:
+        type: integer
+  RemoteRecorderHeartbeatResponse:
+    allOf:
+    - $ref: '#/definitions/APIError'
+    - type: object
+      required:
+      - ScheduleVersion
+      - SettingsVersion
+      - PingInterval
+      properties:
+        ScheduleVersion:
+          type: string
+          format: guid
+        SettingsVersion:
+          type: string
+          format: guid
+        PingInterval:
+          type: integer
+          format: int32
+        Configuration:
+          $ref: '#/definitions/RemoteRecorderConfiguration'
+        RecordingSessionIsPaused:
+          type: boolean
+          description: Indicates whether the current recording (as per CurrentRecordingSessionId) is in a paused state. This parameter will not be emitted if no CurrentRecordingSessionId is provided.
+        LiveMonitoring:
+          description: "This is an object that tells the Remote Recorder how to perform live monitoring.  If null then the Remote Recorder\r\nshould NOT perform live monitoring.  This object has 2 fields:\r\n  \r\n'Mode': The type of live monitoring to perform.\r\n\r\n'Id': This is a string id.  If this string changes, then the Remote Recorder needs to shut down\r\n    its existing WebRTC session (if there is one) and negotiate a new one."
+          $ref: '#/definitions/LiveMonitoringHeartbeatResponseData'
+        DefaultFolder:
+          type: string
+          format: guid
+        DefaultPrimaryQualitySettings:
+          $ref: '#/definitions/QualitySettings'
+        DefaultSecondaryQualitySettings:
+          $ref: '#/definitions/QualitySettings'
+        ExtendedConfiguration:
+          description: Extended configuration for the client. The configuration is only returned if the client specified 'extendedConfigurations' in the request's included options.
+          $ref: '#/definitions/RemoteRecorderExtendedConfiguration'
+  DeviceType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Unknown
+    - Audio
+    - Video
+    - AudioVideo
+    enum:
+    - Unknown
+    - Audio
+    - Video
+    - AudioVideo
+  RemoteRecorderRegistrationResponse:
+    allOf:
+    - $ref: '#/definitions/APIError'
+    - type: object
+      required:
+      - RemoteRecorderPublicId
+      - ClientKey
+      properties:
+        RemoteRecorderPublicId:
+          type: string
+          format: guid
+        ClientKey:
+          type: string
+          format: guid
+        ClientSecret:
+          type: string
+  RemoteRecorderURLType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Management
+    - PrimaryPreview
+    - SecondaryPreview
+    - Support
+    - SecondaryPreview2
+    - SecondaryPreview3
+    - SecondaryPreview4
+    enum:
+    - Management
+    - PrimaryPreview
+    - SecondaryPreview
+    - Support
+    - SecondaryPreview2
+    - SecondaryPreview3
+    - SecondaryPreview4
+  WebRtcEventsResponse:
+    allOf:
+    - $ref: '#/definitions/APIError'
+    - type: object
+      required:
+      - PingFastInterval
+      - PingSlowInterval
+      properties:
+        Events:
+          type: array
+          items:
+            $ref: '#/definitions/WebRtcEvent'
+        PingFastInterval:
+          type: integer
+          format: int32
+        PingSlowInterval:
+          type: integer
+          format: int32
+  RemoteRecorderError:
+    type: object
+    required:
+    - Severity
+    - ErrorType
+    - ErrorCode
+    properties:
+      Severity:
+        description: Error severity, must be a value other than Invalid
+        $ref: '#/definitions/RemoteRecorderErrorSeverity'
+      ErrorType:
+        description: Error category, must be a value other than Invalid
+        $ref: '#/definitions/RemoteRecorderErrorType'
+      ErrorCode:
+        type: integer
+        description: Vendor-specific error code
+        format: int32
+      Message:
+        type: string
+        description: Error message with a maximum length of 250 characters
+      AssociatedSessionId:
+        type: string
+        description: If this error is associated with a session, which session
+        format: guid
+  RemoteRecorderRegistrationRequest:
+    type: object
+    properties:
+      MachineUniqueIdentifier:
+        type: string
+        description: Static, non-changing value uniquely identifing this remote recorder
+      RecorderVersion:
+        type: string
+        description: Must be in the format of "Vendor.Product.Major.Minor.Servicing"
+      RecorderBuild:
+        type: string
+        description: Vendor specfic build version. Format is up to the vendor but must be less than 255 characters
+      Capabilities:
+        type: array
+        description: 'Capabilities of this recorder. Options include: screencapture, slidecapture, highlightmousecursor, capturesystemaudio, 1080p, devicetemplates'
+        items:
+          type: string
+      Description:
+        type: string
+        description: Description of this remote recorder - the name presented to users
+  DeviceDescriptionWithPreview:
+    type: object
+    properties:
+      Device:
+        $ref: '#/definitions/Device'
+      Preview:
+        $ref: '#/definitions/RemoteRecorderDevicePreview'
+  RemoteRecorderErrorSeverity:
+    type: string
+    description: ''
+    x-enumNames:
+    - Invalid
+    - Critical
+    - Error
+    - Warning
+    enum:
+    - Invalid
+    - Critical
+    - Error
+    - Warning
+  RemoteRecorderScheduledRecording:
+    type: object
+    required:
+    - SessionId
+    - FolderId
+    - StartTime
+    - EndTime
+    - IsBroadcast
+    - SuppressPrimaryDevices
+    - SuppressSecondaryDevices
+    properties:
+      Id:
+        type: string
+        format: guid
+      SessionId:
+        type: string
+        format: guid
+      SessionName:
+        type: string
+      FolderId:
+        type: string
+        format: guid
+      FolderName:
+        type: string
+      UserId:
+        type: string
+        format: guid
+      StartTime:
+        type: number
+        format: double
+      EndTime:
+        type: number
+        format: double
+      IsBroadcast:
+        type: boolean
+      SuppressPrimaryDevices:
+        type: boolean
+      SuppressSecondaryDevices:
+        type: boolean
+      PrimaryQualitySettings:
+        $ref: '#/definitions/QualitySettings'
+      SecondaryQualitySettings:
+        $ref: '#/definitions/QualitySettings'
+      Configuration:
+        $ref: '#/definitions/RemoteRecorderConfiguration'
+  RemoteRecorderResumeRecordingRequest:
+    type: object
+    required:
+    - ResumeRecordingTime
+    properties:
+      ResumeRecordingTime:
+        type: number
+        description: Resume recording time in UTC file time seconds
+        format: double
+  QualitySettings:
+    type: object
+    required:
+    - AudioBitrate
+    - Framerate
+    - MultipleBitrateCount
+    - PixelCount
+    - VideoBitrate
+    properties:
+      AudioBitrate:
+        type: integer
+        format: int32
+      Framerate:
+        type: integer
+        format: int32
+      MultipleBitrateCount:
+        type: integer
+        format: int32
+      PixelCount:
+        type: integer
+        format: int32
+      VideoBitrate:
+        type: integer
+        format: int32
+  WebRtcDisconnectOperationType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Unknown
+    - Destroy
+    enum:
+    - Unknown
+    - Destroy
+  WebRtcConnectPostData:
+    type: object
+    required:
+    - OperationType
+    properties:
+      OperationType:
+        $ref: '#/definitions/WebRtcConnectOperationType'
+  WebRtcConnectOperationType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Unknown
+    - Initialize
+    enum:
+    - Unknown
+    - Initialize
+  APIErrorInternal:
+    type: object
+    required:
+    - Success
+    properties:
+      ErrorCode:
+        type: string
+        description: Internal error code
+      Message:
+        type: string
+      Success:
+        type: boolean
+        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+      ErrorSource:
+        type: string
+        description: Unique identifier of what caused this error
+  RemoteRecorderURLsUpdateRequest:
+    type: object
+    properties:
+      URLs:
+        type: array
+        items:
+          $ref: '#/definitions/RemoteRecorderURL'
+  RemoteRecorderConfiguration:
+    type: object
+    required:
+    - CaptureScreen
+    - CaptureSlides
+    - CaptureSystemAudio
+    - HighlightMouseCursor
+    properties:
+      PrimaryVideoDevice:
+        type: string
+      PrimaryAudioDevice:
+        type: string
+      DevicesToIgnore:
+        type: array
+        items:
+          type: string
+      DevicesToCapture:
+        type: array
+        items:
+          type: string
+      CaptureScreen:
+        type: boolean
+      CaptureSlides:
+        type: boolean
+      CaptureSystemAudio:
+        type: boolean
+      HighlightMouseCursor:
+        type: boolean
+  APIError:
+    type: object
+    properties:
+      Error:
+        description: Error result returned if an error occurs in Panopto, otherwise null or missing
+        $ref: '#/definitions/APIErrorInternal'
+  WebRtcEvent:
+    type: object
+    required:
+    - EventType
+    properties:
+      EventType:
+        $ref: '#/definitions/WebRtcEventType'
+      Payload:
+        type: string
+  DeviceThumbnailFormat:
+    type: string
+    description: ''
+    x-enumNames:
+    - None
+    - AudioHist
+    - VideoJpeg
+    - AudioHist2Channel
+    enum:
+    - None
+    - AudioHist
+    - VideoJpeg
+    - AudioHist2Channel
+  RemoteRecorderExtendedConfiguration:
+    type: object
+    required:
+    - AudioHistogramModeType
+    properties:
+      SecondsToUseNextRecordingTemplate:
+        type: number
+        description: The number of seconds prior to the start of the next scheduled recording to apply the recording's template configurations.
+        format: double
+      SecondsToDeleteRecordingAfterUpload:
+        type: number
+        description: The number of seconds to retain the recording on the client after successful upload of the recording
+        format: double
+      ServerTime:
+        type: number
+        description: The server time in UTC file seconds
+        format: double
+      AudioHistogramModeType:
+        description: Preferred audio histogram type
+        $ref: '#/definitions/RemoteRecorderAudioHistogramType'
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

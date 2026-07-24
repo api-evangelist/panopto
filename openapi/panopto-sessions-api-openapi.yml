@@ -1,0 +1,1561 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility Sessions API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Sessions
+  description: Session API
+paths:
+  /api/v1/sessions/{id}:
+    get:
+      tags:
+      - Sessions
+      summary: Get a session by Id
+      operationId: Sessions_GetSessionById
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Session'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    put:
+      tags:
+      - Sessions
+      summary: Update a session
+      description: Update the session's name, description, or parent folder.
+      operationId: Sessions_UpdateSessionMetadata
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: sessionUpdate
+        in: body
+        schema:
+          $ref: '#/definitions/SessionUpdate'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Session'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    delete:
+      tags:
+      - Sessions
+      summary: Delete a session
+      description: Deletes a session based on the retention policies
+      operationId: Sessions_DeleteSession
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            type: string
+            format: guid
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/sessions/search:
+    get:
+      tags:
+      - Sessions
+      summary: Search for sessions based on a keyword
+      description: 'To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
+
+
+        **Note:** The Session Search API does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id.'
+      operationId: Sessions_SearchForSessions
+      parameters:
+      - type: string
+        name: searchQuery
+        in: query
+        required: true
+        x-nullable: true
+      - type: string
+        name: includeFields
+        in: query
+        description: Comma delimited list of optional fields to include in search results.  Currently this is limited to 'Context'
+        default: ''
+        x-nullable: true
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/SessionSortFields'
+        default: Name
+        x-nullable: false
+        enum:
+        - Name
+        - CreatedDate
+        - Relevance
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfSession'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+  /api/v1/sessions/inProgress/webcast:
+    get:
+      tags:
+      - Sessions
+      summary: Get a list of webcasts (live sessions) that are currently in progress.
+      description: 'To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
+
+
+        **Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id.'
+      operationId: Sessions_GetInProgressWebcasts
+      parameters:
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/SessionSortFields'
+        default: Name
+        x-nullable: false
+        enum:
+        - Name
+        - CreatedDate
+        - Relevance
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfSession'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+  /api/v1/sessions/inProgress/recording:
+    get:
+      tags:
+      - Sessions
+      summary: Get a list of recordings that are currently in progress.
+      description: 'To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
+
+
+        **Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id.'
+      operationId: Sessions_GetInProgressRecordings
+      parameters:
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/SessionSortFields'
+        default: Name
+        x-nullable: false
+        enum:
+        - Name
+        - CreatedDate
+        - Relevance
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfSession'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+  /api/v1/sessions/{id}/viewers:
+    get:
+      tags:
+      - Sessions
+      summary: Get a list of users who have viewed this session
+      description: Gets a list of all users who have viewed this session, and how much of the session they have viewed
+      operationId: Sessions_GetSessionViewingStats
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/SessionViewerStatsSortFields'
+        default: UserName
+        x-nullable: false
+        enum:
+        - UserName
+        - LastViewedDateTime
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfSessionViewerStats'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/sessions/{id}/tags:
+    get:
+      tags:
+      - Sessions
+      summary: Get a list of tags associated with the given session
+      operationId: Sessions_GetTagsForSession
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/TagSortFields'
+        default: CreateDate
+        x-nullable: false
+        enum:
+        - CreateDate
+        - UsageCount
+        - Content
+        - Creator
+        - MostRecentUseDate
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfTag'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    put:
+      tags:
+      - Sessions
+      summary: Update the tags associated with the given session
+      description: Replaces the tags currently associated with the session with the provided tags.
+      operationId: Sessions_UpdateTagsForSession
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: tags
+        in: body
+        schema:
+          $ref: '#/definitions/SessionTagUpdate'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfTag'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/sessions/{id}/captions:
+    post:
+      tags:
+      - Sessions
+      summary: Upload a caption file (in SRT or VTT format) to this session
+      description: Content should be sent as 'multipart/form-data', with the caption file attached as part of the multi-part data. This endpoint is used to upload captions for an entire session, based off of the edited times. Please verify that the timestamps in your caption file are correlated to the session times, and not an individual stream.
+      operationId: Sessions_UploadCaptionsToSession
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: language
+        in: formData
+        schema:
+          title: ContentLanguage
+          type: string
+          description: Language of content such as sessions, streams, or captions.
+          x-enumNames:
+          - English_USA
+          - English_GBR
+          - Spanish_MEX
+          - Spanish_ESP
+          - German
+          - French
+          - Dutch
+          - Thai
+          - Chinese_Simplified
+          - Chinese_Traditional
+          - Korean
+          - Japanese
+          - Russian
+          - Portuguese
+          - Polish
+          - English_AUS
+          - Danish
+          - Finnish
+          - Hungarian
+          - Norwegian
+          - Swedish
+          - Italian
+          - Welsh
+          - Catalan
+          - Galician
+          - Basque
+          - Arabic
+          - Hindi
+          - French_CAN
+          - Hebrew
+          - Vietnamese
+          enum:
+          - English_USA
+          - English_GBR
+          - Spanish_MEX
+          - Spanish_ESP
+          - German
+          - French
+          - Dutch
+          - Thai
+          - Chinese_Simplified
+          - Chinese_Traditional
+          - Korean
+          - Japanese
+          - Russian
+          - Portuguese
+          - Polish
+          - English_AUS
+          - Danish
+          - Finnish
+          - Hungarian
+          - Norwegian
+          - Swedish
+          - Italian
+          - Welsh
+          - Catalan
+          - Galician
+          - Basque
+          - Arabic
+          - Hindi
+          - French_CAN
+          - Hebrew
+          - Vietnamese
+        enum:
+        - English_USA
+        - English_GBR
+        - Spanish_MEX
+        - Spanish_ESP
+        - German
+        - French
+        - Dutch
+        - Thai
+        - Chinese_Simplified
+        - Chinese_Traditional
+        - Korean
+        - Japanese
+        - Russian
+        - Portuguese
+        - Polish
+        - English_AUS
+        - Danish
+        - Finnish
+        - Hungarian
+        - Norwegian
+        - Swedish
+        - Italian
+        - Welsh
+        - Catalan
+        - Galician
+        - Basque
+        - Arabic
+        - Hindi
+        - French_CAN
+        - Hebrew
+        - Vietnamese
+      responses:
+        '200':
+          description: ''
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    delete:
+      tags:
+      - Sessions
+      summary: Deletes all captions for this session
+      description: This operation is not reversible. Please be very careful before deleting captions. They cannot be recovered once deleted.
+      operationId: Sessions_DeleteSessionCaptions
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          description: ''
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/sessions/{id}/captions/languages/{language}:
+    delete:
+      tags:
+      - Sessions
+      summary: Deletes all captions for this session in the specified language.
+      description: This operation is not reversible. Please be very careful before deleting captions. They cannot be recovered once deleted. To delete "Default" captions, set "null" for the language parameter in the URL.
+      operationId: Sessions_DeleteSessionCaptionsForLanguage
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: language
+        in: path
+        required: true
+        x-schema:
+          $ref: '#/definitions/ContentLanguage'
+        x-nullable: false
+        enum:
+        - English_USA
+        - English_GBR
+        - Spanish_MEX
+        - Spanish_ESP
+        - German
+        - French
+        - Dutch
+        - Thai
+        - Chinese_Simplified
+        - Chinese_Traditional
+        - Korean
+        - Japanese
+        - Russian
+        - Portuguese
+        - Polish
+        - English_AUS
+        - Danish
+        - Finnish
+        - Hungarian
+        - Norwegian
+        - Swedish
+        - Italian
+        - Welsh
+        - Catalan
+        - Galician
+        - Basque
+        - Arabic
+        - Hindi
+        - French_CAN
+        - Hebrew
+        - Vietnamese
+      - name: language
+        in: query
+        schema:
+          title: ContentLanguage
+          type: string
+          description: Language of content such as sessions, streams, or captions.
+          x-enumNames:
+          - English_USA
+          - English_GBR
+          - Spanish_MEX
+          - Spanish_ESP
+          - German
+          - French
+          - Dutch
+          - Thai
+          - Chinese_Simplified
+          - Chinese_Traditional
+          - Korean
+          - Japanese
+          - Russian
+          - Portuguese
+          - Polish
+          - English_AUS
+          - Danish
+          - Finnish
+          - Hungarian
+          - Norwegian
+          - Swedish
+          - Italian
+          - Welsh
+          - Catalan
+          - Galician
+          - Basque
+          - Arabic
+          - Hindi
+          - French_CAN
+          - Hebrew
+          - Vietnamese
+          enum:
+          - English_USA
+          - English_GBR
+          - Spanish_MEX
+          - Spanish_ESP
+          - German
+          - French
+          - Dutch
+          - Thai
+          - Chinese_Simplified
+          - Chinese_Traditional
+          - Korean
+          - Japanese
+          - Russian
+          - Portuguese
+          - Polish
+          - English_AUS
+          - Danish
+          - Finnish
+          - Hungarian
+          - Norwegian
+          - Swedish
+          - Italian
+          - Welsh
+          - Catalan
+          - Galician
+          - Basque
+          - Arabic
+          - Hindi
+          - French_CAN
+          - Hebrew
+          - Vietnamese
+        enum:
+        - English_USA
+        - English_GBR
+        - Spanish_MEX
+        - Spanish_ESP
+        - German
+        - French
+        - Dutch
+        - Thai
+        - Chinese_Simplified
+        - Chinese_Traditional
+        - Korean
+        - Japanese
+        - Russian
+        - Portuguese
+        - Polish
+        - English_AUS
+        - Danish
+        - Finnish
+        - Hungarian
+        - Norwegian
+        - Swedish
+        - Italian
+        - Welsh
+        - Catalan
+        - Galician
+        - Basque
+        - Arabic
+        - Hindi
+        - French_CAN
+        - Hebrew
+        - Vietnamese
+      responses:
+        '200':
+          description: ''
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/sessions/{id}/settings/access:
+    get:
+      tags:
+      - Sessions
+      summary: Get the access settings for the given session
+      operationId: Sessions_GetAccessSettings
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/AccessSettings'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    put:
+      tags:
+      - Sessions
+      summary: Update the access settings for the given session
+      description: IsInherited is readonly and indicates whether or not access is being inherited from a parent folder. If AccessLevel is set to a more restrictive value than that inherited, the inherited value will take precedence.
+      operationId: Sessions_UpdateAccessSettings
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: accessSettings
+        in: body
+        schema:
+          $ref: '#/definitions/AccessSettings'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/AccessSettings'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/sessions/{id}/permissions:
+    get:
+      tags:
+      - Sessions
+      summary: Get the user and group permissions for the given session
+      description: To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
+      operationId: Sessions_GetPermissions
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfPermission'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+    post:
+      tags:
+      - Sessions
+      summary: Create a session permission by assigning a role to a user or group
+      operationId: Sessions_CreatePermission
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: permissionCreate
+        in: body
+        schema:
+          $ref: '#/definitions/PermissionCreate'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Permission'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+    delete:
+      tags:
+      - Sessions
+      summary: Remove permission from the session
+      description: This operation is only valid for non-inherited permissions. If role type and role id are omitted, all non-inherited permissions for the principal will be removed.
+      operationId: Sessions_DeletePermission
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: RoleId
+        in: query
+        description: Id of the role to remove from the user or group. Required when RoleType is null or None.
+        format: guid
+        x-nullable: true
+      - type: string
+        name: RoleType
+        in: query
+        description: Type of the role to remove from the user or group. Required when RoleId is null.
+        x-schema:
+          $ref: '#/definitions/BuiltInRoleType'
+        x-nullable: true
+        enum:
+        - None
+        - Viewer
+        - Creator
+        - Publisher
+      - type: string
+        name: PrincipalId
+        in: query
+        description: Id of the user or group from which the role is being removed.
+        format: guid
+        x-nullable: false
+      - type: string
+        name: PrincipalType
+        in: query
+        description: Type of principal, either a user or group.
+        x-schema:
+          $ref: '#/definitions/PrincipalType'
+        x-nullable: false
+        enum:
+        - User
+        - Group
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/PermissionDelete'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested session or permission was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/sessions/{id}/manage/scorm:
+    get:
+      tags:
+      - Sessions
+      summary: Download a SCORM manifest by session ID
+      description: This endpoint fetches the SCORM manifest for the specified session ID and returns it as a ZIP file attachment.
+      operationId: Sessions_GetScormManifestById
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: type
+        in: query
+        required: true
+        x-schema:
+          $ref: '#/definitions/SessionScormManifestType'
+        x-nullable: false
+        enum:
+        - Interactive
+        - Embed
+      responses:
+        '200':
+          x-nullable: false
+          description: The SCORM manifest ZIP file in the response body
+          schema:
+            type: string
+            format: byte
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested SCORM manifest was not found or cannot be fetched
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/sessions/{id}/sessioncopy:
+    post:
+      tags:
+      - Sessions
+      summary: Perform a session copy
+      operationId: Sessions_Copy
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: sessionCopyCreate
+        in: body
+        schema:
+          $ref: '#/definitions/SessionCopyCreate'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/SessionCopyResponse'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+definitions:
+  SessionSortFields:
+    type: string
+    description: ''
+    x-enumNames:
+    - Name
+    - CreatedDate
+    - Relevance
+    enum:
+    - Name
+    - CreatedDate
+    - Relevance
+  User:
+    type: object
+    required:
+    - Id
+    properties:
+      Id:
+        type: string
+        description: The id of the user.
+        format: guid
+      Username:
+        type: string
+        description: The username for this user.
+  ContentLanguage:
+    type: string
+    description: Language of content such as sessions, streams, or captions.
+    x-enumNames:
+    - English_USA
+    - English_GBR
+    - Spanish_MEX
+    - Spanish_ESP
+    - German
+    - French
+    - Dutch
+    - Thai
+    - Chinese_Simplified
+    - Chinese_Traditional
+    - Korean
+    - Japanese
+    - Russian
+    - Portuguese
+    - Polish
+    - English_AUS
+    - Danish
+    - Finnish
+    - Hungarian
+    - Norwegian
+    - Swedish
+    - Italian
+    - Welsh
+    - Catalan
+    - Galician
+    - Basque
+    - Arabic
+    - Hindi
+    - French_CAN
+    - Hebrew
+    - Vietnamese
+    enum:
+    - English_USA
+    - English_GBR
+    - Spanish_MEX
+    - Spanish_ESP
+    - German
+    - French
+    - Dutch
+    - Thai
+    - Chinese_Simplified
+    - Chinese_Traditional
+    - Korean
+    - Japanese
+    - Russian
+    - Portuguese
+    - Polish
+    - English_AUS
+    - Danish
+    - Finnish
+    - Hungarian
+    - Norwegian
+    - Swedish
+    - Italian
+    - Welsh
+    - Catalan
+    - Galician
+    - Basque
+    - Arabic
+    - Hindi
+    - French_CAN
+    - Hebrew
+    - Vietnamese
+  ListResponseOfSessionViewerStats:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/SessionViewerStats'
+  BuiltInRoleType:
+    type: string
+    description: ''
+    x-enumNames:
+    - None
+    - Viewer
+    - Creator
+    - Publisher
+    enum:
+    - None
+    - Viewer
+    - Creator
+    - Publisher
+  SessionScormManifestType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Interactive
+    - Embed
+    enum:
+    - Interactive
+    - Embed
+  TagSortFields:
+    type: string
+    description: ''
+    x-enumNames:
+    - CreateDate
+    - UsageCount
+    - Content
+    - Creator
+    - MostRecentUseDate
+    enum:
+    - CreateDate
+    - UsageCount
+    - Content
+    - Creator
+    - MostRecentUseDate
+  SessionCopyType:
+    type: string
+    description: ''
+    x-enumNames:
+    - Reference
+    - Full
+    - Destructive
+    enum:
+    - Reference
+    - Full
+    - Destructive
+  SessionViewerStats:
+    type: object
+    required:
+    - LastViewedDateTime
+    properties:
+      User:
+        $ref: '#/definitions/User'
+      PercentCompleted:
+        type: number
+        format: double
+      LastViewedDateTime:
+        type: string
+        format: date-time
+      MostRecentViewPositionInSeconds:
+        type: number
+        description: The most recent timestamp (in seconds) that was viewed by the user in this session
+        format: float
+  Session:
+    type: object
+    required:
+    - Folder
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+      Description:
+        type: string
+      StartTime:
+        type: string
+        format: date-time
+      Duration:
+        type: number
+        description: The duration of the session (in seconds)
+        format: double
+      MostRecentViewPosition:
+        type: number
+        format: double
+      CreatedBy:
+        $ref: '#/definitions/User'
+      Urls:
+        $ref: '#/definitions/SessionUrls'
+      Folder:
+        type: string
+        format: guid
+      FolderDetails:
+        $ref: '#/definitions/BasicFolder'
+      Context:
+        type: array
+        items:
+          $ref: '#/definitions/SearchResultContext'
+      PercentCompleted:
+        type: integer
+        description: The percentage from 0-100 of the session watched by the requested user
+        format: int32
+  Role:
+    type: object
+    properties:
+      Id:
+        type: string
+        description: The unique id that identifies the role.
+        format: guid
+      Name:
+        type: string
+        description: The name of this role.
+  SessionCopyResponse:
+    type: object
+    properties:
+      NewDeliveryId:
+        type: string
+        format: guid
+      NewSessionId:
+        type: string
+        format: guid
+  SessionViewerStatsSortFields:
+    type: string
+    description: ''
+    x-enumNames:
+    - UserName
+    - LastViewedDateTime
+    enum:
+    - UserName
+    - LastViewedDateTime
+  ListResponseOfTag:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/Tag'
+  ListResponseOfPermission:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/Permission'
+  SessionUrls:
+    type: object
+    properties:
+      ViewerUrl:
+        type: string
+        description: The URL to view this session in Panopto
+      EmbedUrl:
+        type: string
+        description: The URL to an embedded version of this session
+      ShareSettingsUrl:
+        type: string
+      DownloadUrl:
+        type: string
+        description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
+      AudioDescriptionDownloadUrl:
+        type: string
+      CaptionDownloadUrl:
+        type: string
+        description: The URL to download captions for this session, if available.
+      EditorUrl:
+        type: string
+        description: The URL to edit this session in Panopto, if you are a creator.
+      ThumbnailUrl:
+        type: string
+        description: The URL to retrieve the thumbnail for this session
+  Permission:
+    type: object
+    required:
+    - IsInherited
+    properties:
+      IsInherited:
+        type: boolean
+        description: Indicates whether or not the permission is inherited.
+      Principal:
+        description: The principal, either a user or group, to which the role is assigned.
+        $ref: '#/definitions/Principal'
+      Role:
+        description: The role assigned to the principal.
+        $ref: '#/definitions/Role'
+  AccessLevel:
+    type: string
+    description: ''
+    x-enumNames:
+    - Restricted
+    - OrganizationUnlisted
+    - Organization
+    - PublicUnlisted
+    - Public
+    enum:
+    - Restricted
+    - OrganizationUnlisted
+    - Organization
+    - PublicUnlisted
+    - Public
+  Principal:
+    type: object
+    required:
+    - Type
+    properties:
+      Id:
+        type: string
+        description: The unique id that represents this principal.
+        format: guid
+      Type:
+        description: Type of the principal, either a user or group.
+        $ref: '#/definitions/PrincipalType'
+  ListResponseOfSession:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/Session'
+  Tag:
+    type: object
+    required:
+    - UsageCount
+    - CreateDate
+    properties:
+      Id:
+        type: string
+        format: guid
+      Content:
+        type: string
+      UsageCount:
+        type: integer
+        format: int64
+      CreateDate:
+        type: string
+        format: date-time
+      MostRecentUseDate:
+        type: string
+        format: date-time
+      CreatedBy:
+        $ref: '#/definitions/User'
+  PermissionCreate:
+    type: object
+    required:
+    - PrincipalId
+    - PrincipalType
+    properties:
+      RoleId:
+        type: string
+        description: Id of the role to assign to the user or group. Required when RoleType is null or None.
+        format: guid
+      RoleType:
+        description: Type of the role to assign to the user or group. Required when RoleId is not set.
+        $ref: '#/definitions/BuiltInRoleType'
+      PrincipalId:
+        type: string
+        description: Id of the user or group to which the role is being assigned.
+        format: guid
+      PrincipalType:
+        description: Type of principal, either a user or group.
+        $ref: '#/definitions/PrincipalType'
+  SessionUpdate:
+    type: object
+    properties:
+      Name:
+        type: string
+        description: The new name for the session.
+      Description:
+        type: string
+        description: The new description for the session.
+      Folder:
+        type: string
+        description: The id of the folder to move this session to.
+        format: guid
+  SearchResultContext:
+    type: object
+    properties:
+      Text:
+        type: string
+      Time:
+        type: number
+        format: double
+      ThumbnailUrl:
+        type: string
+  PrincipalType:
+    type: string
+    description: ''
+    x-enumNames:
+    - User
+    - Group
+    enum:
+    - User
+    - Group
+  SessionTagUpdate:
+    type: object
+    properties:
+      Tags:
+        type: array
+        description: The tags for the session.
+        items:
+          type: string
+  BasicFolder:
+    type: object
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+  PermissionDelete:
+    type: object
+    required:
+    - PrincipalId
+    - PrincipalType
+    properties:
+      RoleId:
+        type: string
+        description: Id of the role to remove from the user or group. Required when RoleType is null or None.
+        format: guid
+      RoleType:
+        description: Type of the role to remove from the user or group. Required when RoleId is null.
+        $ref: '#/definitions/BuiltInRoleType'
+      PrincipalId:
+        type: string
+        description: Id of the user or group from which the role is being removed.
+        format: guid
+      PrincipalType:
+        description: Type of principal, either a user or group.
+        $ref: '#/definitions/PrincipalType'
+  SessionCopyCreate:
+    type: object
+    required:
+    - CopyType
+    - FolderId
+    - Name
+    properties:
+      CopyType:
+        description: Specifies how the session is copied. Allowed values are Full and Reference
+        $ref: '#/definitions/SessionCopyType'
+      FolderId:
+        type: string
+        description: The ID of the folder into which the new session will go.
+        format: guid
+      Name:
+        type: string
+        description: The name of the new session.
+  APIErrorInternal:
+    type: object
+    required:
+    - Success
+    properties:
+      ErrorCode:
+        type: string
+        description: Internal error code
+      Message:
+        type: string
+      Success:
+        type: boolean
+        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+      ErrorSource:
+        type: string
+        description: Unique identifier of what caused this error
+  SortOrder:
+    type: string
+    description: ''
+    x-enumNames:
+    - Asc
+    - Desc
+    enum:
+    - Asc
+    - Desc
+  APIError:
+    type: object
+    properties:
+      Error:
+        description: Error result returned if an error occurs in Panopto, otherwise null or missing
+        $ref: '#/definitions/APIErrorInternal'
+  AccessSettings:
+    type: object
+    required:
+    - IsInherited
+    - Level
+    properties:
+      IsInherited:
+        type: boolean
+        description: Indicates whether or not the access settings are inherited.
+      Level:
+        description: Indicates the level of access set for this item.
+        $ref: '#/definitions/AccessLevel'
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

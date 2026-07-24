@@ -1,0 +1,290 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility ScheduledRecordings API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: ScheduledRecordings
+  description: Scheduled Recording API
+paths:
+  /api/v1/scheduledRecordings/{id}:
+    get:
+      tags:
+      - ScheduledRecordings
+      summary: Get the scheduled recording information for a session
+      operationId: ScheduledRecordings_GetScheduledRecordingById
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ScheduledRecording'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested scheduled entry was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    put:
+      tags:
+      - ScheduledRecordings
+      summary: Update the start or end time of a scheduled recording.
+      operationId: ScheduledRecordings_UpdateScheduledRecording
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: scheduledRecording
+        in: body
+        schema:
+          $ref: '#/definitions/ScheduledRecordingUpdate'
+        x-nullable: true
+      - type: boolean
+        name: resolveConflicts
+        in: query
+        default: false
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ScheduledRecording'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested scheduled entry was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    delete:
+      tags:
+      - ScheduledRecordings
+      summary: Cancel a scheduled recording
+      operationId: ScheduledRecordings_CancelScheduledRecording
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            type: string
+            format: guid
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested scheduled entry was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/scheduledRecordings:
+    post:
+      tags:
+      - ScheduledRecordings
+      summary: Create a new scheduled recording
+      operationId: ScheduledRecordings_CreateScheduledRecording
+      parameters:
+      - name: scheduledRecording
+        in: body
+        schema:
+          $ref: '#/definitions/ScheduledRecordingCreate'
+        x-nullable: true
+      - type: boolean
+        name: resolveConflicts
+        in: query
+        required: true
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ScheduledRecording'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested scheduled entry was not found
+          schema:
+            $ref: '#/definitions/APIError'
+definitions:
+  ScheduledRecordingRemoteRecorder:
+    type: object
+    required:
+    - RemoteRecorderId
+    - SuppressPrimary
+    - SuppressSecondary
+    properties:
+      RemoteRecorderId:
+        type: string
+        description: The id of the remote recorder to use for this recording. Only one can be specified at this time.
+        format: guid
+      SuppressPrimary:
+        type: boolean
+        description: True if the primary stream should be suppressed from this recorder. At least one recorder in a scheduled recording must not suppress the primary stream.
+      SuppressSecondary:
+        type: boolean
+        description: True if the secondary stream should be suppressed from this recorder.
+  APIErrorInternal:
+    type: object
+    required:
+    - Success
+    properties:
+      ErrorCode:
+        type: string
+        description: Internal error code
+      Message:
+        type: string
+      Success:
+        type: boolean
+        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+      ErrorSource:
+        type: string
+        description: Unique identifier of what caused this error
+  ScheduledRecordingCreate:
+    type: object
+    required:
+    - StartTime
+    - EndTime
+    - FolderId
+    - IsBroadcast
+    properties:
+      Name:
+        type: string
+        description: The name of the scheduled recording.
+      Description:
+        type: string
+        description: An optional description for the scheduled recording.
+      StartTime:
+        type: string
+        description: The date and time the scheduled recording should start.
+        format: date-time
+      EndTime:
+        type: string
+        description: The date and time the scheduled recording should end.
+        format: date-time
+      FolderId:
+        type: string
+        description: The folder to add this scheduled recording to.
+        format: guid
+      Recorders:
+        type: array
+        description: A list of recorders that will be used for this recording
+        items:
+          $ref: '#/definitions/ScheduledRecordingRemoteRecorder'
+      IsBroadcast:
+        type: boolean
+        description: Set to true if this recording should be broadcast live when it starts.
+  ScheduledRecordingUpdate:
+    type: object
+    properties:
+      StartTime:
+        type: string
+        description: The new start time. Times should be UTC. Must be later than the current time
+        format: date-time
+      EndTime:
+        type: string
+        description: The new end time. Times should be UTC. Must be later than the current time
+        format: date-time
+  APIError:
+    type: object
+    properties:
+      Error:
+        description: Error result returned if an error occurs in Panopto, otherwise null or missing
+        $ref: '#/definitions/APIErrorInternal'
+  RecorderScheduleEntry:
+    type: object
+    required:
+    - RecorderId
+    - SuppressPrimaryCapture
+    - SuppressSecondaryCapture
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+      RecorderId:
+        type: string
+        format: guid
+      SuppressPrimaryCapture:
+        type: boolean
+      SuppressSecondaryCapture:
+        type: boolean
+      RecorderDescription:
+        type: string
+  ScheduledRecording:
+    type: object
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+      RecorderScheduleEntries:
+        type: array
+        description: A list of recorders and their associated properties
+        items:
+          $ref: '#/definitions/RecorderScheduleEntry'
+      StartTime:
+        type: string
+        description: The start time for the recording
+        format: date-time
+      EndTime:
+        type: string
+        description: The end time for the recording
+        format: date-time
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

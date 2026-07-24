@@ -1,0 +1,325 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility Users API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Users
+  description: User API
+paths:
+  /api/v1/users/me/sessions/viewed:
+    get:
+      tags:
+      - Users
+      summary: Get a list of partially viewed sessions for the current user
+      operationId: Users_GetMyViewedSessions
+      parameters:
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/SessionSortFields'
+        default: Name
+        x-nullable: false
+        enum:
+        - Name
+        - CreatedDate
+        - Relevance
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      - type: boolean
+        name: includeCompleted
+        in: query
+        default: false
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfSession'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested user was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/users/{id}/sessions/viewed:
+    get:
+      tags:
+      - Users
+      summary: Get a list of partially viewed sessions for the specified user
+      description: This endpoint can only be called by an admin
+      operationId: Users_GetUsersViewedSessions
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/SessionSortFields'
+        default: Name
+        x-nullable: false
+        enum:
+        - Name
+        - CreatedDate
+        - Relevance
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      - type: boolean
+        name: includeCompleted
+        in: query
+        default: false
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfSession'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested user was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/users/search:
+    get:
+      tags:
+      - Users
+      summary: Search for users based on a keyword
+      operationId: Users_Search
+      parameters:
+      - type: string
+        name: searchQuery
+        in: query
+        required: true
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfUser'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+definitions:
+  SessionSortFields:
+    type: string
+    description: ''
+    x-enumNames:
+    - Name
+    - CreatedDate
+    - Relevance
+    enum:
+    - Name
+    - CreatedDate
+    - Relevance
+  Session:
+    type: object
+    required:
+    - Folder
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+      Description:
+        type: string
+      StartTime:
+        type: string
+        format: date-time
+      Duration:
+        type: number
+        description: The duration of the session (in seconds)
+        format: double
+      MostRecentViewPosition:
+        type: number
+        format: double
+      CreatedBy:
+        $ref: '#/definitions/User'
+      Urls:
+        $ref: '#/definitions/SessionUrls'
+      Folder:
+        type: string
+        format: guid
+      FolderDetails:
+        $ref: '#/definitions/BasicFolder'
+      Context:
+        type: array
+        items:
+          $ref: '#/definitions/SearchResultContext'
+      PercentCompleted:
+        type: integer
+        description: The percentage from 0-100 of the session watched by the requested user
+        format: int32
+  User:
+    type: object
+    required:
+    - Id
+    properties:
+      Id:
+        type: string
+        description: The id of the user.
+        format: guid
+      Username:
+        type: string
+        description: The username for this user.
+  ListResponseOfUser:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/User'
+  APIErrorInternal:
+    type: object
+    required:
+    - Success
+    properties:
+      ErrorCode:
+        type: string
+        description: Internal error code
+      Message:
+        type: string
+      Success:
+        type: boolean
+        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+      ErrorSource:
+        type: string
+        description: Unique identifier of what caused this error
+  SortOrder:
+    type: string
+    description: ''
+    x-enumNames:
+    - Asc
+    - Desc
+    enum:
+    - Asc
+    - Desc
+  SearchResultContext:
+    type: object
+    properties:
+      Text:
+        type: string
+      Time:
+        type: number
+        format: double
+      ThumbnailUrl:
+        type: string
+  BasicFolder:
+    type: object
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+  SessionUrls:
+    type: object
+    properties:
+      ViewerUrl:
+        type: string
+        description: The URL to view this session in Panopto
+      EmbedUrl:
+        type: string
+        description: The URL to an embedded version of this session
+      ShareSettingsUrl:
+        type: string
+      DownloadUrl:
+        type: string
+        description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
+      AudioDescriptionDownloadUrl:
+        type: string
+      CaptionDownloadUrl:
+        type: string
+        description: The URL to download captions for this session, if available.
+      EditorUrl:
+        type: string
+        description: The URL to edit this session in Panopto, if you are a creator.
+      ThumbnailUrl:
+        type: string
+        description: The URL to retrieve the thumbnail for this session
+  APIError:
+    type: object
+    properties:
+      Error:
+        description: Error result returned if an error occurs in Panopto, otherwise null or missing
+        $ref: '#/definitions/APIErrorInternal'
+  ListResponseOfSession:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/Session'
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

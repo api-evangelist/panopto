@@ -1,0 +1,441 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Accessibility
+  description: Accessibility API
+paths:
+  /api/v1/accessibility/bulk/preview:
+    post:
+      tags:
+      - Accessibility
+      summary: Preview bulk accessibility request eligibility
+      description: Returns providers, per-session eligibility, and pricing metadata for AudioDescription, Transcription, or Translation. Admin-only.
+      operationId: Accessibility_PreviewBulkAccessibility
+      parameters:
+      - name: request
+        in: body
+        schema:
+          $ref: '#/definitions/AccessibilityBulkPreviewRequest'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/AccessibilityBulkPreviewResponse'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '401':
+          description: The user is not authorized to perform the requested action
+  /api/v1/accessibility/bulk/schedule:
+    post:
+      tags:
+      - Accessibility
+      summary: Schedule bulk accessibility requests
+      description: Creates transcription, translation, or audio description requests for the specified sessions. Admin-only.
+      operationId: Accessibility_ScheduleBulkAccessibility
+      parameters:
+      - name: request
+        in: body
+        schema:
+          $ref: '#/definitions/AccessibilityBulkScheduleRequest'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/AccessibilityBulkScheduleResponse'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '401':
+          description: The user is not authorized to perform the requested action
+definitions:
+  AccessibilityProviderPreview:
+    type: object
+    required:
+    - ProviderInstanceId
+    - PriceKnown
+    properties:
+      ProviderInstanceId:
+        type: integer
+        description: Provider instance identifier, used when scheduling an accessibility request.
+        format: int32
+      DisplayName:
+        type: string
+        description: Display name of the provider (e.g. "Captions Service").
+      PricePerMinute:
+        type: number
+        description: Price per minute in caption credits. Null when pricing is not applicable.
+        format: double
+      PriceKnown:
+        type: boolean
+        description: Whether the price is known.
+  ExclusionReason:
+    type: string
+    description: ''
+    x-enumNames:
+    - None
+    - NotFound
+    - InsufficientPermissions
+    - InvalidTranscriptionRequestType
+    - NoActiveDelivery
+    - NoPrimaryStream
+    - PendingEdits
+    - PendingRequest
+    - UnsupportedLanguage
+    - AlreadyHasAudioDescription
+    - AlreadyHasCaptions
+    - AlreadyHasAsrCaptions
+    - NoSourceCaptions
+    - SchedulingFailed
+    enum:
+    - None
+    - NotFound
+    - InsufficientPermissions
+    - InvalidTranscriptionRequestType
+    - NoActiveDelivery
+    - NoPrimaryStream
+    - PendingEdits
+    - PendingRequest
+    - UnsupportedLanguage
+    - AlreadyHasAudioDescription
+    - AlreadyHasCaptions
+    - AlreadyHasAsrCaptions
+    - NoSourceCaptions
+    - SchedulingFailed
+  ContentLanguage:
+    type: string
+    description: Language of content such as sessions, streams, or captions.
+    x-enumNames:
+    - English_USA
+    - English_GBR
+    - Spanish_MEX
+    - Spanish_ESP
+    - German
+    - French
+    - Dutch
+    - Thai
+    - Chinese_Simplified
+    - Chinese_Traditional
+    - Korean
+    - Japanese
+    - Russian
+    - Portuguese
+    - Polish
+    - English_AUS
+    - Danish
+    - Finnish
+    - Hungarian
+    - Norwegian
+    - Swedish
+    - Italian
+    - Welsh
+    - Catalan
+    - Galician
+    - Basque
+    - Arabic
+    - Hindi
+    - French_CAN
+    - Hebrew
+    - Vietnamese
+    enum:
+    - English_USA
+    - English_GBR
+    - Spanish_MEX
+    - Spanish_ESP
+    - German
+    - French
+    - Dutch
+    - Thai
+    - Chinese_Simplified
+    - Chinese_Traditional
+    - Korean
+    - Japanese
+    - Russian
+    - Portuguese
+    - Polish
+    - English_AUS
+    - Danish
+    - Finnish
+    - Hungarian
+    - Norwegian
+    - Swedish
+    - Italian
+    - Welsh
+    - Catalan
+    - Galician
+    - Basque
+    - Arabic
+    - Hindi
+    - French_CAN
+    - Hebrew
+    - Vietnamese
+  EligibilityState:
+    type: string
+    description: ''
+    x-enumNames:
+    - Eligible
+    - ConditionallyEligible
+    - Excluded
+    enum:
+    - Eligible
+    - ConditionallyEligible
+    - Excluded
+  TranslationDetails:
+    type: object
+    properties:
+      AvailableSourceLanguages:
+        type: array
+        description: Caption languages available as a translation source. Only non-translated captions are included.
+        items:
+          $ref: '#/definitions/ContentLanguage'
+      ExistingCaptionLanguages:
+        type: array
+        description: All caption languages that already exist on the delivery, useful for identifying redundant translation targets.
+        items:
+          $ref: '#/definitions/ContentLanguage'
+      PendingTranslationTargets:
+        type: array
+        description: Target languages with in-flight translation requests, useful for preventing duplicate requests.
+        items:
+          $ref: '#/definitions/ContentLanguage'
+  AccessibilityBulkScheduleResponse:
+    type: object
+    required:
+    - Type
+    - ScheduledCount
+    - SkippedCount
+    properties:
+      Type:
+        description: The accessibility request type that was scheduled.
+        $ref: '#/definitions/AccessibilityRequestType'
+      Results:
+        type: array
+        description: Per-session scheduling outcomes.
+        items:
+          $ref: '#/definitions/AccessibilityScheduleResult'
+      ScheduledCount:
+        type: integer
+        description: Number of sessions that were successfully scheduled.
+        format: int32
+      SkippedCount:
+        type: integer
+        description: Number of sessions that were skipped.
+        format: int32
+  APIErrorInternal:
+    type: object
+    required:
+    - Success
+    properties:
+      ErrorCode:
+        type: string
+        description: Internal error code
+      Message:
+        type: string
+      Success:
+        type: boolean
+        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+      ErrorSource:
+        type: string
+        description: Unique identifier of what caused this error
+  AccessibilityBulkPreviewResponse:
+    type: object
+    required:
+    - Type
+    - SiteOverwriteBehavior
+    properties:
+      Type:
+        description: 'The normalized accessibility type: AudioDescription, Transcription, or Translation.'
+        $ref: '#/definitions/AccessibilityRequestType'
+      SiteOverwriteBehavior:
+        description: 'The site-level overwrite behavior. For AudioDescription: DoNotOverwrite or Overwrite. For Transcription/Translation: DoNotOverwrite, OverwriteASR, or OverwriteAny.'
+        $ref: '#/definitions/AccessibilityOverwriteBehavior'
+      AvailableCaptionCredits:
+        type: number
+        description: Remaining caption credits for the active transcription contract. Null when no finite credit pool applies (no active contract, or unlimited credits). Zero means the contract's finite pool has been fully consumed.
+        format: double
+      Providers:
+        type: array
+        description: Available providers for the requested type, with display names and pricing metadata.
+        items:
+          $ref: '#/definitions/AccessibilityProviderPreview'
+      SessionEvaluations:
+        type: array
+        description: Per-session eligibility evaluation results.
+        items:
+          $ref: '#/definitions/AccessibilitySessionPreview'
+      Summary:
+        description: Aggregate counts of eligible, conditionally eligible, and excluded sessions with total duration.
+        $ref: '#/definitions/AccessibilityPreviewSummary'
+  AccessibilityPreviewSummary:
+    type: object
+    required:
+    - TotalSessions
+    - EligibleCount
+    - ConditionallyEligibleCount
+    - ExcludedCount
+    - TotalDurationSeconds
+    properties:
+      TotalSessions:
+        type: integer
+        description: Total number of sessions evaluated (after de-duplication).
+        format: int32
+      EligibleCount:
+        type: integer
+        description: Number of sessions that are fully eligible and included by default.
+        format: int32
+      ConditionallyEligibleCount:
+        type: integer
+        description: Number of sessions excluded by default but eligible if the user opts in (e.g. overwrite existing content).
+        format: int32
+      ExcludedCount:
+        type: integer
+        description: Number of sessions that cannot be included in the request.
+        format: int32
+      TotalDurationSeconds:
+        type: number
+        description: Total duration of all evaluated sessions in seconds.
+        format: double
+  AccessibilityRequestType:
+    type: string
+    description: ''
+    x-enumNames:
+    - AudioDescription
+    - Transcription
+    - Translation
+    enum:
+    - AudioDescription
+    - Transcription
+    - Translation
+  APIError:
+    type: object
+    properties:
+      Error:
+        description: Error result returned if an error occurs in Panopto, otherwise null or missing
+        $ref: '#/definitions/APIErrorInternal'
+  AccessibilitySessionPreview:
+    type: object
+    required:
+    - SessionId
+    - DurationSeconds
+    - EligibilityState
+    - ReasonCode
+    properties:
+      SessionId:
+        type: string
+        description: The public ID of the evaluated session.
+        format: guid
+      SessionName:
+        type: string
+        description: The display name of the session. Null if the session was not found.
+      DurationSeconds:
+        type: number
+        description: Total duration in seconds of the session's streams. Zero if the session was not found or has no primary streams.
+        format: double
+      EligibilityState:
+        description: 'The eligibility classification: Eligible, ConditionallyEligible, or Excluded.'
+        $ref: '#/definitions/EligibilityState'
+      ReasonCode:
+        description: The reason the session is not fully eligible. None when EligibilityState is Eligible.
+        $ref: '#/definitions/ExclusionReason'
+      Details:
+        description: Translation-specific details (source languages, existing captions, pending translations). Null for AudioDescription and Transcription types.
+        $ref: '#/definitions/TranslationDetails'
+  AccessibilityOverwriteBehavior:
+    type: string
+    description: ''
+    x-enumNames:
+    - DoNotOverwrite
+    - OverwriteAD
+    - OverwriteASR
+    - OverwriteAnyCaptions
+    enum:
+    - DoNotOverwrite
+    - OverwriteAD
+    - OverwriteASR
+    - OverwriteAnyCaptions
+  AccessibilityBulkScheduleRequest:
+    type: object
+    required:
+    - Type
+    - ProviderInstanceId
+    properties:
+      Type:
+        description: 'The accessibility request type: AudioDescription, Transcription, or Translation.'
+        $ref: '#/definitions/AccessibilityRequestType'
+      SessionIds:
+        type: array
+        description: List of session or delivery public IDs (GUIDs) to schedule. Duplicates are de-duplicated. Maximum 100 IDs.
+        items:
+          type: string
+          format: guid
+      ProviderInstanceId:
+        type: integer
+        description: The provider instance ID to use, from the preview response's Providers list.
+        format: int32
+      SourceLanguage:
+        description: 'Translation only: the source caption language to translate from.'
+        $ref: '#/definitions/ContentLanguage'
+      TargetLanguages:
+        type: array
+        description: 'Translation only: the target languages to translate to.'
+        items:
+          $ref: '#/definitions/ContentLanguage'
+  AccessibilityScheduleResult:
+    type: object
+    required:
+    - SessionId
+    - Scheduled
+    - ReasonCode
+    - RequestCount
+    properties:
+      SessionId:
+        type: string
+        description: The public ID of the session.
+        format: guid
+      SessionName:
+        type: string
+        description: The display name of the session. Null if the session was not found.
+      Scheduled:
+        type: boolean
+        description: Whether accessibility requests were created for this session.
+      ReasonCode:
+        description: The reason the session was skipped. None when Scheduled is true.
+        $ref: '#/definitions/ExclusionReason'
+      RequestCount:
+        type: integer
+        description: Number of transcription requests created for this session.
+        format: int32
+  AccessibilityBulkPreviewRequest:
+    type: object
+    required:
+    - Type
+    properties:
+      Type:
+        description: 'The accessibility request type: AudioDescription, Transcription, or Translation.'
+        $ref: '#/definitions/AccessibilityRequestType'
+      SessionIds:
+        type: array
+        description: List of session or delivery public IDs (GUIDs) to evaluate. Duplicates are de-duplicated. Maximum 100 IDs.
+        items:
+          type: string
+          format: guid
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

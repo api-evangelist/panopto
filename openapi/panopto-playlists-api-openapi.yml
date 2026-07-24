@@ -1,0 +1,582 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility Playlists API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Playlists
+  description: Playlist API
+paths:
+  /api/v1/playlists/{id}:
+    get:
+      tags:
+      - Playlists
+      summary: Get a playlist by Id
+      operationId: Playlists_GetPlaylistById
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Playlist'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested playlist was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    put:
+      tags:
+      - Playlists
+      summary: Update a playlist
+      description: Update the playlist's name, description, or folder.
+      operationId: Playlists_UpdatePlaylistMetadata
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: playlistUpdate
+        in: body
+        schema:
+          $ref: '#/definitions/PlaylistUpdate'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Playlist'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested playlist was not found
+          schema:
+            $ref: '#/definitions/APIError'
+    delete:
+      tags:
+      - Playlists
+      summary: Delete a playlist
+      description: Deletes a playlist based on the retention policies
+      operationId: Playlists_DeletePlaylist
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            type: string
+            format: guid
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested playlist was not found
+          schema:
+            $ref: '#/definitions/APIError'
+  /api/v1/playlists/{id}/sessions:
+    get:
+      tags:
+      - Playlists
+      summary: Get a list of sessions in the given playlist
+      description: 'To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
+
+
+        **Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id.'
+      operationId: Playlists_GetSessionsForPlaylist
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/PlaylistSessionSortFields'
+        default: Order
+        x-nullable: false
+        enum:
+        - Name
+        - CreatedDate
+        - Relevance
+        - Order
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfSession'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+    put:
+      tags:
+      - Playlists
+      summary: Add a session to a playlist
+      description: Adds the given session to a playlist. You can optionally specify an index to insert the session at a specific position in the playlist. Otherwise, it will be added to the end of the playlist.
+      operationId: Playlists_AddSessionToPlaylist
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: session
+        in: body
+        schema:
+          $ref: '#/definitions/PlaylistAddSession'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfSession'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+  /api/v1/playlists:
+    post:
+      tags:
+      - Playlists
+      summary: Create a new playlist
+      operationId: Playlists_CreatePlaylist
+      parameters:
+      - name: playlist
+        in: body
+        schema:
+          $ref: '#/definitions/PlaylistCreate'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Playlist'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+  /api/v1/playlists/search:
+    get:
+      tags:
+      - Playlists
+      summary: Search for playlists based on a keyword
+      description: 'To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
+
+
+        **Note:** The Playlist Search API does not return all available properties for a playlist. The Urls property (except the ViewerUrl) is not returned when listing playlists in a folder. To get these properties, you can get the specific playlist by Id using the Playlists API.'
+      operationId: Playlists_SearchForPlaylists
+      parameters:
+      - type: string
+        name: searchQuery
+        in: query
+        required: true
+        x-nullable: true
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/PlaylistSortFields'
+        default: Name
+        x-nullable: false
+        enum:
+        - Name
+        - CreatedDate
+        - Relevance
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        description: Page numbering starts at 0
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfPlaylist'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+  /api/v1/playlists/{id}/sessions/{sessionId}:
+    delete:
+      tags:
+      - Playlists
+      summary: Remove a session from a playlist
+      description: Removes the given session from a playlist.
+      operationId: Playlists_RemoveSessionFromPlaylist
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - type: string
+        name: sessionId
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Session'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+definitions:
+  Session:
+    type: object
+    required:
+    - Folder
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+      Description:
+        type: string
+      StartTime:
+        type: string
+        format: date-time
+      Duration:
+        type: number
+        description: The duration of the session (in seconds)
+        format: double
+      MostRecentViewPosition:
+        type: number
+        format: double
+      CreatedBy:
+        $ref: '#/definitions/User'
+      Urls:
+        $ref: '#/definitions/SessionUrls'
+      Folder:
+        type: string
+        format: guid
+      FolderDetails:
+        $ref: '#/definitions/BasicFolder'
+      Context:
+        type: array
+        items:
+          $ref: '#/definitions/SearchResultContext'
+      PercentCompleted:
+        type: integer
+        description: The percentage from 0-100 of the session watched by the requested user
+        format: int32
+  User:
+    type: object
+    required:
+    - Id
+    properties:
+      Id:
+        type: string
+        description: The id of the user.
+        format: guid
+      Username:
+        type: string
+        description: The username for this user.
+  ModelBaseOfGuid:
+    type: object
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+  ListResponseOfPlaylist:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/Playlist'
+  PlaylistUrls:
+    type: object
+    properties:
+      ViewerUrl:
+        type: string
+        description: The URL to view this playlist in Panopto
+      EmbedUrl:
+        type: string
+        description: The URL to an embedded version of this playlist
+      ThumbnailUrl:
+        type: string
+        description: The URL to retrieve the thumbnail for this playlist
+  APIErrorInternal:
+    type: object
+    required:
+    - Success
+    properties:
+      ErrorCode:
+        type: string
+        description: Internal error code
+      Message:
+        type: string
+      Success:
+        type: boolean
+        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+      ErrorSource:
+        type: string
+        description: Unique identifier of what caused this error
+  Playlist:
+    allOf:
+    - $ref: '#/definitions/ModelBaseOfGuid'
+    - type: object
+      properties:
+        Description:
+          type: string
+        Folder:
+          $ref: '#/definitions/BasicFolder'
+        Urls:
+          $ref: '#/definitions/PlaylistUrls'
+  PlaylistSessionSortFields:
+    type: string
+    description: ''
+    x-enumNames:
+    - Name
+    - CreatedDate
+    - Relevance
+    - Order
+    enum:
+    - Name
+    - CreatedDate
+    - Relevance
+    - Order
+  PlaylistSortFields:
+    type: string
+    description: ''
+    x-enumNames:
+    - Name
+    - CreatedDate
+    - Relevance
+    enum:
+    - Name
+    - CreatedDate
+    - Relevance
+  SearchResultContext:
+    type: object
+    properties:
+      Text:
+        type: string
+      Time:
+        type: number
+        format: double
+      ThumbnailUrl:
+        type: string
+  BasicFolder:
+    type: object
+    properties:
+      Id:
+        type: string
+        format: guid
+      Name:
+        type: string
+  SortOrder:
+    type: string
+    description: ''
+    x-enumNames:
+    - Asc
+    - Desc
+    enum:
+    - Asc
+    - Desc
+  PlaylistUpdate:
+    type: object
+    properties:
+      Name:
+        type: string
+        description: The new name for the playlist.
+      Description:
+        type: string
+        description: The new description for the playlist.
+      Folder:
+        type: string
+        description: The id of the folder to move this playlist to.
+        format: guid
+  SessionUrls:
+    type: object
+    properties:
+      ViewerUrl:
+        type: string
+        description: The URL to view this session in Panopto
+      EmbedUrl:
+        type: string
+        description: The URL to an embedded version of this session
+      ShareSettingsUrl:
+        type: string
+      DownloadUrl:
+        type: string
+        description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
+      AudioDescriptionDownloadUrl:
+        type: string
+      CaptionDownloadUrl:
+        type: string
+        description: The URL to download captions for this session, if available.
+      EditorUrl:
+        type: string
+        description: The URL to edit this session in Panopto, if you are a creator.
+      ThumbnailUrl:
+        type: string
+        description: The URL to retrieve the thumbnail for this session
+  APIError:
+    type: object
+    properties:
+      Error:
+        description: Error result returned if an error occurs in Panopto, otherwise null or missing
+        $ref: '#/definitions/APIErrorInternal'
+  PlaylistCreate:
+    type: object
+    required:
+    - FolderId
+    properties:
+      Name:
+        type: string
+        description: The name of the playlist.
+      Description:
+        type: string
+        description: An optional description for the playlist.
+      FolderId:
+        type: string
+        description: The folder to add this playlist to.
+        format: guid
+      Sessions:
+        type: array
+        description: A list of session IDs to add to this playlist. They will be added in order.
+        items:
+          type: string
+          format: guid
+  PlaylistAddSession:
+    type: object
+    required:
+    - SessionId
+    properties:
+      SessionId:
+        type: string
+        description: The id of the session to add to this playlist.
+        format: guid
+      Index:
+        type: integer
+        description: The index to insert the item at (starting with 0 as the beginning of the list). If this is not specified, the session will be added to the end.
+        format: int32
+  ListResponseOfSession:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/Session'
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

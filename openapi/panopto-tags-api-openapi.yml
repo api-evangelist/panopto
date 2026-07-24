@@ -1,0 +1,344 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility Tags API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Tags
+  description: Tag API
+paths:
+  /api/v1/tags:
+    post:
+      tags:
+      - Tags
+      summary: Create a new tag.
+      description: Create a new tag with the provided content.
+      operationId: Tags_CreateTag
+      parameters:
+      - name: tag
+        in: body
+        schema:
+          $ref: '#/definitions/TagCreate'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Tag'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function.
+        '401':
+          description: The user is not authorized to perform the requested action.
+    get:
+      tags:
+      - Tags
+      summary: Get a paged list of tags.
+      description: To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
+      operationId: Tags_GetTags
+      parameters:
+      - type: string
+        name: sortField
+        in: query
+        x-schema:
+          $ref: '#/definitions/TagSortFields'
+        default: CreateDate
+        x-nullable: false
+        enum:
+        - CreateDate
+        - UsageCount
+        - Content
+        - Creator
+        - MostRecentUseDate
+      - type: string
+        name: sortOrder
+        in: query
+        x-schema:
+          $ref: '#/definitions/SortOrder'
+        default: Asc
+        x-nullable: false
+        enum:
+        - Asc
+        - Desc
+      - type: integer
+        name: pageNumber
+        in: query
+        format: int32
+        default: 0
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/ListResponseOfTag'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function.
+        '401':
+          description: The user is not authorized to perform the requested action.
+  /api/v1/tags/{id}:
+    get:
+      tags:
+      - Tags
+      summary: Get a tag by ID.
+      operationId: Tags_GetTagById
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Tag'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function.
+        '401':
+          description: The user is not authorized to perform the requested action.
+        '404':
+          x-nullable: false
+          description: The requested tag was not found.
+          schema:
+            $ref: '#/definitions/APIError'
+    put:
+      tags:
+      - Tags
+      summary: Update a tag.
+      description: Update the tag's content.
+      operationId: Tags_UpdateTag
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: tagUpdate
+        in: body
+        schema:
+          $ref: '#/definitions/TagUpdate'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Tag'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function.
+        '401':
+          description: The user is not authorized to perform the requested action.
+        '404':
+          x-nullable: false
+          description: The requested tag was not found.
+          schema:
+            $ref: '#/definitions/APIError'
+    delete:
+      tags:
+      - Tags
+      summary: Delete a tag.
+      description: Delete the tag with the given ID.
+      operationId: Tags_DeleteTag
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            type: string
+            format: guid
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+  /api/v1/tags/{id}/merge:
+    post:
+      tags:
+      - Tags
+      summary: Merge one or more tags into the tag represented by {id}.
+      description: This will delete the merged tags and update videos to reference the tag represented by {id}.
+      operationId: Tags_MergeTags
+      parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        format: guid
+        x-nullable: false
+      - name: tagMerge
+        in: body
+        schema:
+          $ref: '#/definitions/TagMerge'
+        x-nullable: true
+      responses:
+        '200':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/Tag'
+        '400':
+          x-nullable: false
+          description: ''
+          schema:
+            $ref: '#/definitions/APIError'
+        '403':
+          description: User does not have permission to access this function
+        '401':
+          description: The user is not authorized to perform the requested action
+        '404':
+          x-nullable: false
+          description: The requested tag was not found
+          schema:
+            $ref: '#/definitions/APIError'
+definitions:
+  User:
+    type: object
+    required:
+    - Id
+    properties:
+      Id:
+        type: string
+        description: The id of the user.
+        format: guid
+      Username:
+        type: string
+        description: The username for this user.
+  TagUpdate:
+    allOf:
+    - $ref: '#/definitions/TagCreate'
+    - type: object
+  TagCreate:
+    type: object
+    properties:
+      Content:
+        type: string
+        description: The content of the tag.
+  APIErrorInternal:
+    type: object
+    required:
+    - Success
+    properties:
+      ErrorCode:
+        type: string
+        description: Internal error code
+      Message:
+        type: string
+      Success:
+        type: boolean
+        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+      ErrorSource:
+        type: string
+        description: Unique identifier of what caused this error
+  SortOrder:
+    type: string
+    description: ''
+    x-enumNames:
+    - Asc
+    - Desc
+    enum:
+    - Asc
+    - Desc
+  ListResponseOfTag:
+    type: object
+    properties:
+      Results:
+        type: array
+        description: The list of results from the API call
+        items:
+          $ref: '#/definitions/Tag'
+  TagMerge:
+    type: object
+    properties:
+      TagIdsToMerge:
+        type: array
+        description: The IDs of the tags that should be merged and then deleted.
+        items:
+          type: string
+          format: guid
+  APIError:
+    type: object
+    properties:
+      Error:
+        description: Error result returned if an error occurs in Panopto, otherwise null or missing
+        $ref: '#/definitions/APIErrorInternal'
+  TagSortFields:
+    type: string
+    description: ''
+    x-enumNames:
+    - CreateDate
+    - UsageCount
+    - Content
+    - Creator
+    - MostRecentUseDate
+    enum:
+    - CreateDate
+    - UsageCount
+    - Content
+    - Creator
+    - MostRecentUseDate
+  Tag:
+    type: object
+    required:
+    - UsageCount
+    - CreateDate
+    properties:
+      Id:
+        type: string
+        format: guid
+      Content:
+        type: string
+      UsageCount:
+        type: integer
+        format: int64
+      CreateDate:
+        type: string
+        format: date-time
+      MostRecentUseDate:
+        type: string
+        format: date-time
+      CreatedBy:
+        $ref: '#/definitions/User'
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

@@ -1,0 +1,33 @@
+swagger: '2.0'
+info:
+  title: Panopto Public Accessibility Auth API
+  description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
+  version: '1'
+host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
+basePath: /Panopto
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Auth
+  description: Authentication API
+paths:
+  /api/v1/auth/legacyLogin:
+    get:
+      tags:
+      - Auth
+      summary: Get a legacy authentication cookie
+      description: Gets an authentication cookie from a valid Oauth2 token for use with legacy APIs.
+      operationId: Auth_LegacyLogin
+      responses:
+        '200':
+          x-nullable: false
+          description: The authentication cookie should be set
+          schema:
+            type: string
+        '401':
+          description: No valid authorization. The token may be invalid, or the user was not authenticated or found.
+x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))
