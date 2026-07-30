@@ -1,7 +1,19 @@
 aid: panopto
 name: Panopto
 description: Panopto is a video management platform for education and enterprise that provides a REST API for managing recordings, folders, sessions, users, and video analytics. Organizations use Panopto to capture, store, search, and share video content in corporate training and academic settings. The API supports OAuth2 authentication and enables automation of recording schedules, user and group provisioning, content organization, and integration with LMS platforms such as Canvas, Blackboard, Moodle, and D2L.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/panopto.png
 url: https://raw.githubusercontent.com/api-evangelist/panopto/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -15,28 +27,232 @@ tags:
   - Video Analytics
   - Content Management
 apis:
-  - aid: panopto:panopto-rest-api
-    name: Panopto REST API
-    description: The Panopto public REST API enables programmatic management of video sessions, folders, scheduled recordings, users, and groups. It supports video analytics ingestion and content organization for both higher education and enterprise deployments. Authentication is via OAuth2 with support for server-side web application, user-based server application, and identity provider integration flows.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
-    baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
-    tags:
-      - Video
-      - Sessions
-      - Folders
-      - Recordings
-      - Users
-      - Analytics
-    properties:
-      - type: Documentation
-        url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
-      - type: OpenAPI
-        url: https://demo.hosted.panopto.com/Panopto/api/docs/index.html
-      - type: Authentication
-        url: https://github.com/Panopto/panopto-api-python-examples
-      - type: OpenAPI
-        url: openapi/panopto-rest-api.json
+- aid: panopto:panopto-accessibility-api
+  name: Panopto Accessibility API
+  description: Accessibility API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Accessibility
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-accessibility-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-auth-api
+  name: Panopto Auth API
+  description: Authentication API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-auth-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-captionproviders-api
+  name: Panopto CaptionProviders API
+  description: Caption Providers API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - CaptionProviders
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-captionproviders-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-folders-api
+  name: Panopto Folders API
+  description: Folder API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-folders-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-groups-api
+  name: Panopto Groups API
+  description: Group API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-groups-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-playlists-api
+  name: Panopto Playlists API
+  description: Playlist API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Playlists
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-playlists-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-remoterecorderapi-api
+  name: Panopto RemoteRecorderAPI API
+  description: >-
+    Remote Recorder Device API. Warning: this endpoint is for Panopto's hardware partners only and cannot
+    be used without a partner API key.
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - RemoteRecorderAPI
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-remoterecorderapi-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-remoterecorders-api
+  name: Panopto RemoteRecorders API
+  description: Remote Recorder Management API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - RemoteRecorders
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-remoterecorders-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-reports-api
+  name: Panopto Reports API
+  description: Reports API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-reports-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-scheduledrecordings-api
+  name: Panopto ScheduledRecordings API
+  description: Scheduled Recording API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - ScheduledRecordings
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-scheduledrecordings-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-searchindexsyncupdates-api
+  name: Panopto SearchIndexSyncUpdates API
+  description: Search Index Integration API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - SearchIndexSyncUpdates
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-searchindexsyncupdates-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-sessions-api
+  name: Panopto Sessions API
+  description: Session API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-streams-api
+  name: Panopto Streams API
+  description: Stream API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Streams
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-streams-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-tags-api
+  name: Panopto Tags API
+  description: Tag API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-tags-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-users-api
+  name: Panopto Users API
+  description: User API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-users-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
+- aid: panopto:panopto-xfpuserprofiles-api
+  name: Panopto XfpUserProfiles API
+  description: Portals API
+  humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
+  tags:
+  - XfpUserProfiles
+  properties:
+  - type: OpenAPI
+    url: openapi/panopto-xfpuserprofiles-api-openapi.yml
+  - type: Documentation
+    url: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
+  - type: Authentication
+    url: https://github.com/Panopto/panopto-api-python-examples
 common:
   - type: AgenticAccess
     url: agentic-access/panopto-agentic-access.yml
