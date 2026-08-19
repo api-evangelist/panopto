@@ -1,0 +1,192 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility Playlists API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Playlists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a playlist by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/playlists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a playlist by Id"
+        },
+        {
+          "info": {
+            "name": "Update a playlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/playlists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update the playlist's name, description, or folder."
+        },
+        {
+          "info": {
+            "name": "Delete a playlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/playlists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a playlist based on the retention policies"
+        },
+        {
+          "info": {
+            "name": "Get a list of sessions in the given playlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/playlists/:id/sessions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id."
+        },
+        {
+          "info": {
+            "name": "Add a session to a playlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/playlists/:id/sessions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Adds the given session to a playlist. You can optionally specify an index to insert the session at a specific position in the playlist. Otherwise, it will be added to the end of the playlist."
+        },
+        {
+          "info": {
+            "name": "Create a new playlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/playlists"
+          },
+          "docs": "Create a new playlist"
+        },
+        {
+          "info": {
+            "name": "Search for playlists based on a keyword",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/playlists/search",
+            "params": [
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** The Playlist Search API does not return all available properties for a playlist. The Urls property (except the ViewerUrl) is not returned when listing playlists in a folder. To get these properties, you can get the specific playlist by Id using the Playlists API."
+        },
+        {
+          "info": {
+            "name": "Remove a session from a playlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/playlists/:id/sessions/:sessionId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the given session from a playlist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,209 @@
+{
+  "item": [
+    {
+      "id": "17719550-6c33-4eb2-b7a3-63d38802ae4c",
+      "name": "SearchIndexSyncUpdates",
+      "description": {
+        "content": "Search Index Integration API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de352f43-2a26-41e0-8646-6d5f50b91e03",
+          "name": "Get IDs for videos and playlists updated after a specified UTC date time",
+          "request": {
+            "name": "Get IDs for videos and playlists updated after a specified UTC date time",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "searchIndexSync",
+                "updates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<dateTime>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "nextToken",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ec2c1f7-ce97-4d0d-bf78-589ad5fc89bf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "searchIndexSync",
+                    "updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "nextToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Id\": \"string\",\n  \"Name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99dcb8a0-f1a4-4d09-be0d-bc2bac2e0805",
+          "name": "Get the content for Search Index Integration for a video or playlist by ID",
+          "request": {
+            "name": "Get the content for Search Index Integration for a video or playlist by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "searchIndexSync",
+                "content"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<guid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e95dffa-116b-481a-8e83-3586dd432161",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "searchIndexSync",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<guid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Id\": \"string\",\n  \"Name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://<PanoptoServerURL>(i.e. example.hosted.panopto.com)/Panopto",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c63ea87f-563a-44b3-9f7b-1bd09f3bd113",
+    "name": "Panopto Public Accessibility SearchIndexSyncUpdates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility RemoteRecorderAPI API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RemoteRecorderAPI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register a new remote recorder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder"
+          },
+          "docs": "Retrieves the remote recorder public ID and credentials to access the RR API.\r\n                  Uses BasicAuth requiring a remote recorder registration key from an admin"
+        },
+        {
+          "info": {
+            "name": "Connect as the provided remote recorder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/connect",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recorderVersion",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recorderBuild",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Remote recorder is identified via the GUID public id\r\n                recorderVersion is a version identifier in the form of \"<vendor>.<product>.<major>.<minor>.<servicing>\"\r\n                buildVersion is the vendor specific build string"
+        },
+        {
+          "info": {
+            "name": "Disconnect as the provided remote recorder, identified via the GUID public id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/disconnect",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Disconnect as the provided remote recorder, identified via the GUID public id"
+        },
+        {
+          "info": {
+            "name": "Heartbeat and preview as the provided remote recorder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/heartbeat",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Remote recorder is identified via the GUID public id\r\n                Include options: defaults (provides default quality settings and folder), extendedConfigurations (provides extended configurations)"
+        },
+        {
+          "info": {
+            "name": "Retrieve a schedule for the next 7 days for the provided remote recorder.As a best practice a new scheduled should be fetched every day even if the schedule version in the heartbeat hasn't changed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/schedule",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a schedule for the next 7 days for the provided remote recorder.As a best practice a new scheduled should be fetched every day even if the schedule version in the heartbeat hasn't changed"
+        },
+        {
+          "info": {
+            "name": "Update or add a set of scheduled recordings for the provided remote recorder. To add a scheduled recording, the recording should have all relevant fields filled in but an empty (all zeros) guid",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/schedule",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update or add a set of scheduled recordings for the provided remote recorder. To add a scheduled recording, the recording should have all relevant fields filled in but an empty (all zeros) guid"
+        },
+        {
+          "info": {
+            "name": "Register an error with the provided remote recorder on the server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/error",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Register an error with the provided remote recorder on the server"
+        },
+        {
+          "info": {
+            "name": "Retrieve a legacy ASPXAUTH cookie",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/legacyLogin",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a legacy ASPXAUTH cookie"
+        },
+        {
+          "info": {
+            "name": "Pause the recording of the specified session on the server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/session/:sessionId/pause",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pause the recording of the specified session on the server"
+        },
+        {
+          "info": {
+            "name": "Resume the recording of the specified session on the server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/session/:sessionId/resume",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume the recording of the specified session on the server"
+        },
+        {
+          "info": {
+            "name": "Provides a list of URLs and URL types to present to administrators to help them manage this remote recorder.Calling this replaces all previously reported URLs. URLs are preserved until replaced, so this only needs to be called when they have changed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/urls",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Provides a list of URLs and URL types to present to administrators to help them manage this remote recorder.Calling this replaces all previously reported URLs. URLs are preserved until replaced, so this only needs to be called when they have changed"
+        },
+        {
+          "info": {
+            "name": "Establishes a new connection which enables the WebRTC-based media preview feature.  After this, the client should commence WebRTC session negotiation by sending us an SDP offer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/liveMonitoring/webRtc/connect",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Establishes a new connection which enables the WebRTC-based media preview feature.  After this, the client should commence WebRTC session negotiation by sending us an SDP offer."
+        },
+        {
+          "info": {
+            "name": "Destroys the connection which enables the WebRTC-based media preview feature.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/liveMonitoring/webRtc/disconnect",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Destroys the connection which enables the WebRTC-based media preview feature."
+        },
+        {
+          "info": {
+            "name": "After the client has sent us an SDP offer, they should poll this  endpoint periodically to receive messages.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/liveMonitoring/webRtc/events",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "After sending the SDP offer, the client should check here for events periodically.  This is not a long-polling call,\r\nso it will return quickly.\r\n\r\nPrior to receiving the SDP answer, the client should wait `PingFastInterval` seconds between requests.  Five seconds\r\nafter receiving the SDP answer, the client should wait `PingSlowInterval` seconds between requests.\r\n\r\n# Event Types\r\nThere are several types of events, each of which has a distinct payload.\r\n\r\n## IceCandidate\r\nThis event describes a "
+        },
+        {
+          "info": {
+            "name": "Sends a batch of ICE candidates from client to signaling server.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/liveMonitoring/webRtc/iceCandidates",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Sends a batch of ICE candidates from client (the RTP sender) to signaling server.  ICE Candidates are used for the\r\ntransmission of RTP and RTCP payloads.\r\n\r\nThis is a JSON array of ICE candidates, where each ICE candidate is an object containing 2 fields.\r\n\r\n1.  `Index`: This is a non-negative integer.  This is a zero-based index, corresponding to a specific section within an\r\n    SDP offer, where each section begins with an `m=`  line.\r\n2.  `Candidate`:  A single line of text representing the "
+        },
+        {
+          "info": {
+            "name": "The client begins WebRTC session negotiation by submitting an SDP offer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/remoteRecorderAPI/remoteRecorder/:remoteRecorderPublicId/liveMonitoring/webRtc/sdpOffer",
+            "params": [
+              {
+                "name": "remoteRecorderPublicId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This is the next step after starting a new WebRTC connection.  The client submits an SDP offer to describe the session\r\nit hopes to create.  After this is sent, the client should begin 2 other activities:\r\n1.  The client should send ICE candidates as soon as they are known (using another REST endpoint).\r\n2.  The client should begin polling for events (using another REST endpoint).\r\n\r\n## SessionDescription\r\nThe SDP offer is sent as the  `SessionDescription` string which is a multi-line string, as"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

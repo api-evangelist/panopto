@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility ScheduledRecordings API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ScheduledRecordings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the scheduled recording information for a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/scheduledRecordings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the scheduled recording information for a session"
+        },
+        {
+          "info": {
+            "name": "Update the start or end time of a scheduled recording.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/scheduledRecordings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "resolveConflicts",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Update the start or end time of a scheduled recording."
+        },
+        {
+          "info": {
+            "name": "Cancel a scheduled recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/scheduledRecordings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel a scheduled recording"
+        },
+        {
+          "info": {
+            "name": "Create a new scheduled recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/scheduledRecordings",
+            "params": [
+              {
+                "name": "resolveConflicts",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Create a new scheduled recording"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

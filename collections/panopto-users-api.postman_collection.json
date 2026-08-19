@@ -1,0 +1,943 @@
+{
+  "item": [
+    {
+      "id": "4d209406-4f35-45c5-9a8e-cd8d49ef9603",
+      "name": "Users",
+      "description": {
+        "content": "User API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e91572a-9425-4435-a2f2-2c11cd276e48",
+          "name": "Get a list of partially viewed sessions for the current user",
+          "request": {
+            "name": "Get a list of partially viewed sessions for the current user",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me",
+                "sessions",
+                "viewed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "Asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "0",
+                  "description": "Page numbering starts at 0"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeCompleted",
+                  "value": "false"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2b2ed64-4de9-4ee6-bf9d-f6a57da459c2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Results\": [\n    {\n      \"Folder\": \"string\",\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"StartTime\": \"1950-07-22T15:37:08.147Z\",\n      \"Duration\": 6093.691006400306,\n      \"MostRecentViewPosition\": 874.5097499668974,\n      \"CreatedBy\": {\n        \"Id\": \"string\",\n        \"Username\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ShareSettingsUrl\": \"string\",\n        \"DownloadUrl\": \"string\",\n        \"AudioDescriptionDownloadUrl\": \"string\",\n        \"CaptionDownloadUrl\": \"string\",\n        \"EditorUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      },\n      \"FolderDetails\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Context\": [\n        {\n          \"Text\": \"string\",\n          \"Time\": 1687.5436711256887,\n          \"ThumbnailUrl\": \"string\"\n        },\n        {\n          \"Text\": \"string\",\n          \"Time\": 3905.3918658021803,\n          \"ThumbnailUrl\": \"string\"\n        }\n      ],\n      \"PercentCompleted\": 4855\n    },\n    {\n      \"Folder\": \"string\",\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"StartTime\": \"1979-05-10T12:45:04.861Z\",\n      \"Duration\": 6895.22245598059,\n      \"MostRecentViewPosition\": 5008.234985474015,\n      \"CreatedBy\": {\n        \"Id\": \"string\",\n        \"Username\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ShareSettingsUrl\": \"string\",\n        \"DownloadUrl\": \"string\",\n        \"AudioDescriptionDownloadUrl\": \"string\",\n        \"CaptionDownloadUrl\": \"string\",\n        \"EditorUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      },\n      \"FolderDetails\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Context\": [\n        {\n          \"Text\": \"string\",\n          \"Time\": 3797.5456726162506,\n          \"ThumbnailUrl\": \"string\"\n        },\n        {\n          \"Text\": \"string\",\n          \"Time\": 9568.263370945278,\n          \"ThumbnailUrl\": \"string\"\n        }\n      ],\n      \"PercentCompleted\": 9280\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af8ded8f-3a95-44d0-9b2d-3b8388a6b6fc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11289969-dedc-43ad-a39d-75db8cad0b32",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "385e7007-0350-4727-8839-f3ff7764d3eb",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "73d8abad-b8a3-4d6c-9193-06ec3444ef5f",
+              "name": "The requested user was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "me",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48891c73-2b95-4a98-8311-ea7cea0d57e1",
+          "name": "Get a list of partially viewed sessions for the specified user",
+          "request": {
+            "name": "Get a list of partially viewed sessions for the specified user",
+            "description": {
+              "content": "This endpoint can only be called by an admin",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users",
+                ":id",
+                "sessions",
+                "viewed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "Asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "0",
+                  "description": "Page numbering starts at 0"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeCompleted",
+                  "value": "false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ff1a061-6703-4add-802e-539dd7989695",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Results\": [\n    {\n      \"Folder\": \"string\",\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"StartTime\": \"1954-07-10T01:20:38.817Z\",\n      \"Duration\": 4640.178975934897,\n      \"MostRecentViewPosition\": 7639.700277436556,\n      \"CreatedBy\": {\n        \"Id\": \"string\",\n        \"Username\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ShareSettingsUrl\": \"string\",\n        \"DownloadUrl\": \"string\",\n        \"AudioDescriptionDownloadUrl\": \"string\",\n        \"CaptionDownloadUrl\": \"string\",\n        \"EditorUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      },\n      \"FolderDetails\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Context\": [\n        {\n          \"Text\": \"string\",\n          \"Time\": 8369.311735030557,\n          \"ThumbnailUrl\": \"string\"\n        },\n        {\n          \"Text\": \"string\",\n          \"Time\": 6676.775341375053,\n          \"ThumbnailUrl\": \"string\"\n        }\n      ],\n      \"PercentCompleted\": 9054\n    },\n    {\n      \"Folder\": \"string\",\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"StartTime\": \"1953-09-24T11:52:36.265Z\",\n      \"Duration\": 1975.5421272285932,\n      \"MostRecentViewPosition\": 5724.391154250129,\n      \"CreatedBy\": {\n        \"Id\": \"string\",\n        \"Username\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ShareSettingsUrl\": \"string\",\n        \"DownloadUrl\": \"string\",\n        \"AudioDescriptionDownloadUrl\": \"string\",\n        \"CaptionDownloadUrl\": \"string\",\n        \"EditorUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      },\n      \"FolderDetails\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Context\": [\n        {\n          \"Text\": \"string\",\n          \"Time\": 7211.431947492195,\n          \"ThumbnailUrl\": \"string\"\n        },\n        {\n          \"Text\": \"string\",\n          \"Time\": 4951.493119857136,\n          \"ThumbnailUrl\": \"string\"\n        }\n      ],\n      \"PercentCompleted\": 3313\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afba974a-f773-4268-82b0-62944953a4d0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e92417a1-bf6a-4783-8a23-b13322a5a99e",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb315261-41e3-445f-ab26-517a84dacb78",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b1fef89a-b933-4d55-8a50-1439f5fb340d",
+              "name": "The requested user was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id",
+                    "sessions",
+                    "viewed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCompleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e60a162d-0d77-4136-9347-39fe518a6023",
+          "name": "Search for users based on a keyword",
+          "request": {
+            "name": "Search for users based on a keyword",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "searchQuery",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f8d6bfe-2898-47c0-9e4f-6f43c1ea31da",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Results\": [\n    {\n      \"Id\": \"string\",\n      \"Username\": \"string\"\n    },\n    {\n      \"Id\": \"string\",\n      \"Username\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ff4090c-b696-43db-92f5-da9797d2322e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6334753d-a285-466a-948d-e99e17a65d3c",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ce1df20-74d1-4e09-bb7a-d79932fb53f8",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://<PanoptoServerURL>(i.e. example.hosted.panopto.com)/Panopto",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0a869ecc-d0e1-46af-8c4d-75ec8d32c990",
+    "name": "Panopto Public Accessibility Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration",
+      "type": "text/plain"
+    }
+  }
+}

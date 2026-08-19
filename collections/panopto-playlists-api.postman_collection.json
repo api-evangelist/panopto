@@ -1,0 +1,2165 @@
+{
+  "item": [
+    {
+      "id": "d6631fad-1235-4c10-974b-76b51bf7f650",
+      "name": "Playlists",
+      "description": {
+        "content": "Playlist API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "34097fc8-c35f-47eb-8dda-e6bf212407aa",
+          "name": "Get a playlist by Id",
+          "request": {
+            "name": "Get a playlist by Id",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ec5e26a-add8-49b6-aeb1-8e1c0028c76a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Description\": \"string\",\n  \"Folder\": {\n    \"Id\": \"string\",\n    \"Name\": \"string\"\n  },\n  \"Urls\": {\n    \"ViewerUrl\": \"string\",\n    \"EmbedUrl\": \"string\",\n    \"ThumbnailUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e408810-05e1-4d0e-806e-fa8ae6dd5906",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b77d134c-e920-4079-85ca-12526569b788",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "859d1ee1-7e6c-43f9-98f7-7e4d3f209a9f",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94ba2ac9-4987-4b4f-b71b-a487de268efa",
+              "name": "The requested playlist was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7989159c-dded-43eb-86a6-262e67a34e30",
+          "name": "Update a playlist",
+          "request": {
+            "name": "Update a playlist",
+            "description": {
+              "content": "Update the playlist's name, description, or folder.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Folder\": \"<guid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e0c0b018-b993-43e7-a471-e161e8f34256",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Folder\": \"<guid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Description\": \"string\",\n  \"Folder\": {\n    \"Id\": \"string\",\n    \"Name\": \"string\"\n  },\n  \"Urls\": {\n    \"ViewerUrl\": \"string\",\n    \"EmbedUrl\": \"string\",\n    \"ThumbnailUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "580c7602-3476-4b69-8f33-7aa5a41adc5c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Folder\": \"<guid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45a3b90e-3693-46e4-8b20-59dfcf484872",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Folder\": \"<guid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27ba3e16-38da-433f-880a-8f9f2a4c9aa7",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Folder\": \"<guid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b20d6825-48aa-480d-ac52-b23baa650878",
+              "name": "The requested playlist was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Folder\": \"<guid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6277c31-830e-4b40-a056-a34d855bf96c",
+          "name": "Delete a playlist",
+          "request": {
+            "name": "Delete a playlist",
+            "description": {
+              "content": "Deletes a playlist based on the retention policies",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04089ba0-4983-402b-9336-bc517b58f24f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "844a1bae-8e64-40cb-ad9f-dffdea10b7c6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d213aea4-12b4-423d-9b40-fcea0bd9f6e1",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c6569f9-d91a-42f8-a703-d7a5772d1234",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e5b6e53f-e9d0-44b5-9611-43117aa644fa",
+              "name": "The requested playlist was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7e62cd6-9ea2-496e-852d-a5e2d726b5fe",
+          "name": "Get a list of sessions in the given playlist",
+          "request": {
+            "name": "Get a list of sessions in the given playlist",
+            "description": {
+              "content": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                ":id",
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "Order"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "Asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "0",
+                  "description": "Page numbering starts at 0"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0310d76e-5412-483b-a6df-f24515fe1f78",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Order"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Results\": [\n    {\n      \"Folder\": \"string\",\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"StartTime\": \"2009-01-09T23:21:19.328Z\",\n      \"Duration\": 8720.117356511477,\n      \"MostRecentViewPosition\": 1578.1791866816075,\n      \"CreatedBy\": {\n        \"Id\": \"string\",\n        \"Username\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ShareSettingsUrl\": \"string\",\n        \"DownloadUrl\": \"string\",\n        \"AudioDescriptionDownloadUrl\": \"string\",\n        \"CaptionDownloadUrl\": \"string\",\n        \"EditorUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      },\n      \"FolderDetails\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Context\": [\n        {\n          \"Text\": \"string\",\n          \"Time\": 6359.776159641008,\n          \"ThumbnailUrl\": \"string\"\n        },\n        {\n          \"Text\": \"string\",\n          \"Time\": 9778.240890214709,\n          \"ThumbnailUrl\": \"string\"\n        }\n      ],\n      \"PercentCompleted\": 3831\n    },\n    {\n      \"Folder\": \"string\",\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"StartTime\": \"1991-12-26T14:28:11.828Z\",\n      \"Duration\": 37.02775093036625,\n      \"MostRecentViewPosition\": 825.1681299435077,\n      \"CreatedBy\": {\n        \"Id\": \"string\",\n        \"Username\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ShareSettingsUrl\": \"string\",\n        \"DownloadUrl\": \"string\",\n        \"AudioDescriptionDownloadUrl\": \"string\",\n        \"CaptionDownloadUrl\": \"string\",\n        \"EditorUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      },\n      \"FolderDetails\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Context\": [\n        {\n          \"Text\": \"string\",\n          \"Time\": 7928.961563500062,\n          \"ThumbnailUrl\": \"string\"\n        },\n        {\n          \"Text\": \"string\",\n          \"Time\": 2792.071782480079,\n          \"ThumbnailUrl\": \"string\"\n        }\n      ],\n      \"PercentCompleted\": 5686\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "430fb0fd-85e8-487f-87c7-f9d44691f415",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Order"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e95d2774-0e2e-42aa-8232-015df9575ace",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Order"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd6fd494-d4e8-4e41-9d23-97e5ade9c1e4",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortField",
+                      "value": "Order"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52887255-6762-4d84-ba30-619bd4006241",
+          "name": "Add a session to a playlist",
+          "request": {
+            "name": "Add a session to a playlist",
+            "description": {
+              "content": "Adds the given session to a playlist. You can optionally specify an index to insert the session at a specific position in the playlist. Otherwise, it will be added to the end of the playlist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                ":id",
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SessionId\": \"<guid>\",\n  \"Index\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4652fc5-f9d7-4642-8bc9-eef962eb54ae",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SessionId\": \"<guid>\",\n  \"Index\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Results\": [\n    {\n      \"Folder\": \"string\",\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"StartTime\": \"2023-02-16T17:13:12.191Z\",\n      \"Duration\": 343.8203005850404,\n      \"MostRecentViewPosition\": 1226.2822996567613,\n      \"CreatedBy\": {\n        \"Id\": \"string\",\n        \"Username\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ShareSettingsUrl\": \"string\",\n        \"DownloadUrl\": \"string\",\n        \"AudioDescriptionDownloadUrl\": \"string\",\n        \"CaptionDownloadUrl\": \"string\",\n        \"EditorUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      },\n      \"FolderDetails\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Context\": [\n        {\n          \"Text\": \"string\",\n          \"Time\": 6751.471463299632,\n          \"ThumbnailUrl\": \"string\"\n        },\n        {\n          \"Text\": \"string\",\n          \"Time\": 4568.6156505808995,\n          \"ThumbnailUrl\": \"string\"\n        }\n      ],\n      \"PercentCompleted\": 4112\n    },\n    {\n      \"Folder\": \"string\",\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"StartTime\": \"2012-08-14T15:45:51.826Z\",\n      \"Duration\": 1136.7744071279162,\n      \"MostRecentViewPosition\": 7428.974388832412,\n      \"CreatedBy\": {\n        \"Id\": \"string\",\n        \"Username\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ShareSettingsUrl\": \"string\",\n        \"DownloadUrl\": \"string\",\n        \"AudioDescriptionDownloadUrl\": \"string\",\n        \"CaptionDownloadUrl\": \"string\",\n        \"EditorUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      },\n      \"FolderDetails\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Context\": [\n        {\n          \"Text\": \"string\",\n          \"Time\": 6082.428652594061,\n          \"ThumbnailUrl\": \"string\"\n        },\n        {\n          \"Text\": \"string\",\n          \"Time\": 5006.959269606464,\n          \"ThumbnailUrl\": \"string\"\n        }\n      ],\n      \"PercentCompleted\": 5955\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea14e1e9-14aa-4923-a682-3c5a24ed2bbc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SessionId\": \"<guid>\",\n  \"Index\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a96bd75a-5267-4f7a-8849-f25b1df40846",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SessionId\": \"<guid>\",\n  \"Index\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fbcb6635-3ff5-468c-b5b0-f09a4cbfe980",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SessionId\": \"<guid>\",\n  \"Index\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c656ef8-76ac-423e-9ebd-a3e9ee251581",
+          "name": "Create a new playlist",
+          "request": {
+            "name": "Create a new playlist",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "playlists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FolderId\": \"<guid>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Sessions\": [\n    \"<guid>\",\n    \"<guid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "67ee7cd7-1017-499a-a82d-27be120dd83e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FolderId\": \"<guid>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Sessions\": [\n    \"<guid>\",\n    \"<guid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Description\": \"string\",\n  \"Folder\": {\n    \"Id\": \"string\",\n    \"Name\": \"string\"\n  },\n  \"Urls\": {\n    \"ViewerUrl\": \"string\",\n    \"EmbedUrl\": \"string\",\n    \"ThumbnailUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9932acb1-9323-491b-acdd-0025b0c41333",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FolderId\": \"<guid>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Sessions\": [\n    \"<guid>\",\n    \"<guid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7750719a-844e-411b-a072-fa638911c580",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FolderId\": \"<guid>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Sessions\": [\n    \"<guid>\",\n    \"<guid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3cc44663-a1d0-4203-917d-98184e64327c",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FolderId\": \"<guid>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Sessions\": [\n    \"<guid>\",\n    \"<guid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c751ab7-4d78-4429-994f-0a2f4b2555a4",
+          "name": "Search for playlists based on a keyword",
+          "request": {
+            "name": "Search for playlists based on a keyword",
+            "description": {
+              "content": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** The Playlist Search API does not return all available properties for a playlist. The Urls property (except the ViewerUrl) is not returned when listing playlists in a folder. To get these properties, you can get the specific playlist by Id using the Playlists API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "searchQuery",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "Asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "0",
+                  "description": "Page numbering starts at 0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54edf7e7-bc0d-485c-8755-0aa5e2e967ff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Results\": [\n    {\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"Folder\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      }\n    },\n    {\n      \"Id\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"Folder\": {\n        \"Id\": \"string\",\n        \"Name\": \"string\"\n      },\n      \"Urls\": {\n        \"ViewerUrl\": \"string\",\n        \"EmbedUrl\": \"string\",\n        \"ThumbnailUrl\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0570d03e-bb59-449c-845e-c508f3dc76bd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf8ee1b8-80d7-4027-a81f-06dc2186005c",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "24b611df-eda1-42dc-bc6c-8d2850275b6f",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "Name"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "Asc"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6588532d-67d1-4b36-8d63-8d7eab8b9131",
+          "name": "Remove a session from a playlist",
+          "request": {
+            "name": "Remove a session from a playlist",
+            "description": {
+              "content": "Removes the given session from a playlist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                ":id",
+                "sessions",
+                ":sessionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "sessionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5685515b-0fcc-4b07-87a2-89fa5b1882c6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "sessionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Folder\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Description\": \"string\",\n  \"StartTime\": \"2023-09-21T09:33:15.826Z\",\n  \"Duration\": 2635.9818883923326,\n  \"MostRecentViewPosition\": 2220.5035189150635,\n  \"CreatedBy\": {\n    \"Id\": \"string\",\n    \"Username\": \"string\"\n  },\n  \"Urls\": {\n    \"ViewerUrl\": \"string\",\n    \"EmbedUrl\": \"string\",\n    \"ShareSettingsUrl\": \"string\",\n    \"DownloadUrl\": \"string\",\n    \"AudioDescriptionDownloadUrl\": \"string\",\n    \"CaptionDownloadUrl\": \"string\",\n    \"EditorUrl\": \"string\",\n    \"ThumbnailUrl\": \"string\"\n  },\n  \"FolderDetails\": {\n    \"Id\": \"string\",\n    \"Name\": \"string\"\n  },\n  \"Context\": [\n    {\n      \"Text\": \"string\",\n      \"Time\": 5817.929477531458,\n      \"ThumbnailUrl\": \"string\"\n    },\n    {\n      \"Text\": \"string\",\n      \"Time\": 4947.36656749025,\n      \"ThumbnailUrl\": \"string\"\n    }\n  ],\n  \"PercentCompleted\": 2115\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd139e60-ad5b-4f1d-bc6e-f69ca4d2000c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "sessionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60bcf70d-7afb-4d03-8e2b-ea82bacce1ab",
+              "name": "The user is not authorized to perform the requested action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "sessionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d7685d86-c621-46dc-9805-28c634cdfb33",
+              "name": "User does not have permission to access this function",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "playlists",
+                    ":id",
+                    "sessions",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "sessionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://<PanoptoServerURL>(i.e. example.hosted.panopto.com)/Panopto",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5e726e11-29d0-4af3-91a2-73a96ab6eb5e",
+    "name": "Panopto Public Accessibility Playlists API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration",
+      "type": "text/plain"
+    }
+  }
+}

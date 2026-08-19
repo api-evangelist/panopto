@@ -1,0 +1,475 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility Sessions API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a session by Id"
+        },
+        {
+          "info": {
+            "name": "Update a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/sessions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update the session's name, description, or parent folder."
+        },
+        {
+          "info": {
+            "name": "Delete a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/sessions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a session based on the retention policies"
+        },
+        {
+          "info": {
+            "name": "Search for sessions based on a keyword",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/search",
+            "params": [
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeFields",
+                "value": "",
+                "type": "query",
+                "description": "Comma delimited list of optional fields to include in search results.  Currently this is limited to 'Context'"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** The Session Search API does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id."
+        },
+        {
+          "info": {
+            "name": "Get a list of webcasts (live sessions) that are currently in progress.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/inProgress/webcast",
+            "params": [
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id."
+        },
+        {
+          "info": {
+            "name": "Get a list of recordings that are currently in progress.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/inProgress/recording",
+            "params": [
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl and ThumbnailUrl) are not returned when searching for a session. To get these properties, you can get the specific session by Id."
+        },
+        {
+          "info": {
+            "name": "Get a list of users who have viewed this session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/viewers",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "Gets a list of all users who have viewed this session, and how much of the session they have viewed"
+        },
+        {
+          "info": {
+            "name": "Get a list of tags associated with the given session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/tags",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of tags associated with the given session"
+        },
+        {
+          "info": {
+            "name": "Update the tags associated with the given session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/tags",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Replaces the tags currently associated with the session with the provided tags."
+        },
+        {
+          "info": {
+            "name": "Upload a caption file (in SRT or VTT format) to this session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/captions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Content should be sent as 'multipart/form-data', with the caption file attached as part of the multi-part data. This endpoint is used to upload captions for an entire session, based off of the edited times. Please verify that the timestamps in your caption file are correlated to the session times, and not an individual stream."
+        },
+        {
+          "info": {
+            "name": "Deletes all captions for this session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/captions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This operation is not reversible. Please be very careful before deleting captions. They cannot be recovered once deleted."
+        },
+        {
+          "info": {
+            "name": "Deletes all captions for this session in the specified language.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/captions/languages/:language",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This operation is not reversible. Please be very careful before deleting captions. They cannot be recovered once deleted. To delete \"Default\" captions, set \"null\" for the language parameter in the URL."
+        },
+        {
+          "info": {
+            "name": "Get the access settings for the given session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/settings/access",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the access settings for the given session"
+        },
+        {
+          "info": {
+            "name": "Update the access settings for the given session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/settings/access",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "IsInherited is readonly and indicates whether or not access is being inherited from a parent folder. If AccessLevel is set to a more restrictive value than that inherited, the inherited value will take precedence."
+        },
+        {
+          "info": {
+            "name": "Get the user and group permissions for the given session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/permissions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned."
+        },
+        {
+          "info": {
+            "name": "Create a session permission by assigning a role to a user or group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/permissions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a session permission by assigning a role to a user or group"
+        },
+        {
+          "info": {
+            "name": "Remove permission from the session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/permissions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "RoleId",
+                "value": "",
+                "type": "query",
+                "description": "Id of the role to remove from the user or group. Required when RoleType is null or None."
+              },
+              {
+                "name": "RoleType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the role to remove from the user or group. Required when RoleId is null."
+              },
+              {
+                "name": "PrincipalId",
+                "value": "",
+                "type": "query",
+                "description": "Id of the user or group from which the role is being removed."
+              },
+              {
+                "name": "PrincipalType",
+                "value": "",
+                "type": "query",
+                "description": "Type of principal, either a user or group."
+              }
+            ]
+          },
+          "docs": "This operation is only valid for non-inherited permissions. If role type and role id are omitted, all non-inherited permissions for the principal will be removed."
+        },
+        {
+          "info": {
+            "name": "Download a SCORM manifest by session ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/manage/scorm",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This endpoint fetches the SCORM manifest for the specified session ID and returns it as a ZIP file attachment."
+        },
+        {
+          "info": {
+            "name": "Perform a session copy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/sessions/:id/sessioncopy",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Perform a session copy"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

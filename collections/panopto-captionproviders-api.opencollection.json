@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility CaptionProviders API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CaptionProviders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get caption providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/captionproviders",
+            "params": [
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

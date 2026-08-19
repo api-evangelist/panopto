@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility SearchIndexSyncUpdates API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SearchIndexSyncUpdates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get IDs for videos and playlists updated after a specified UTC date time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/searchIndexSync/updates",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get IDs for videos and playlists updated after a specified UTC date time"
+        },
+        {
+          "info": {
+            "name": "Get the content for Search Index Integration for a video or playlist by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/searchIndexSync/content",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the content for Search Index Integration for a video or playlist by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

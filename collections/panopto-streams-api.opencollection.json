@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility Streams API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Streams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a caption file (in SRT or VTT format) to this stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/streams/:id/captions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Content should be sent as 'multipart/form-data', with the caption file attached as part of the multi-part data. This endpoint is used to upload captions for a single stream, and timestamps should be based on the un-edited stream. Please verify that the timestamps in your caption file are correlated to the unedited time for this stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

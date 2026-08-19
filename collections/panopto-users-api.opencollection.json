@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility Users API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of partially viewed sessions for the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/me/sessions/viewed",
+            "params": [
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              },
+              {
+                "name": "includeCompleted",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of partially viewed sessions for the current user"
+        },
+        {
+          "info": {
+            "name": "Get a list of partially viewed sessions for the specified user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/:id/sessions/viewed",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              },
+              {
+                "name": "includeCompleted",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This endpoint can only be called by an admin"
+        },
+        {
+          "info": {
+            "name": "Search for users based on a keyword",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/search",
+            "params": [
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for users based on a keyword"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

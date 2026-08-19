@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility XfpUserProfiles API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "XfpUserProfiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get XFP user profiles according to the filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/portal/:portalId/user",
+            "params": [
+              {
+                "name": "portalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "XfpRole",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "EmailAddress",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SecondarySort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortDescending",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SecondarySortDescending",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ComputeTotalCount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ComputeHasMorePages",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get XFP user profiles according to the filter"
+        },
+        {
+          "info": {
+            "name": "Create XFP user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/portal/:portalId/user",
+            "params": [
+              {
+                "name": "portalId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create XFP user profile"
+        },
+        {
+          "info": {
+            "name": "Update an XFP user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/portal/:portalId/user/:userId",
+            "params": [
+              {
+                "name": "portalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update an XFP user profile"
+        },
+        {
+          "info": {
+            "name": "Delete an XFP user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/portal/:portalId/user/:userId",
+            "params": [
+              {
+                "name": "portalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an XFP user profile"
+        },
+        {
+          "info": {
+            "name": "Bulk Create XFP users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/portal/:portalId/user/bulk-create",
+            "params": [
+              {
+                "name": "portalId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Bulk Create XFP users"
+        },
+        {
+          "info": {
+            "name": "Bulk Delete XFP users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/portal/:portalId/user/bulk-delete",
+            "params": [
+              {
+                "name": "portalId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Bulk Delete XFP users"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

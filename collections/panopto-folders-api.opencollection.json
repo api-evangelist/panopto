@@ -1,0 +1,457 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility Folders API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a folder by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a folder by Id"
+        },
+        {
+          "info": {
+            "name": "Update a folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/folders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update the folders's name, description, or parent folder."
+        },
+        {
+          "info": {
+            "name": "Delete a folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/folders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a folder and all of its contents (including sessions and subfolders) according to the retention policy."
+        },
+        {
+          "info": {
+            "name": "Get a list of child folders from the given parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/:id/children",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "To get a list of all top level folders, use an empty GUID (00000000-0000-0000-0000-000000000000)"
+              },
+              {
+                "name": "canCreate",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to only return folders where the user has permission to create sessions."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query",
+                "description": "'Relevance' is not valid for this function."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned."
+        },
+        {
+          "info": {
+            "name": "Get a list of sessions in the given folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/:id/sessions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl) are not returned when listing sessions in a folder. To get these properties, you can get the specific session by Id using the Sessions API."
+        },
+        {
+          "info": {
+            "name": "Search for sessions within this folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/:id/sessions/search",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl) are not returned when listing sessions in a folder. To get these properties, you can get the specific session by Id using the Sessions API."
+        },
+        {
+          "info": {
+            "name": "Get a list of playlists in the given folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/:id/playlists",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.\n\n**Note:** This endpoint does not return all available properties for a playlist. The Urls property (except the ViewerUrl) is not returned when listing playlists in a folder. To get these properties, you can get the specific playlist by Id using the Playlists API."
+        },
+        {
+          "info": {
+            "name": "Get the access settings for the given folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/:id/settings/access",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the access settings for the given folder"
+        },
+        {
+          "info": {
+            "name": "Update the access settings for the given folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/folders/:id/settings/access",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "If setting IsInherited to true, the access Level is ignored. Inheritance can not be set on a top-level folder."
+        },
+        {
+          "info": {
+            "name": "Get the folder settings for the given folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/:id/settings",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the folder settings for the given folder"
+        },
+        {
+          "info": {
+            "name": "Update folder settings for a specified folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/folders/:id/settings",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint currently only supports updating the caption provider instance"
+        },
+        {
+          "info": {
+            "name": "Get the user and group permissions for the given folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/:id/permissions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned."
+        },
+        {
+          "info": {
+            "name": "Create a folder permission by assigning a role to a user or group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/folders/:id/permissions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This operation is only supported when access is not inherited."
+        },
+        {
+          "info": {
+            "name": "Remove permission from the folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/folders/:id/permissions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "RoleId",
+                "value": "",
+                "type": "query",
+                "description": "Id of the role to remove from the user or group. Required when RoleType is null or None."
+              },
+              {
+                "name": "RoleType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the role to remove from the user or group. Required when RoleId is null."
+              },
+              {
+                "name": "PrincipalId",
+                "value": "",
+                "type": "query",
+                "description": "Id of the user or group from which the role is being removed."
+              },
+              {
+                "name": "PrincipalType",
+                "value": "",
+                "type": "query",
+                "description": "Type of principal, either a user or group."
+              }
+            ]
+          },
+          "docs": "This operation is only valid for non-inherited permissions. If role type and role id are omitted, all non-inherited permissions for the principal will be removed."
+        },
+        {
+          "info": {
+            "name": "Create a new folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/folders"
+          },
+          "docs": "Create a new folder"
+        },
+        {
+          "info": {
+            "name": "Search for folders based on a keyword",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/search",
+            "params": [
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "canCreate",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to only return folders where the user has permission to create sessions."
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned."
+        },
+        {
+          "info": {
+            "name": "Lists all the folders the user is a creator in",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/folders/creator",
+            "params": [
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

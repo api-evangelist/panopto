@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accessibility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Preview bulk accessibility request eligibility",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/accessibility/bulk/preview"
+          },
+          "docs": "Returns providers, per-session eligibility, and pricing metadata for AudioDescription, Transcription, or Translation. Admin-only."
+        },
+        {
+          "info": {
+            "name": "Schedule bulk accessibility requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/accessibility/bulk/schedule"
+          },
+          "docs": "Creates transcription, translation, or audio description requests for the specified sessions. Admin-only."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

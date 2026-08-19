@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Panopto Public Accessibility RemoteRecorders API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RemoteRecorders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for remote recorders based on a keyword",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/remoteRecorders/search",
+            "params": [
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page numbering starts at 0"
+              }
+            ]
+          },
+          "docs": "To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

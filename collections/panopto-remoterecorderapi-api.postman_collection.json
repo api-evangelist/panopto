@@ -1,0 +1,2592 @@
+{
+  "item": [
+    {
+      "id": "1598034f-48db-4a83-b97e-7adbb5b08c86",
+      "name": "RemoteRecorderAPI",
+      "description": {
+        "content": "Remote Recorder Device API. Warning: this endpoint is for Panopto's hardware partners only and cannot be used without a partner API key.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c7a857dc-0b8f-4b6b-a17b-ef96af07b3b0",
+          "name": "Register a new remote recorder",
+          "request": {
+            "name": "Register a new remote recorder",
+            "description": {
+              "content": "Retrieves the remote recorder public ID and credentials to access the RR API.\r\n                  Uses BasicAuth requiring a remote recorder registration key from an admin",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MachineUniqueIdentifier\": \"<string>\",\n  \"RecorderVersion\": \"<string>\",\n  \"RecorderBuild\": \"<string>\",\n  \"Capabilities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15dffb59-cfaa-43d9-84b7-3c66094174f5",
+              "name": "The provided client credentials should be used with an oauth2 client flow for the rest of the API, using the 'api' and 'remoteRecorderApi' scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MachineUniqueIdentifier\": \"<string>\",\n  \"RecorderVersion\": \"<string>\",\n  \"RecorderBuild\": \"<string>\",\n  \"Capabilities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"RemoteRecorderPublicId\": \"string\",\n  \"ClientKey\": \"string\",\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  },\n  \"ClientSecret\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ae8a43f-2445-400c-a0c6-2568c51b239e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MachineUniqueIdentifier\": \"<string>\",\n  \"RecorderVersion\": \"<string>\",\n  \"RecorderBuild\": \"<string>\",\n  \"Capabilities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb76d8ed-bce8-4135-b598-acea117417f0",
+          "name": "Connect as the provided remote recorder",
+          "request": {
+            "name": "Connect as the provided remote recorder",
+            "description": {
+              "content": "Remote recorder is identified via the GUID public id\r\n                recorderVersion is a version identifier in the form of \"<vendor>.<product>.<major>.<minor>.<servicing>\"\r\n                buildVersion is the vendor specific build string",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "connect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recorderVersion",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "recorderBuild",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a672e32f-7e70-450f-bee5-3cff5375739a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recorderVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recorderBuild",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d08fb071-69b8-432f-b5de-14186dbe4bf8",
+          "name": "Disconnect as the provided remote recorder, identified via the GUID public id",
+          "request": {
+            "name": "Disconnect as the provided remote recorder, identified via the GUID public id",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "disconnect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "924f5bcb-e144-434c-831d-1a04cf2f5e7e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "disconnect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62ec3fdc-aac7-4717-be4d-6fa3ccfe94f6",
+          "name": "Heartbeat and preview as the provided remote recorder",
+          "request": {
+            "name": "Heartbeat and preview as the provided remote recorder",
+            "description": {
+              "content": "Remote recorder is identified via the GUID public id\r\n                Include options: defaults (provides default quality settings and folder), extendedConfigurations (provides extended configurations)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "heartbeat"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"State\": \"<string>\",\n  \"DiskSpaceFreeMegabytes\": \"<integer>\",\n  \"LiveMonitoringBlocked\": \"<boolean>\",\n  \"CurrentRecordingSessionId\": \"<guid>\",\n  \"ConnectedDevicesWithPreviews\": [\n    {\n      \"Device\": {\n        \"Type\": \"<string>\",\n        \"DeviceId\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      \"Preview\": {\n        \"AudioFormat\": \"<string>\",\n        \"VideoFormat\": \"<string>\",\n        \"AudioPreviewData\": \"<string>\",\n        \"VideoPreviewData\": \"<string>\",\n        \"StreamID\": \"<guid>\"\n      }\n    },\n    {\n      \"Device\": {\n        \"Type\": \"<string>\",\n        \"DeviceId\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      \"Preview\": {\n        \"AudioFormat\": \"<string>\",\n        \"VideoFormat\": \"<string>\",\n        \"AudioPreviewData\": \"<string>\",\n        \"VideoPreviewData\": \"<string>\",\n        \"StreamID\": \"<guid>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "75b7ef5e-1331-4d92-8bab-360e46f3895f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "heartbeat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"State\": \"<string>\",\n  \"DiskSpaceFreeMegabytes\": \"<integer>\",\n  \"LiveMonitoringBlocked\": \"<boolean>\",\n  \"CurrentRecordingSessionId\": \"<guid>\",\n  \"ConnectedDevicesWithPreviews\": [\n    {\n      \"Device\": {\n        \"Type\": \"<string>\",\n        \"DeviceId\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      \"Preview\": {\n        \"AudioFormat\": \"<string>\",\n        \"VideoFormat\": \"<string>\",\n        \"AudioPreviewData\": \"<string>\",\n        \"VideoPreviewData\": \"<string>\",\n        \"StreamID\": \"<guid>\"\n      }\n    },\n    {\n      \"Device\": {\n        \"Type\": \"<string>\",\n        \"DeviceId\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      \"Preview\": {\n        \"AudioFormat\": \"<string>\",\n        \"VideoFormat\": \"<string>\",\n        \"AudioPreviewData\": \"<string>\",\n        \"VideoPreviewData\": \"<string>\",\n        \"StreamID\": \"<guid>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ScheduleVersion\": \"string\",\n  \"SettingsVersion\": \"string\",\n  \"PingInterval\": 154,\n  \"Error\": {\n    \"Success\": true,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  },\n  \"Configuration\": {\n    \"CaptureScreen\": false,\n    \"CaptureSlides\": true,\n    \"CaptureSystemAudio\": true,\n    \"HighlightMouseCursor\": false,\n    \"PrimaryVideoDevice\": \"string\",\n    \"PrimaryAudioDevice\": \"string\",\n    \"DevicesToIgnore\": [\n      \"string\",\n      \"string\"\n    ],\n    \"DevicesToCapture\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"RecordingSessionIsPaused\": false,\n  \"LiveMonitoring\": {\n    \"Mode\": \"WebRtcPrimaryAudio\",\n    \"Id\": \"string\"\n  },\n  \"DefaultFolder\": \"string\",\n  \"DefaultPrimaryQualitySettings\": {\n    \"AudioBitrate\": 8282,\n    \"Framerate\": 4769,\n    \"MultipleBitrateCount\": 8517,\n    \"PixelCount\": 885,\n    \"VideoBitrate\": 4489\n  },\n  \"DefaultSecondaryQualitySettings\": {\n    \"AudioBitrate\": 1726,\n    \"Framerate\": 5160,\n    \"MultipleBitrateCount\": 9216,\n    \"PixelCount\": 1015,\n    \"VideoBitrate\": 92\n  },\n  \"ExtendedConfiguration\": {\n    \"AudioHistogramModeType\": \"AlwaysStereoHistograms\",\n    \"SecondsToUseNextRecordingTemplate\": 5049.2817920824955,\n    \"SecondsToDeleteRecordingAfterUpload\": 6798.795706380659,\n    \"ServerTime\": 3629.908010144922\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccc68b27-2fd9-4f7a-bb56-5664f34178de",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "heartbeat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"State\": \"<string>\",\n  \"DiskSpaceFreeMegabytes\": \"<integer>\",\n  \"LiveMonitoringBlocked\": \"<boolean>\",\n  \"CurrentRecordingSessionId\": \"<guid>\",\n  \"ConnectedDevicesWithPreviews\": [\n    {\n      \"Device\": {\n        \"Type\": \"<string>\",\n        \"DeviceId\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      \"Preview\": {\n        \"AudioFormat\": \"<string>\",\n        \"VideoFormat\": \"<string>\",\n        \"AudioPreviewData\": \"<string>\",\n        \"VideoPreviewData\": \"<string>\",\n        \"StreamID\": \"<guid>\"\n      }\n    },\n    {\n      \"Device\": {\n        \"Type\": \"<string>\",\n        \"DeviceId\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      \"Preview\": {\n        \"AudioFormat\": \"<string>\",\n        \"VideoFormat\": \"<string>\",\n        \"AudioPreviewData\": \"<string>\",\n        \"VideoPreviewData\": \"<string>\",\n        \"StreamID\": \"<guid>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5e75eb2-ee99-4262-9ae5-57f95cbfb573",
+          "name": "Retrieve a schedule for the next 7 days for the provided remote recorder.As a best practice a new scheduled should be fetched every day even if the schedule version in the heartbeat hasn't changed",
+          "request": {
+            "name": "Retrieve a schedule for the next 7 days for the provided remote recorder.As a best practice a new scheduled should be fetched every day even if the schedule version in the heartbeat hasn't changed",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95a8e247-5d32-4feb-874a-e9e46d83102b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ScheduleId\": \"string\",\n  \"ServerTime\": 3349.3461580759076,\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  },\n  \"Recordings\": [\n    {\n      \"SessionId\": \"string\",\n      \"FolderId\": \"string\",\n      \"StartTime\": 9246.438975838239,\n      \"EndTime\": 5416.910141995249,\n      \"IsBroadcast\": true,\n      \"SuppressPrimaryDevices\": true,\n      \"SuppressSecondaryDevices\": true,\n      \"Id\": \"string\",\n      \"SessionName\": \"string\",\n      \"FolderName\": \"string\",\n      \"UserId\": \"string\",\n      \"PrimaryQualitySettings\": {\n        \"AudioBitrate\": 6825,\n        \"Framerate\": 6717,\n        \"MultipleBitrateCount\": 590,\n        \"PixelCount\": 7690,\n        \"VideoBitrate\": 4608\n      },\n      \"SecondaryQualitySettings\": {\n        \"AudioBitrate\": 5742,\n        \"Framerate\": 3090,\n        \"MultipleBitrateCount\": 5727,\n        \"PixelCount\": 9048,\n        \"VideoBitrate\": 5189\n      },\n      \"Configuration\": {\n        \"CaptureScreen\": false,\n        \"CaptureSlides\": false,\n        \"CaptureSystemAudio\": false,\n        \"HighlightMouseCursor\": false,\n        \"PrimaryVideoDevice\": \"string\",\n        \"PrimaryAudioDevice\": \"string\",\n        \"DevicesToIgnore\": [\n          \"string\",\n          \"string\"\n        ],\n        \"DevicesToCapture\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    {\n      \"SessionId\": \"string\",\n      \"FolderId\": \"string\",\n      \"StartTime\": 2082.801026753168,\n      \"EndTime\": 4936.878951227241,\n      \"IsBroadcast\": false,\n      \"SuppressPrimaryDevices\": false,\n      \"SuppressSecondaryDevices\": false,\n      \"Id\": \"string\",\n      \"SessionName\": \"string\",\n      \"FolderName\": \"string\",\n      \"UserId\": \"string\",\n      \"PrimaryQualitySettings\": {\n        \"AudioBitrate\": 5734,\n        \"Framerate\": 1148,\n        \"MultipleBitrateCount\": 8638,\n        \"PixelCount\": 5163,\n        \"VideoBitrate\": 3469\n      },\n      \"SecondaryQualitySettings\": {\n        \"AudioBitrate\": 5207,\n        \"Framerate\": 3711,\n        \"MultipleBitrateCount\": 582,\n        \"PixelCount\": 5962,\n        \"VideoBitrate\": 3662\n      },\n      \"Configuration\": {\n        \"CaptureScreen\": false,\n        \"CaptureSlides\": false,\n        \"CaptureSystemAudio\": true,\n        \"HighlightMouseCursor\": true,\n        \"PrimaryVideoDevice\": \"string\",\n        \"PrimaryAudioDevice\": \"string\",\n        \"DevicesToIgnore\": [\n          \"string\",\n          \"string\"\n        ],\n        \"DevicesToCapture\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "330ebcca-3aa5-4152-bf59-f4a044f4863d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6dc01779-e7de-4360-83b4-352e589c9ca8",
+          "name": "Update or add a set of scheduled recordings for the provided remote recorder. To add a scheduled recording, the recording should have all relevant fields filled in but an empty (all zeros) guid",
+          "request": {
+            "name": "Update or add a set of scheduled recordings for the provided remote recorder. To add a scheduled recording, the recording should have all relevant fields filled in but an empty (all zeros) guid",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"SessionId\": \"<guid>\",\n    \"FolderId\": \"<guid>\",\n    \"StartTime\": \"<double>\",\n    \"EndTime\": \"<double>\",\n    \"IsBroadcast\": \"<boolean>\",\n    \"SuppressPrimaryDevices\": \"<boolean>\",\n    \"SuppressSecondaryDevices\": \"<boolean>\",\n    \"Id\": \"<guid>\",\n    \"SessionName\": \"<string>\",\n    \"FolderName\": \"<string>\",\n    \"UserId\": \"<guid>\",\n    \"PrimaryQualitySettings\": {\n      \"AudioBitrate\": \"<integer>\",\n      \"Framerate\": \"<integer>\",\n      \"MultipleBitrateCount\": \"<integer>\",\n      \"PixelCount\": \"<integer>\",\n      \"VideoBitrate\": \"<integer>\"\n    },\n    \"SecondaryQualitySettings\": {\n      \"AudioBitrate\": \"<integer>\",\n      \"Framerate\": \"<integer>\",\n      \"MultipleBitrateCount\": \"<integer>\",\n      \"PixelCount\": \"<integer>\",\n      \"VideoBitrate\": \"<integer>\"\n    },\n    \"Configuration\": {\n      \"CaptureScreen\": \"<boolean>\",\n      \"CaptureSlides\": \"<boolean>\",\n      \"CaptureSystemAudio\": \"<boolean>\",\n      \"HighlightMouseCursor\": \"<boolean>\",\n      \"PrimaryVideoDevice\": \"<string>\",\n      \"PrimaryAudioDevice\": \"<string>\",\n      \"DevicesToIgnore\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"DevicesToCapture\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  {\n    \"SessionId\": \"<guid>\",\n    \"FolderId\": \"<guid>\",\n    \"StartTime\": \"<double>\",\n    \"EndTime\": \"<double>\",\n    \"IsBroadcast\": \"<boolean>\",\n    \"SuppressPrimaryDevices\": \"<boolean>\",\n    \"SuppressSecondaryDevices\": \"<boolean>\",\n    \"Id\": \"<guid>\",\n    \"SessionName\": \"<string>\",\n    \"FolderName\": \"<string>\",\n    \"UserId\": \"<guid>\",\n    \"PrimaryQualitySettings\": {\n      \"AudioBitrate\": \"<integer>\",\n      \"Framerate\": \"<integer>\",\n      \"MultipleBitrateCount\": \"<integer>\",\n      \"PixelCount\": \"<integer>\",\n      \"VideoBitrate\": \"<integer>\"\n    },\n    \"SecondaryQualitySettings\": {\n      \"AudioBitrate\": \"<integer>\",\n      \"Framerate\": \"<integer>\",\n      \"MultipleBitrateCount\": \"<integer>\",\n      \"PixelCount\": \"<integer>\",\n      \"VideoBitrate\": \"<integer>\"\n    },\n    \"Configuration\": {\n      \"CaptureScreen\": \"<boolean>\",\n      \"CaptureSlides\": \"<boolean>\",\n      \"CaptureSystemAudio\": \"<boolean>\",\n      \"HighlightMouseCursor\": \"<boolean>\",\n      \"PrimaryVideoDevice\": \"<string>\",\n      \"PrimaryAudioDevice\": \"<string>\",\n      \"DevicesToIgnore\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"DevicesToCapture\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7911ffc9-5340-41ba-9b70-b337a5694aeb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"SessionId\": \"<guid>\",\n    \"FolderId\": \"<guid>\",\n    \"StartTime\": \"<double>\",\n    \"EndTime\": \"<double>\",\n    \"IsBroadcast\": \"<boolean>\",\n    \"SuppressPrimaryDevices\": \"<boolean>\",\n    \"SuppressSecondaryDevices\": \"<boolean>\",\n    \"Id\": \"<guid>\",\n    \"SessionName\": \"<string>\",\n    \"FolderName\": \"<string>\",\n    \"UserId\": \"<guid>\",\n    \"PrimaryQualitySettings\": {\n      \"AudioBitrate\": \"<integer>\",\n      \"Framerate\": \"<integer>\",\n      \"MultipleBitrateCount\": \"<integer>\",\n      \"PixelCount\": \"<integer>\",\n      \"VideoBitrate\": \"<integer>\"\n    },\n    \"SecondaryQualitySettings\": {\n      \"AudioBitrate\": \"<integer>\",\n      \"Framerate\": \"<integer>\",\n      \"MultipleBitrateCount\": \"<integer>\",\n      \"PixelCount\": \"<integer>\",\n      \"VideoBitrate\": \"<integer>\"\n    },\n    \"Configuration\": {\n      \"CaptureScreen\": \"<boolean>\",\n      \"CaptureSlides\": \"<boolean>\",\n      \"CaptureSystemAudio\": \"<boolean>\",\n      \"HighlightMouseCursor\": \"<boolean>\",\n      \"PrimaryVideoDevice\": \"<string>\",\n      \"PrimaryAudioDevice\": \"<string>\",\n      \"DevicesToIgnore\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"DevicesToCapture\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  {\n    \"SessionId\": \"<guid>\",\n    \"FolderId\": \"<guid>\",\n    \"StartTime\": \"<double>\",\n    \"EndTime\": \"<double>\",\n    \"IsBroadcast\": \"<boolean>\",\n    \"SuppressPrimaryDevices\": \"<boolean>\",\n    \"SuppressSecondaryDevices\": \"<boolean>\",\n    \"Id\": \"<guid>\",\n    \"SessionName\": \"<string>\",\n    \"FolderName\": \"<string>\",\n    \"UserId\": \"<guid>\",\n    \"PrimaryQualitySettings\": {\n      \"AudioBitrate\": \"<integer>\",\n      \"Framerate\": \"<integer>\",\n      \"MultipleBitrateCount\": \"<integer>\",\n      \"PixelCount\": \"<integer>\",\n      \"VideoBitrate\": \"<integer>\"\n    },\n    \"SecondaryQualitySettings\": {\n      \"AudioBitrate\": \"<integer>\",\n      \"Framerate\": \"<integer>\",\n      \"MultipleBitrateCount\": \"<integer>\",\n      \"PixelCount\": \"<integer>\",\n      \"VideoBitrate\": \"<integer>\"\n    },\n    \"Configuration\": {\n      \"CaptureScreen\": \"<boolean>\",\n      \"CaptureSlides\": \"<boolean>\",\n      \"CaptureSystemAudio\": \"<boolean>\",\n      \"HighlightMouseCursor\": \"<boolean>\",\n      \"PrimaryVideoDevice\": \"<string>\",\n      \"PrimaryAudioDevice\": \"<string>\",\n      \"DevicesToIgnore\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"DevicesToCapture\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "455317fa-b5ce-4710-a0d6-43af63fb0f0a",
+          "name": "Register an error with the provided remote recorder on the server",
+          "request": {
+            "name": "Register an error with the provided remote recorder on the server",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "error"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Severity\": \"<string>\",\n  \"ErrorType\": \"<string>\",\n  \"ErrorCode\": \"<integer>\",\n  \"Message\": \"<string>\",\n  \"AssociatedSessionId\": \"<guid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c26cd936-2a35-4b21-9fb5-9a3ef6c4f151",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "error"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Severity\": \"<string>\",\n  \"ErrorType\": \"<string>\",\n  \"ErrorCode\": \"<integer>\",\n  \"Message\": \"<string>\",\n  \"AssociatedSessionId\": \"<guid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "068e0170-ebc8-48eb-9bb4-80db2bb0f418",
+          "name": "Retrieve a legacy ASPXAUTH cookie",
+          "request": {
+            "name": "Retrieve a legacy ASPXAUTH cookie",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "legacyLogin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95f2c037-6d42-48a2-88d3-35e43c3db8e1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "legacyLogin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8180ff7-800f-41bd-aaf1-9163a6db4e9c",
+          "name": "Pause the recording of the specified session on the server",
+          "request": {
+            "name": "Pause the recording of the specified session on the server",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "session",
+                ":sessionId",
+                "pause"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "sessionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PauseRecordingTime\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8296d267-6a09-4093-8155-8318f21d5a4f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "session",
+                    ":sessionId",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "sessionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PauseRecordingTime\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "083c444d-0333-4b24-be9f-87777b73f962",
+          "name": "Resume the recording of the specified session on the server",
+          "request": {
+            "name": "Resume the recording of the specified session on the server",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "session",
+                ":sessionId",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "sessionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ResumeRecordingTime\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c8d5f8de-8a57-46e2-8d78-501edf1877ee",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "session",
+                    ":sessionId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "sessionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ResumeRecordingTime\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b3d7d12-2484-4b1b-b246-ea7cedeaad80",
+          "name": "Provides a list of URLs and URL types to present to administrators to help them manage this remote recorder.Calling this replaces all previously reported URLs. URLs are preserved until replaced, so this only needs to be called when they have changed",
+          "request": {
+            "name": "Provides a list of URLs and URL types to present to administrators to help them manage this remote recorder.Calling this replaces all previously reported URLs. URLs are preserved until replaced, so this only needs to be called when they have changed",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "urls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"URLs\": [\n    {\n      \"URLType\": \"<string>\",\n      \"URL\": \"<string>\"\n    },\n    {\n      \"URLType\": \"<string>\",\n      \"URL\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad15db4e-88f0-487c-8c51-ee388e0c74eb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"URLs\": [\n    {\n      \"URLType\": \"<string>\",\n      \"URL\": \"<string>\"\n    },\n    {\n      \"URLType\": \"<string>\",\n      \"URL\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c49d69a8-05ad-4fe3-bb9b-3e11cf53311f",
+          "name": "Establishes a new connection which enables the WebRTC-based media preview feature.  After this, the client should commence WebRTC session negotiation by sending us an SDP offer.",
+          "request": {
+            "name": "Establishes a new connection which enables the WebRTC-based media preview feature.  After this, the client should commence WebRTC session negotiation by sending us an SDP offer.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "liveMonitoring",
+                "webRtc",
+                "connect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "24a131f9-32f6-4bfe-bf33-7513c828d826",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "211c374b-9275-4f3b-899a-c08f734862cf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59899146-6059-41cc-bf91-f92f4140a9f4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3750e196-e439-44cd-b5f7-5fcb9dae5c42",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "442dd6d6-11fc-4e54-ad31-816a17dc80c2",
+          "name": "Destroys the connection which enables the WebRTC-based media preview feature.",
+          "request": {
+            "name": "Destroys the connection which enables the WebRTC-based media preview feature.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "liveMonitoring",
+                "webRtc",
+                "disconnect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0406a217-d332-4194-9175-b4e87e952347",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "disconnect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0162e227-b27a-469f-be0d-14d1c95d5d14",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "disconnect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "878effaa-98e3-462e-9f49-aaef97e45d5c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "disconnect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OperationType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdfcafba-021a-494c-8595-988ee36491f6",
+          "name": "After the client has sent us an SDP offer, they should poll this  endpoint periodically to receive messages.",
+          "request": {
+            "name": "After the client has sent us an SDP offer, they should poll this  endpoint periodically to receive messages.",
+            "description": {
+              "content": "After sending the SDP offer, the client should check here for events periodically.  This is not a long-polling call,\r\nso it will return quickly.\r\n\r\nPrior to receiving the SDP answer, the client should wait `PingFastInterval` seconds between requests.  Five seconds\r\nafter receiving the SDP answer, the client should wait `PingSlowInterval` seconds between requests.\r\n\r\n# Event Types\r\nThere are several types of events, each of which has a distinct payload.\r\n\r\n## IceCandidate\r\nThis event describes a single ICE candidate related to the SDP answer document.  Each ICE candidate\r\ndescribes a possible endpoint where the client can send SRTP (and SRTCP) payloads.\r\n\r\n  The payload is a **JSON serialized** object containing 2 fields.\r\n  1.  `Index`: This is a non-negative integer.  This is a zero-based index, corresponding to a specific\r\n      section within an SDP answer, where each section begins with an 'm='  line.\r\n  2.  `Candidate`:  A single line of text representing the ICE candidate, the format of which is consistent\r\n      with the standard definition for ICE Candidates as defined by SDP standard.\r\n\r\n## SdpAnswer\r\nThis event notifies of a the SDP answer. It is the final description of the session provided by the WebRTC\r\nsignaling service.\r\n\r\n  The payload is a Session Description document, as defined by the SDP protocol.\r\n\r\n## TemporaryFailure\r\nThis event notifies of a warning or error, but recovery may still be possible.  This is only\r\ninformational and the remote recorder is expected to take no action.\r\n\r\n  The payload is human readable additional information about the situation.\r\n\r\n## PermanentFailure\r\nThis event notifies that the WebRTC session is in unrecoverable state.  The remote recorder should\r\nrelease any resource associated with this WebRTC session.  It does not need to call the REST endpoint to explicitly\r\ndisconnect because the server is already aware that WebRTC session is in a bad state, and the standard method for\r\ngraceful cleanup is no longer possible.\r\n\r\n  The payload is human readable additional information about the situation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "liveMonitoring",
+                "webRtc",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81010132-4acd-48d4-baaf-55d9975b632d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"PingFastInterval\": 1993,\n  \"PingSlowInterval\": 1088,\n  \"Error\": {\n    \"Success\": true,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  },\n  \"Events\": [\n    {\n      \"EventType\": \"Unknown\",\n      \"Payload\": \"string\"\n    },\n    {\n      \"EventType\": \"IceCandidate\",\n      \"Payload\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2cba38a-0add-4ca2-96cc-e9b2b06cf7b1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07fe202d-d1ab-472b-864f-85332ac1bbc6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c249fdf3-8519-4cbd-8cac-46f12ce2f243",
+          "name": "Sends a batch of ICE candidates from client to signaling server.",
+          "request": {
+            "name": "Sends a batch of ICE candidates from client to signaling server.",
+            "description": {
+              "content": "Sends a batch of ICE candidates from client (the RTP sender) to signaling server.  ICE Candidates are used for the\r\ntransmission of RTP and RTCP payloads.\r\n\r\nThis is a JSON array of ICE candidates, where each ICE candidate is an object containing 2 fields.\r\n\r\n1.  `Index`: This is a non-negative integer.  This is a zero-based index, corresponding to a specific section within an\r\n    SDP offer, where each section begins with an `m=`  line.\r\n2.  `Candidate`:  A single line of text representing the ICE candidate, the format of which is consistent with the\r\n    standard definition for ICE Candidates as defined by SDP standard.  For example:\r\n    `candidate:8 1 TCP 1015022335 fe80::52d3:1968:14ec:8246 9 typ host tcptype active`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "liveMonitoring",
+                "webRtc",
+                "iceCandidates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Candidates\": [\n    {\n      \"Index\": \"<integer>\",\n      \"Candidate\": \"<string>\"\n    },\n    {\n      \"Index\": \"<integer>\",\n      \"Candidate\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1894c7e-6e94-4658-9238-ccf73cb6cbea",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "iceCandidates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Candidates\": [\n    {\n      \"Index\": \"<integer>\",\n      \"Candidate\": \"<string>\"\n    },\n    {\n      \"Index\": \"<integer>\",\n      \"Candidate\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bda653c8-ae41-4ec7-8d12-8fdc414a76aa",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "iceCandidates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Candidates\": [\n    {\n      \"Index\": \"<integer>\",\n      \"Candidate\": \"<string>\"\n    },\n    {\n      \"Index\": \"<integer>\",\n      \"Candidate\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99d3bae7-e7ba-417c-a55f-53aa6c34a36c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "iceCandidates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Candidates\": [\n    {\n      \"Index\": \"<integer>\",\n      \"Candidate\": \"<string>\"\n    },\n    {\n      \"Index\": \"<integer>\",\n      \"Candidate\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e87b7b28-6d63-41a5-afc3-2b67517c31f8",
+          "name": "The client begins WebRTC session negotiation by submitting an SDP offer.",
+          "request": {
+            "name": "The client begins WebRTC session negotiation by submitting an SDP offer.",
+            "description": {
+              "content": "This is the next step after starting a new WebRTC connection.  The client submits an SDP offer to describe the session\r\nit hopes to create.  After this is sent, the client should begin 2 other activities:\r\n1.  The client should send ICE candidates as soon as they are known (using another REST endpoint).\r\n2.  The client should begin polling for events (using another REST endpoint).\r\n\r\n## SessionDescription\r\nThe SDP offer is sent as the  `SessionDescription` string which is a multi-line string, as defined\r\nby the SDP standard.  An example of a `SessionDescription` string is as follows:\r\n\r\n```\r\nv=0\r\no=- 2954795159668969744 0 IN IP4 0.0.0.0\r\ns=-\r\nt=0 0\r\na=ice-options:trickle\r\nm=audio 9 UDP/TLS/RTP/SAVPF 97\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=ice-ufrag:JAXcdSTGPa8I57dqpu8zggosj53FsI1P\r\na=ice-pwd:2bC1EVxNEIqNYm+Id1s7sw7RBmyAbNS2\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=sendrecv\r\na=rtpmap:97 OPUS/48000/2\r\na=rtcp-fb:97 nack pli\r\na=fmtp:97 sprop-maxcapturerate=48000;sprop-stereo=0\r\na=ssrc:2876771208 msid:user3992408561@host-b8077b5 webrtctransceiver0\r\na=ssrc:2876771208 cname:user3992408561@host-b8077b5\r\na=mid:audio0\r\na=fingerprint:sha-256 66:CD:30:01:9B:76:7E:4D:CA:F2:EF:BC:7C:61:BA:AC:AF:01:E8:72:37:92:9B:28:15:04:D8:D6:6B:0C:78:8B\r\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "remoteRecorderAPI",
+                "remoteRecorder",
+                ":remoteRecorderPublicId",
+                "liveMonitoring",
+                "webRtc",
+                "sdpOffer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<guid>",
+                  "key": "remoteRecorderPublicId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SessionDescription\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6405309a-2f30-4fe9-b0f2-0ec1f34f8021",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "sdpOffer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SessionDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9587c519-5e19-474f-833b-0a76c7f1cc2b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "sdpOffer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SessionDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26dd30b6-28dc-4b7a-afec-d85e6703c588",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "remoteRecorderAPI",
+                    "remoteRecorder",
+                    ":remoteRecorderPublicId",
+                    "liveMonitoring",
+                    "webRtc",
+                    "sdpOffer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<guid>",
+                      "key": "remoteRecorderPublicId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SessionDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Success\": false,\n    \"ErrorCode\": \"string\",\n    \"Message\": \"string\",\n    \"ErrorSource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://<PanoptoServerURL>(i.e. example.hosted.panopto.com)/Panopto",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "04e2b67d-f8a6-4af1-94bf-de4798bb30ce",
+    "name": "Panopto Public Accessibility RemoteRecorderAPI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration",
+      "type": "text/plain"
+    }
+  }
+}
