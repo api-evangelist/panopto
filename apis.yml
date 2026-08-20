@@ -47,6 +47,8 @@ apis:
   humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
   baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -89,6 +91,8 @@ apis:
   humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
   baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -231,6 +235,8 @@ apis:
   humanURL: https://support.panopto.com/s/topic/0TO39000000EowMGAS/api
   baseURL: https://{tenant}.hosted.panopto.com/Panopto/api/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
