@@ -1,6 +1,18 @@
 aid: panopto
 name: Panopto
 description: Panopto is a video management platform for education and enterprise that provides a REST API for managing recordings, folders, sessions, users, and video analytics. Organizations use Panopto to capture, store, search, and share video content in corporate training and academic settings. The API supports OAuth2 authentication and enables automation of recording schedules, user and group provisioning, content organization, and integration with LMS platforms such as Canvas, Blackboard, Moodle, and D2L.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: unknown
