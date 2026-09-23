@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  title: Panopto Public Accessibility Folders API
+  title: Panopto Public Folders API
   description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
   version: '1'
-host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
-basePath: /Panopto
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://<PanoptoServerURL>(i.e. example.hosted.panopto.com)/Panopto
 tags:
 - name: Folders
   description: Folder API
@@ -22,32 +16,35 @@ paths:
       summary: Get a folder by Id
       operationId: Folders_GetFolderById
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/Folder'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
         '404':
-          x-nullable: false
           description: The requested folder was not found
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
     put:
       tags:
       - Folders
@@ -55,37 +52,40 @@ paths:
       description: Update the folders's name, description, or parent folder.
       operationId: Folders_UpdateFolderMetadata
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - name: folderUpdate
-        in: body
         schema:
-          $ref: '#/definitions/FolderUpdate'
-        x-nullable: true
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/Folder'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
         '404':
-          x-nullable: false
           description: The requested folder was not found
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderUpdate'
     delete:
       tags:
       - Folders
@@ -93,33 +93,36 @@ paths:
       description: Deletes a folder and all of its contents (including sessions and subfolders) according to the retention policy.
       operationId: Folders_DeleteFolder
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            type: string
-            format: guid
+          content:
+            application/json:
+              schema:
+                type: string
+                format: guid
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
         '404':
-          x-nullable: false
           description: The requested folder was not found
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
   /api/v1/folders/{id}/children:
     get:
       tags:
@@ -128,58 +131,60 @@ paths:
       description: To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
       operationId: Folders_GetChildFolders
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
         description: To get a list of all top level folders, use an empty GUID (00000000-0000-0000-0000-000000000000)
-        format: guid
-        x-nullable: false
-      - type: boolean
-        name: canCreate
+        schema:
+          type: string
+          format: guid
+      - name: canCreate
         in: query
         description: Set to true to only return folders where the user has permission to create sessions.
-        default: false
-        x-nullable: false
-      - type: string
-        name: sortField
+        schema:
+          type: boolean
+          default: false
+      - name: sortField
         in: query
         description: '''Relevance'' is not valid for this function.'
         x-schema:
-          $ref: '#/definitions/FolderSortFields'
-        default: Name
-        x-nullable: false
-        enum:
-        - Name
-        - Relevance
-      - type: string
-        name: sortOrder
+          $ref: '#/components/schemas/FolderSortFields'
+        schema:
+          type: string
+          enum:
+          - Name
+          - Relevance
+          default: Name
+      - name: sortOrder
         in: query
         x-schema:
-          $ref: '#/definitions/SortOrder'
-        default: Asc
-        x-nullable: false
-        enum:
-        - Asc
-        - Desc
-      - type: integer
-        name: pageNumber
+          $ref: '#/components/schemas/SortOrder'
+        schema:
+          type: string
+          enum:
+          - Asc
+          - Desc
+          default: Asc
+      - name: pageNumber
         in: query
         description: Page numbering starts at 0
-        format: int32
-        default: 0
-        x-nullable: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/ListResponseOfFolder'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponseOfFolder'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
@@ -195,51 +200,53 @@ paths:
         **Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl) are not returned when listing sessions in a folder. To get these properties, you can get the specific session by Id using the Sessions API.'
       operationId: Folders_GetSessions
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - type: string
-        name: sortField
+        schema:
+          type: string
+          format: guid
+      - name: sortField
         in: query
         x-schema:
-          $ref: '#/definitions/SessionSortFields'
-        default: Name
-        x-nullable: false
-        enum:
-        - Name
-        - CreatedDate
-        - Relevance
-      - type: string
-        name: sortOrder
+          $ref: '#/components/schemas/SessionSortFields'
+        schema:
+          type: string
+          enum:
+          - Name
+          - CreatedDate
+          - Relevance
+          default: Name
+      - name: sortOrder
         in: query
         x-schema:
-          $ref: '#/definitions/SortOrder'
-        default: Asc
-        x-nullable: false
-        enum:
-        - Asc
-        - Desc
-      - type: integer
-        name: pageNumber
+          $ref: '#/components/schemas/SortOrder'
+        schema:
+          type: string
+          enum:
+          - Asc
+          - Desc
+          default: Asc
+      - name: pageNumber
         in: query
         description: Page numbering starts at 0
-        format: int32
-        default: 0
-        x-nullable: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/ListResponseOfSession'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponseOfSession'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
@@ -255,56 +262,58 @@ paths:
         **Note:** This endpoint does not return all available properties for a session. The CreatedBy and Urls properties (except the ViewerUrl) are not returned when listing sessions in a folder. To get these properties, you can get the specific session by Id using the Sessions API.'
       operationId: Folders_SearchSessionsInFolder
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - type: string
-        name: searchQuery
+        schema:
+          type: string
+          format: guid
+      - name: searchQuery
         in: query
         required: true
-        x-nullable: true
-      - type: string
-        name: sortField
+        schema:
+          type: string
+      - name: sortField
         in: query
         x-schema:
-          $ref: '#/definitions/SessionSortFields'
-        default: Name
-        x-nullable: false
-        enum:
-        - Name
-        - CreatedDate
-        - Relevance
-      - type: string
-        name: sortOrder
+          $ref: '#/components/schemas/SessionSortFields'
+        schema:
+          type: string
+          enum:
+          - Name
+          - CreatedDate
+          - Relevance
+          default: Name
+      - name: sortOrder
         in: query
         x-schema:
-          $ref: '#/definitions/SortOrder'
-        default: Asc
-        x-nullable: false
-        enum:
-        - Asc
-        - Desc
-      - type: integer
-        name: pageNumber
+          $ref: '#/components/schemas/SortOrder'
+        schema:
+          type: string
+          enum:
+          - Asc
+          - Desc
+          default: Asc
+      - name: pageNumber
         in: query
         description: Page numbering starts at 0
-        format: int32
-        default: 0
-        x-nullable: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/ListResponseOfSession'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponseOfSession'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
@@ -320,51 +329,53 @@ paths:
         **Note:** This endpoint does not return all available properties for a playlist. The Urls property (except the ViewerUrl) is not returned when listing playlists in a folder. To get these properties, you can get the specific playlist by Id using the Playlists API.'
       operationId: Folders_GetPlaylists
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - type: string
-        name: sortField
+        schema:
+          type: string
+          format: guid
+      - name: sortField
         in: query
         x-schema:
-          $ref: '#/definitions/PlaylistSortFields'
-        default: Name
-        x-nullable: false
-        enum:
-        - Name
-        - CreatedDate
-        - Relevance
-      - type: string
-        name: sortOrder
+          $ref: '#/components/schemas/PlaylistSortFields'
+        schema:
+          type: string
+          enum:
+          - Name
+          - CreatedDate
+          - Relevance
+          default: Name
+      - name: sortOrder
         in: query
         x-schema:
-          $ref: '#/definitions/SortOrder'
-        default: Asc
-        x-nullable: false
-        enum:
-        - Asc
-        - Desc
-      - type: integer
-        name: pageNumber
+          $ref: '#/components/schemas/SortOrder'
+        schema:
+          type: string
+          enum:
+          - Asc
+          - Desc
+          default: Asc
+      - name: pageNumber
         in: query
         description: Page numbering starts at 0
-        format: int32
-        default: 0
-        x-nullable: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/ListResponseOfPlaylist'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponseOfPlaylist'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
@@ -376,32 +387,35 @@ paths:
       summary: Get the access settings for the given folder
       operationId: Folders_GetAccessSettings
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/AccessSettings'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessSettings'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
         '404':
-          x-nullable: false
           description: The requested folder was not found
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
     put:
       tags:
       - Folders
@@ -409,37 +423,40 @@ paths:
       description: If setting IsInherited to true, the access Level is ignored. Inheritance can not be set on a top-level folder.
       operationId: Folders_UpdateAccessSettings
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - name: accessSettings
-        in: body
         schema:
-          $ref: '#/definitions/AccessSettings'
-        x-nullable: true
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/AccessSettings'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessSettings'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
         '404':
-          x-nullable: false
           description: The requested folder was not found
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessSettings'
   /api/v1/folders/{id}/settings:
     get:
       tags:
@@ -447,32 +464,35 @@ paths:
       summary: Get the folder settings for the given folder
       operationId: Folders_GetSettings
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/FolderSettings'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderSettings'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
         '404':
-          x-nullable: false
           description: The requested folder was not found
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
     put:
       tags:
       - Folders
@@ -480,37 +500,40 @@ paths:
       description: This endpoint currently only supports updating the caption provider instance
       operationId: Folders_UpdateSettings
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - name: folderSettings
-        in: body
         schema:
-          $ref: '#/definitions/FolderSettings'
-        x-nullable: true
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/FolderSettings'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderSettings'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
         '404':
-          x-nullable: false
           description: The requested folder was not found
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderSettings'
   /api/v1/folders/{id}/permissions:
     get:
       tags:
@@ -519,30 +542,32 @@ paths:
       description: To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
       operationId: Folders_GetPermissions
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - type: integer
-        name: pageNumber
+        schema:
+          type: string
+          format: guid
+      - name: pageNumber
         in: query
         description: Page numbering starts at 0
-        format: int32
-        default: 0
-        x-nullable: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/ListResponseOfPermission'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponseOfPermission'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
@@ -554,32 +579,34 @@ paths:
       description: This operation is only supported when access is not inherited.
       operationId: Folders_CreatePermission
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - name: permissionCreate
-        in: body
         schema:
-          $ref: '#/definitions/PermissionCreate'
-        x-nullable: true
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/Permission'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermissionCreate'
     delete:
       tags:
       - Folders
@@ -587,93 +614,97 @@ paths:
       description: This operation is only valid for non-inherited permissions. If role type and role id are omitted, all non-inherited permissions for the principal will be removed.
       operationId: Folders_DeletePermission
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - type: string
-        name: RoleId
+        schema:
+          type: string
+          format: guid
+      - name: RoleId
         in: query
         description: Id of the role to remove from the user or group. Required when RoleType is null or None.
-        format: guid
-        x-nullable: true
-      - type: string
-        name: RoleType
+        schema:
+          type: string
+          format: guid
+      - name: RoleType
         in: query
         description: Type of the role to remove from the user or group. Required when RoleId is null.
         x-schema:
-          $ref: '#/definitions/BuiltInRoleType'
-        x-nullable: true
-        enum:
-        - None
-        - Viewer
-        - Creator
-        - Publisher
-      - type: string
-        name: PrincipalId
+          $ref: '#/components/schemas/BuiltInRoleType'
+        schema:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Creator
+          - Publisher
+      - name: PrincipalId
         in: query
         description: Id of the user or group from which the role is being removed.
-        format: guid
-        x-nullable: false
-      - type: string
-        name: PrincipalType
+        schema:
+          type: string
+          format: guid
+      - name: PrincipalType
         in: query
         description: Type of principal, either a user or group.
         x-schema:
-          $ref: '#/definitions/PrincipalType'
-        x-nullable: false
-        enum:
-        - User
-        - Group
+          $ref: '#/components/schemas/PrincipalType'
+        schema:
+          type: string
+          enum:
+          - User
+          - Group
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/PermissionDelete'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionDelete'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
         '404':
-          x-nullable: false
           description: The requested folder or share was not found
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
   /api/v1/folders:
     post:
       tags:
       - Folders
       summary: Create a new folder
       operationId: Folders_CreateFolder
-      parameters:
-      - name: folder
-        in: body
-        schema:
-          $ref: '#/definitions/FolderCreate'
-        x-nullable: true
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/Folder'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderCreate'
   /api/v1/folders/search:
     get:
       tags:
@@ -682,55 +713,57 @@ paths:
       description: To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
       operationId: Folders_SearchForFolders
       parameters:
-      - type: string
-        name: searchQuery
+      - name: searchQuery
         in: query
         required: true
-        x-nullable: true
-      - type: boolean
-        name: canCreate
+        schema:
+          type: string
+      - name: canCreate
         in: query
         description: Set to true to only return folders where the user has permission to create sessions.
-        default: false
-        x-nullable: false
-      - type: string
-        name: sortField
+        schema:
+          type: boolean
+          default: false
+      - name: sortField
         in: query
         x-schema:
-          $ref: '#/definitions/FolderSortFields'
-        default: Relevance
-        x-nullable: false
-        enum:
-        - Name
-        - Relevance
-      - type: string
-        name: sortOrder
+          $ref: '#/components/schemas/FolderSortFields'
+        schema:
+          type: string
+          enum:
+          - Name
+          - Relevance
+          default: Relevance
+      - name: sortOrder
         in: query
         x-schema:
-          $ref: '#/definitions/SortOrder'
-        default: Asc
-        x-nullable: false
-        enum:
-        - Asc
-        - Desc
-      - type: integer
-        name: pageNumber
+          $ref: '#/components/schemas/SortOrder'
+        schema:
+          type: string
+          enum:
+          - Asc
+          - Desc
+          default: Asc
+      - name: pageNumber
         in: query
         description: Page numbering starts at 0
-        format: int32
-        default: 0
-        x-nullable: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/ListResponseOfFolder'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponseOfFolder'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
@@ -743,455 +776,458 @@ paths:
       description: To fetch all elements, this endpoint can be called multiple times, starting at pageNumber = 0 and incrementing the page number until no results are returned.
       operationId: Folders_GetCreatorFoldersList
       parameters:
-      - type: string
-        name: sortField
+      - name: sortField
         in: query
         x-schema:
-          $ref: '#/definitions/FolderSortFields'
-        default: Relevance
-        x-nullable: false
-        enum:
-        - Name
-        - Relevance
-      - type: string
-        name: sortOrder
+          $ref: '#/components/schemas/FolderSortFields'
+        schema:
+          type: string
+          enum:
+          - Name
+          - Relevance
+          default: Relevance
+      - name: sortOrder
         in: query
         x-schema:
-          $ref: '#/definitions/SortOrder'
-        default: Asc
-        x-nullable: false
-        enum:
-        - Asc
-        - Desc
-      - type: integer
-        name: pageNumber
+          $ref: '#/components/schemas/SortOrder'
+        schema:
+          type: string
+          enum:
+          - Asc
+          - Desc
+          default: Asc
+      - name: pageNumber
         in: query
         description: Page numbering starts at 0
-        format: int32
-        default: 0
-        x-nullable: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/ListResponseOfFolder'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponseOfFolder'
         '400':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/APIError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '403':
           description: User does not have permission to access this function
         '401':
           description: The user is not authorized to perform the requested action
-definitions:
-  SessionSortFields:
-    type: string
-    description: ''
-    x-enumNames:
-    - Name
-    - CreatedDate
-    - Relevance
-    enum:
-    - Name
-    - CreatedDate
-    - Relevance
-  User:
-    type: object
-    required:
-    - Id
-    properties:
-      Id:
-        type: string
-        description: The id of the user.
-        format: guid
-      Username:
-        type: string
-        description: The username for this user.
-  BuiltInRoleType:
-    type: string
-    description: ''
-    x-enumNames:
-    - None
-    - Viewer
-    - Creator
-    - Publisher
-    enum:
-    - None
-    - Viewer
-    - Creator
-    - Publisher
-  FolderCreate:
-    type: object
-    properties:
-      Name:
-        type: string
-        description: The name of the new folder.
-      Description:
-        type: string
-        description: The description of the new folder.
-      Parent:
-        type: string
-        description: Optional Id of the parent folder to create this under. The folder must already exist, and you must have create permission on the target folder.
-        format: guid
-  Session:
-    type: object
-    required:
-    - Folder
-    properties:
-      Id:
-        type: string
-        format: guid
-      Name:
-        type: string
-      Description:
-        type: string
-      StartTime:
-        type: string
-        format: date-time
-      Duration:
-        type: number
-        description: The duration of the session (in seconds)
-        format: double
-      MostRecentViewPosition:
-        type: number
-        format: double
-      CreatedBy:
-        $ref: '#/definitions/User'
-      Urls:
-        $ref: '#/definitions/SessionUrls'
-      Folder:
-        type: string
-        format: guid
-      FolderDetails:
-        $ref: '#/definitions/BasicFolder'
-      Context:
-        type: array
-        items:
-          $ref: '#/definitions/SearchResultContext'
-      PercentCompleted:
-        type: integer
-        description: The percentage from 0-100 of the session watched by the requested user
-        format: int32
-  ModelBaseOfGuid:
-    type: object
-    properties:
-      Id:
-        type: string
-        format: guid
-      Name:
-        type: string
-  Role:
-    type: object
-    properties:
-      Id:
-        type: string
-        description: The unique id that identifies the role.
-        format: guid
-      Name:
-        type: string
-        description: The name of this role.
-  ListResponseOfPermission:
-    type: object
-    properties:
-      Results:
-        type: array
-        description: The list of results from the API call
-        items:
-          $ref: '#/definitions/Permission'
-  SessionUrls:
-    type: object
-    properties:
-      ViewerUrl:
-        type: string
-        description: The URL to view this session in Panopto
-      EmbedUrl:
-        type: string
-        description: The URL to an embedded version of this session
-      ShareSettingsUrl:
-        type: string
-      DownloadUrl:
-        type: string
-        description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
-      AudioDescriptionDownloadUrl:
-        type: string
-      CaptionDownloadUrl:
-        type: string
-        description: The URL to download captions for this session, if available.
-      EditorUrl:
-        type: string
-        description: The URL to edit this session in Panopto, if you are a creator.
-      ThumbnailUrl:
-        type: string
-        description: The URL to retrieve the thumbnail for this session
-  Permission:
-    type: object
-    required:
-    - IsInherited
-    properties:
-      IsInherited:
-        type: boolean
-        description: Indicates whether or not the permission is inherited.
-      Principal:
-        description: The principal, either a user or group, to which the role is assigned.
-        $ref: '#/definitions/Principal'
-      Role:
-        description: The role assigned to the principal.
-        $ref: '#/definitions/Role'
-  AccessLevel:
-    type: string
-    description: ''
-    x-enumNames:
-    - Restricted
-    - OrganizationUnlisted
-    - Organization
-    - PublicUnlisted
-    - Public
-    enum:
-    - Restricted
-    - OrganizationUnlisted
-    - Organization
-    - PublicUnlisted
-    - Public
-  Principal:
-    type: object
-    required:
-    - Type
-    properties:
-      Id:
-        type: string
-        description: The unique id that represents this principal.
-        format: guid
-      Type:
-        description: Type of the principal, either a user or group.
-        $ref: '#/definitions/PrincipalType'
-  ListResponseOfSession:
-    type: object
-    properties:
-      Results:
-        type: array
-        description: The list of results from the API call
-        items:
-          $ref: '#/definitions/Session'
-  FolderUpdate:
-    type: object
-    properties:
-      Name:
-        type: string
-        description: The new name for the folder.
-      Description:
-        type: string
-        description: The new description for the folder.
-      Parent:
-        type: string
-        description: 'The Id of the folder to move this to. The folder must already exist, and you must have create permission on the target folder.
-
-          To move to a top level folder, set this to "00000000-0000-0000-0000-000000000000"'
-        format: guid
-  PermissionCreate:
-    type: object
-    required:
-    - PrincipalId
-    - PrincipalType
-    properties:
-      RoleId:
-        type: string
-        description: Id of the role to assign to the user or group. Required when RoleType is null or None.
-        format: guid
-      RoleType:
-        description: Type of the role to assign to the user or group. Required when RoleId is not set.
-        $ref: '#/definitions/BuiltInRoleType'
-      PrincipalId:
-        type: string
-        description: Id of the user or group to which the role is being assigned.
-        format: guid
-      PrincipalType:
-        description: Type of principal, either a user or group.
-        $ref: '#/definitions/PrincipalType'
-  ListResponseOfPlaylist:
-    type: object
-    properties:
-      Results:
-        type: array
-        description: The list of results from the API call
-        items:
-          $ref: '#/definitions/Playlist'
-  FolderSettings:
-    type: object
-    required:
-    - AutomaticCaptionProviderId
-    properties:
-      AutomaticCaptionProviderId:
-        type: string
-        format: guid
-      AutomaticCaptionProviderName:
-        type: string
-  PlaylistSortFields:
-    type: string
-    description: ''
-    x-enumNames:
-    - Name
-    - CreatedDate
-    - Relevance
-    enum:
-    - Name
-    - CreatedDate
-    - Relevance
-  BasicFolder:
-    type: object
-    properties:
-      Id:
-        type: string
-        format: guid
-      Name:
-        type: string
-  PrincipalType:
-    type: string
-    description: ''
-    x-enumNames:
-    - User
-    - Group
-    enum:
-    - User
-    - Group
-  SearchResultContext:
-    type: object
-    properties:
-      Text:
-        type: string
-      Time:
-        type: number
-        format: double
-      ThumbnailUrl:
-        type: string
-  Folder:
-    type: object
-    properties:
-      Id:
-        type: string
-        format: guid
-      Name:
-        type: string
-      Description:
-        type: string
-      ParentFolder:
-        $ref: '#/definitions/BasicFolder'
-      Urls:
-        $ref: '#/definitions/FolderUrls'
-  PermissionDelete:
-    type: object
-    required:
-    - PrincipalId
-    - PrincipalType
-    properties:
-      RoleId:
-        type: string
-        description: Id of the role to remove from the user or group. Required when RoleType is null or None.
-        format: guid
-      RoleType:
-        description: Type of the role to remove from the user or group. Required when RoleId is null.
-        $ref: '#/definitions/BuiltInRoleType'
-      PrincipalId:
-        type: string
-        description: Id of the user or group from which the role is being removed.
-        format: guid
-      PrincipalType:
-        description: Type of principal, either a user or group.
-        $ref: '#/definitions/PrincipalType'
-  FolderUrls:
-    type: object
-    properties:
-      FolderUrl:
-        type: string
-        description: The URL to open this folder in Panopto
-      EmbedUrl:
-        type: string
-        description: The URL to an embedded version of this folder
-      ShareSettingsUrl:
-        type: string
-        description: The URL to change how this folder is shared. May be blank if permission is not granted.
-  ListResponseOfFolder:
-    type: object
-    properties:
-      Results:
-        type: array
-        description: The list of results from the API call
-        items:
-          $ref: '#/definitions/Folder'
-  PlaylistUrls:
-    type: object
-    properties:
-      ViewerUrl:
-        type: string
-        description: The URL to view this playlist in Panopto
-      EmbedUrl:
-        type: string
-        description: The URL to an embedded version of this playlist
-      ThumbnailUrl:
-        type: string
-        description: The URL to retrieve the thumbnail for this playlist
-  APIErrorInternal:
-    type: object
-    required:
-    - Success
-    properties:
-      ErrorCode:
-        type: string
-        description: Internal error code
-      Message:
-        type: string
-      Success:
-        type: boolean
-        description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
-      ErrorSource:
-        type: string
-        description: Unique identifier of what caused this error
-  SortOrder:
-    type: string
-    description: ''
-    x-enumNames:
-    - Asc
-    - Desc
-    enum:
-    - Asc
-    - Desc
-  Playlist:
-    allOf:
-    - $ref: '#/definitions/ModelBaseOfGuid'
-    - type: object
+components:
+  schemas:
+    SessionUrls:
+      type: object
       properties:
+        ViewerUrl:
+          type: string
+          description: The URL to view this session in Panopto
+        EmbedUrl:
+          type: string
+          description: The URL to an embedded version of this session
+        ShareSettingsUrl:
+          type: string
+        DownloadUrl:
+          type: string
+          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
+        AudioDescriptionDownloadUrl:
+          type: string
+        CaptionDownloadUrl:
+          type: string
+          description: The URL to download captions for this session, if available.
+        EditorUrl:
+          type: string
+          description: The URL to edit this session in Panopto, if you are a creator.
+        ThumbnailUrl:
+          type: string
+          description: The URL to retrieve the thumbnail for this session
+    Session:
+      type: object
+      required:
+      - Folder
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
         Description:
           type: string
-        Folder:
-          $ref: '#/definitions/BasicFolder'
+        StartTime:
+          type: string
+          format: date-time
+        Duration:
+          type: number
+          description: The duration of the session (in seconds)
+          format: double
+        MostRecentViewPosition:
+          type: number
+          format: double
+        CreatedBy:
+          $ref: '#/components/schemas/User'
         Urls:
-          $ref: '#/definitions/PlaylistUrls'
-  APIError:
-    type: object
-    properties:
-      Error:
-        description: Error result returned if an error occurs in Panopto, otherwise null or missing
-        $ref: '#/definitions/APIErrorInternal'
-  FolderSortFields:
-    type: string
-    description: ''
-    x-enumNames:
-    - Name
-    - Relevance
-    enum:
-    - Name
-    - Relevance
-  AccessSettings:
-    type: object
-    required:
-    - IsInherited
-    - Level
-    properties:
-      IsInherited:
-        type: boolean
-        description: Indicates whether or not the access settings are inherited.
-      Level:
-        description: Indicates the level of access set for this item.
-        $ref: '#/definitions/AccessLevel'
+          $ref: '#/components/schemas/SessionUrls'
+        Folder:
+          type: string
+          format: guid
+        FolderDetails:
+          $ref: '#/components/schemas/BasicFolder'
+        Context:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResultContext'
+        PercentCompleted:
+          type: integer
+          description: The percentage from 0-100 of the session watched by the requested user
+          format: int32
+    BasicFolder:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+    ListResponseOfPermission:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Permission'
+    PrincipalType:
+      type: string
+      description: ''
+      x-enumNames:
+      - User
+      - Group
+      enum:
+      - User
+      - Group
+    FolderSettings:
+      type: object
+      required:
+      - AutomaticCaptionProviderId
+      properties:
+        AutomaticCaptionProviderId:
+          type: string
+          format: guid
+        AutomaticCaptionProviderName:
+          type: string
+    BuiltInRoleType:
+      type: string
+      description: ''
+      x-enumNames:
+      - None
+      - Viewer
+      - Creator
+      - Publisher
+      enum:
+      - None
+      - Viewer
+      - Creator
+      - Publisher
+    PlaylistSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      - CreatedDate
+      - Relevance
+      enum:
+      - Name
+      - CreatedDate
+      - Relevance
+    APIErrorInternal:
+      type: object
+      required:
+      - Success
+      properties:
+        ErrorCode:
+          type: string
+          description: Internal error code
+        Message:
+          type: string
+        Success:
+          type: boolean
+          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+        ErrorSource:
+          type: string
+          description: Unique identifier of what caused this error
+    Permission:
+      type: object
+      required:
+      - IsInherited
+      properties:
+        IsInherited:
+          type: boolean
+          description: Indicates whether or not the permission is inherited.
+        Principal:
+          description: The principal, either a user or group, to which the role is assigned.
+          $ref: '#/components/schemas/Principal'
+        Role:
+          description: The role assigned to the principal.
+          $ref: '#/components/schemas/Role'
+    SessionSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      - CreatedDate
+      - Relevance
+      enum:
+      - Name
+      - CreatedDate
+      - Relevance
+    FolderUrls:
+      type: object
+      properties:
+        FolderUrl:
+          type: string
+          description: The URL to open this folder in Panopto
+        EmbedUrl:
+          type: string
+          description: The URL to an embedded version of this folder
+        ShareSettingsUrl:
+          type: string
+          description: The URL to change how this folder is shared. May be blank if permission is not granted.
+    AccessLevel:
+      type: string
+      description: ''
+      x-enumNames:
+      - Restricted
+      - OrganizationUnlisted
+      - Organization
+      - PublicUnlisted
+      - Public
+      enum:
+      - Restricted
+      - OrganizationUnlisted
+      - Organization
+      - PublicUnlisted
+      - Public
+    FolderSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      - Relevance
+      enum:
+      - Name
+      - Relevance
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    ListResponseOfPlaylist:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Playlist'
+    AccessSettings:
+      type: object
+      required:
+      - IsInherited
+      - Level
+      properties:
+        IsInherited:
+          type: boolean
+          description: Indicates whether or not the access settings are inherited.
+        Level:
+          description: Indicates the level of access set for this item.
+          $ref: '#/components/schemas/AccessLevel'
+    SearchResultContext:
+      type: object
+      properties:
+        Text:
+          type: string
+        Time:
+          type: number
+          format: double
+        ThumbnailUrl:
+          type: string
+    PermissionCreate:
+      type: object
+      required:
+      - PrincipalId
+      - PrincipalType
+      properties:
+        RoleId:
+          type: string
+          description: Id of the role to assign to the user or group. Required when RoleType is null or None.
+          format: guid
+        RoleType:
+          description: Type of the role to assign to the user or group. Required when RoleId is not set.
+          $ref: '#/components/schemas/BuiltInRoleType'
+        PrincipalId:
+          type: string
+          description: Id of the user or group to which the role is being assigned.
+          format: guid
+        PrincipalType:
+          description: Type of principal, either a user or group.
+          $ref: '#/components/schemas/PrincipalType'
+    Playlist:
+      allOf:
+      - $ref: '#/components/schemas/ModelBaseOfGuid'
+      - type: object
+        properties:
+          Description:
+            type: string
+          Folder:
+            $ref: '#/components/schemas/BasicFolder'
+          Urls:
+            $ref: '#/components/schemas/PlaylistUrls'
+    User:
+      type: object
+      required:
+      - Id
+      properties:
+        Id:
+          type: string
+          description: The id of the user.
+          format: guid
+        Username:
+          type: string
+          description: The username for this user.
+    Principal:
+      type: object
+      required:
+      - Type
+      properties:
+        Id:
+          type: string
+          description: The unique id that represents this principal.
+          format: guid
+        Type:
+          description: Type of the principal, either a user or group.
+          $ref: '#/components/schemas/PrincipalType'
+    FolderCreate:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: The name of the new folder.
+        Description:
+          type: string
+          description: The description of the new folder.
+        Parent:
+          type: string
+          description: Optional Id of the parent folder to create this under. The folder must already exist, and you must have create permission on the target folder.
+          format: guid
+    PlaylistUrls:
+      type: object
+      properties:
+        ViewerUrl:
+          type: string
+          description: The URL to view this playlist in Panopto
+        EmbedUrl:
+          type: string
+          description: The URL to an embedded version of this playlist
+        ThumbnailUrl:
+          type: string
+          description: The URL to retrieve the thumbnail for this playlist
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
+    ListResponseOfFolder:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Folder'
+    FolderUpdate:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: The new name for the folder.
+        Description:
+          type: string
+          description: The new description for the folder.
+        Parent:
+          type: string
+          description: 'The Id of the folder to move this to. The folder must already exist, and you must have create permission on the target folder.
+
+            To move to a top level folder, set this to "00000000-0000-0000-0000-000000000000"'
+          format: guid
+    PermissionDelete:
+      type: object
+      required:
+      - PrincipalId
+      - PrincipalType
+      properties:
+        RoleId:
+          type: string
+          description: Id of the role to remove from the user or group. Required when RoleType is null or None.
+          format: guid
+        RoleType:
+          description: Type of the role to remove from the user or group. Required when RoleId is null.
+          $ref: '#/components/schemas/BuiltInRoleType'
+        PrincipalId:
+          type: string
+          description: Id of the user or group from which the role is being removed.
+          format: guid
+        PrincipalType:
+          description: Type of principal, either a user or group.
+          $ref: '#/components/schemas/PrincipalType'
+    Role:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The unique id that identifies the role.
+          format: guid
+        Name:
+          type: string
+          description: The name of this role.
+    Folder:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+        Description:
+          type: string
+        ParentFolder:
+          $ref: '#/components/schemas/BasicFolder'
+        Urls:
+          $ref: '#/components/schemas/FolderUrls'
+    ListResponseOfSession:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Session'
+    ModelBaseOfGuid:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

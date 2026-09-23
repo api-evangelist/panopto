@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  title: Panopto Public Accessibility XfpUserProfiles API
+  title: Panopto Public Xfp User Profiles API
   description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
   version: '1'
-host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
-basePath: /Panopto
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://<PanoptoServerURL>(i.e. example.hosted.panopto.com)/Panopto
 tags:
 - name: XfpUserProfiles
   description: Portals API
@@ -22,89 +16,91 @@ paths:
       summary: Create XFP user profile
       operationId: XfpUserProfiles_Create
       parameters:
-      - type: string
-        name: portalId
+      - name: portalId
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - name: xfpUserToCreate
-        in: body
         schema:
-          $ref: '#/definitions/XfpUserProfileCreate'
-        x-nullable: true
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: Created user profile
-          schema:
-            $ref: '#/definitions/XfpUserProfile'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/XfpUserProfile'
         '400':
           description: Invalid request parameters
         '401':
           description: Unauthorized access
         '412':
           description: Precondition failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/XfpUserProfileCreate'
     get:
       tags:
       - XfpUserProfiles
       summary: Get XFP user profiles according to the filter
       operationId: XfpUserProfiles_List
       parameters:
-      - type: string
-        name: portalId
+      - name: portalId
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - type: string
-        name: XfpRole
+        schema:
+          type: string
+          format: guid
+      - name: XfpRole
         in: query
-        x-nullable: true
-      - type: string
-        name: EmailAddress
+        schema:
+          type: string
+      - name: EmailAddress
         in: query
-        x-nullable: true
-      - type: integer
-        name: Page
+        schema:
+          type: string
+      - name: Page
         in: query
-        format: int32
-        x-nullable: false
-      - type: integer
-        name: PageSize
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
         in: query
-        format: int32
-        x-nullable: true
-      - type: string
-        name: Sort
+        schema:
+          type: integer
+          format: int32
+      - name: Sort
         in: query
-        x-nullable: true
-      - type: string
-        name: SecondarySort
+        schema:
+          type: string
+      - name: SecondarySort
         in: query
-        x-nullable: true
-      - type: boolean
-        name: SortDescending
+        schema:
+          type: string
+      - name: SortDescending
         in: query
-        x-nullable: false
-      - type: boolean
-        name: SecondarySortDescending
+        schema:
+          type: boolean
+      - name: SecondarySortDescending
         in: query
-        x-nullable: false
-      - type: boolean
-        name: ComputeTotalCount
+        schema:
+          type: boolean
+      - name: ComputeTotalCount
         in: query
-        x-nullable: false
-      - type: boolean
-        name: ComputeHasMorePages
+        schema:
+          type: boolean
+      - name: ComputeHasMorePages
         in: query
-        x-nullable: false
+        schema:
+          type: boolean
       responses:
         '200':
-          x-nullable: false
           description: User profile
-          schema:
-            $ref: '#/definitions/XfpUserProfile'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/XfpUserProfile'
         '400':
           description: Invalid request parameters
         '401':
@@ -116,24 +112,25 @@ paths:
       summary: Delete an XFP user profile
       operationId: XfpUserProfiles_Delete
       parameters:
-      - type: string
-        name: portalId
+      - name: portalId
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - type: string
-        name: userId
+        schema:
+          type: string
+          format: guid
+      - name: userId
         in: path
         required: true
-        format: guid
-        x-nullable: false
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: If xfp user was deleted successfully
-          schema:
-            type: boolean
+          content:
+            application/json:
+              schema:
+                type: boolean
         '400':
           description: Invalid request parameters
         '401':
@@ -148,29 +145,25 @@ paths:
       summary: Update an XFP user profile
       operationId: XfpUserProfiles_Update
       parameters:
-      - type: string
-        name: portalId
+      - name: portalId
         in: path
         required: true
-        format: guid
-        x-nullable: false
-      - type: string
-        name: userId
-        in: path
-        required: true
-        format: guid
-        x-nullable: false
-      - name: xfpUserToUpdate
-        in: body
         schema:
-          $ref: '#/definitions/XfpUserProfileUpdate'
-        x-nullable: true
+          type: string
+          format: guid
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: Updated user profile
-          schema:
-            $ref: '#/definitions/XfpUserProfile'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/XfpUserProfile'
         '400':
           description: Invalid request parameters
         '401':
@@ -179,6 +172,11 @@ paths:
           description: Precondition failed
         '404':
           description: XFP user profile not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/XfpUserProfileUpdate'
   /api/v1/portal/{portalId}/user/bulk-create:
     post:
       tags:
@@ -186,18 +184,19 @@ paths:
       summary: Bulk Create XFP users
       operationId: XfpUserProfiles_BulkCreate
       parameters:
-      - type: string
-        name: portalId
+      - name: portalId
         in: path
         required: true
-        format: guid
-        x-nullable: false
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: User profile
-          schema:
-            $ref: '#/definitions/XfpUserProfile'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/XfpUserProfile'
         '400':
           description: Invalid request parameters
         '401':
@@ -209,88 +208,90 @@ paths:
       summary: Bulk Delete XFP users
       operationId: XfpUserProfiles_BulkDelete
       parameters:
-      - type: string
-        name: portalId
+      - name: portalId
         in: path
         required: true
-        format: guid
-        x-nullable: false
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: User profile
-          schema:
-            $ref: '#/definitions/XfpUserProfile'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/XfpUserProfile'
         '400':
           description: Invalid request parameters
         '401':
           description: Unauthorized access
-definitions:
-  ModelBaseOfGuid:
-    type: object
-    properties:
-      Id:
-        type: string
-        format: guid
-      Name:
-        type: string
-  XfpUserProfile:
-    allOf:
-    - $ref: '#/definitions/ModelBaseOfGuid'
-    - type: object
+components:
+  schemas:
+    XfpUserProfileCreate:
+      type: object
       required:
-      - UserId
-      - PortalPublicId
-      - CreatedDate
+      - XfpRole
       properties:
-        UserId:
-          type: string
-          format: guid
         FirstName:
           type: string
         LastName:
           type: string
         EmailAddress:
           type: string
-        PortalPublicId:
+        XfpRole:
+          $ref: '#/components/schemas/XfpUserRole'
+        TemporaryPassword:
           type: string
-          format: guid
+    XfpUserProfile:
+      allOf:
+      - $ref: '#/components/schemas/ModelBaseOfGuid'
+      - type: object
+        required:
+        - UserId
+        - PortalPublicId
+        - CreatedDate
+        properties:
+          UserId:
+            type: string
+            format: guid
+          FirstName:
+            type: string
+          LastName:
+            type: string
+          EmailAddress:
+            type: string
+          PortalPublicId:
+            type: string
+            format: guid
+          XfpRole:
+            type: string
+          CreatedDate:
+            type: string
+            format: date-time
+    XfpUserRole:
+      type: string
+      description: ''
+      x-enumNames:
+      - Viewer
+      - PortalManager
+      enum:
+      - Viewer
+      - PortalManager
+    XfpUserProfileUpdate:
+      type: object
+      properties:
         XfpRole:
           type: string
-        CreatedDate:
+        FirstName:
           type: string
-          format: date-time
-  XfpUserProfileUpdate:
-    type: object
-    properties:
-      XfpRole:
-        type: string
-      FirstName:
-        type: string
-      LastName:
-        type: string
-  XfpUserRole:
-    type: string
-    description: ''
-    x-enumNames:
-    - Viewer
-    - PortalManager
-    enum:
-    - Viewer
-    - PortalManager
-  XfpUserProfileCreate:
-    type: object
-    required:
-    - XfpRole
-    properties:
-      FirstName:
-        type: string
-      LastName:
-        type: string
-      EmailAddress:
-        type: string
-      XfpRole:
-        $ref: '#/definitions/XfpUserRole'
-      TemporaryPassword:
-        type: string
+        LastName:
+          type: string
+    ModelBaseOfGuid:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

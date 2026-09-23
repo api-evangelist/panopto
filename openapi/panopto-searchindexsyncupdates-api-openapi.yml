@@ -1,16 +1,10 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  title: Panopto Public Accessibility SearchIndexSyncUpdates API
+  title: Panopto Public Search Index Sync Updates API
   description: The public API for Panopto. OpenID & OAuth information can be found at Panopto/oauth2/.well-known/openid-configuration
   version: '1'
-host: <PanoptoServerURL>(i.e. example.hosted.panopto.com)
-basePath: /Panopto
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://<PanoptoServerURL>(i.e. example.hosted.panopto.com)/Panopto
 tags:
 - name: SearchIndexSyncUpdates
   description: Search Index Integration API
@@ -22,22 +16,23 @@ paths:
       summary: Get IDs for videos and playlists updated after a specified UTC date time
       operationId: SearchIndexSyncUpdates_GetUpdates
       parameters:
-      - type: string
-        name: fromDate
+      - name: fromDate
         in: query
         required: true
-        format: date-time
-        x-nullable: false
-      - type: string
-        name: nextToken
+        schema:
+          type: string
+          format: date-time
+      - name: nextToken
         in: query
-        x-nullable: true
+        schema:
+          type: string
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/SearchIndexSyncUpdateResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchIndexSyncUpdateResponse'
   /api/v1/searchIndexSync/content:
     get:
       tags:
@@ -45,35 +40,37 @@ paths:
       summary: Get the content for Search Index Integration for a video or playlist by ID
       operationId: SearchIndexSyncUpdates_GetContent
       parameters:
-      - type: string
-        name: id
+      - name: id
         in: query
         required: true
-        format: guid
-        x-nullable: false
+        schema:
+          type: string
+          format: guid
       responses:
         '200':
-          x-nullable: false
           description: ''
-          schema:
-            $ref: '#/definitions/SearchIndexSyncContentResponse'
-definitions:
-  ModelBase:
-    type: object
-    properties:
-      Id:
-        type: string
-        description: The unique identifier for this item.
-        format: guid
-      Name:
-        type: string
-        description: The name of this item.
-  SearchIndexSyncContentResponse:
-    allOf:
-    - $ref: '#/definitions/ModelBase'
-    - type: object
-  SearchIndexSyncUpdateResponse:
-    allOf:
-    - $ref: '#/definitions/ModelBase'
-    - type: object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchIndexSyncContentResponse'
+components:
+  schemas:
+    SearchIndexSyncUpdateResponse:
+      allOf:
+      - $ref: '#/components/schemas/ModelBase'
+      - type: object
+    SearchIndexSyncContentResponse:
+      allOf:
+      - $ref: '#/components/schemas/ModelBase'
+      - type: object
+    ModelBase:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The unique identifier for this item.
+          format: guid
+        Name:
+          type: string
+          description: The name of this item.
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

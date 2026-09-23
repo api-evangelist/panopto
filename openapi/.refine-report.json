@@ -1,22 +1,7 @@
 {
   "provider": "panopto",
   "sources": [
-    "panopto-accessibility-api-openapi.yml",
-    "panopto-auth-api-openapi.yml",
-    "panopto-captionproviders-api-openapi.yml",
-    "panopto-folders-api-openapi.yml",
-    "panopto-groups-api-openapi.yml",
-    "panopto-playlists-api-openapi.yml",
-    "panopto-remoterecorderapi-api-openapi.yml",
-    "panopto-remoterecorders-api-openapi.yml",
-    "panopto-reports-api-openapi.yml",
-    "panopto-scheduledrecordings-api-openapi.yml",
-    "panopto-searchindexsyncupdates-api-openapi.yml",
-    "panopto-sessions-api-openapi.yml",
-    "panopto-streams-api-openapi.yml",
-    "panopto-tags-api-openapi.yml",
-    "panopto-users-api-openapi.yml",
-    "panopto-xfpuserprofiles-api-openapi.yml"
+    "_original/panopto-rest-api.json"
   ],
   "outputs": [
     "panopto-accessibility-api-openapi.yml",
@@ -39,6 +24,27 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "panopto-rest-api.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "panopto-accessibility-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-captionproviders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-folders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-playlists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-remoterecorderapi-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-remoterecorders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-scheduledrecordings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-searchindexsyncupdates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-streams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "panopto-xfpuserprofiles-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
