@@ -822,31 +822,41 @@ paths:
           description: The user is not authorized to perform the requested action
 components:
   schemas:
-    SessionUrls:
+    Folder:
       type: object
       properties:
-        ViewerUrl:
+        Id:
           type: string
-          description: The URL to view this session in Panopto
-        EmbedUrl:
+          format: guid
+        Name:
           type: string
-          description: The URL to an embedded version of this session
-        ShareSettingsUrl:
+        Description:
           type: string
-        DownloadUrl:
+        ParentFolder:
+          $ref: '#/components/schemas/BasicFolder'
+        Urls:
+          $ref: '#/components/schemas/FolderUrls'
+    PrincipalType:
+      type: string
+      description: ''
+      x-enumNames:
+      - User
+      - Group
+      enum:
+      - User
+      - Group
+    User:
+      type: object
+      required:
+      - Id
+      properties:
+        Id:
           type: string
-          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
-        AudioDescriptionDownloadUrl:
+          description: The id of the user.
+          format: guid
+        Username:
           type: string
-        CaptionDownloadUrl:
-          type: string
-          description: The URL to download captions for this session, if available.
-        EditorUrl:
-          type: string
-          description: The URL to edit this session in Panopto, if you are a creator.
-        ThumbnailUrl:
-          type: string
-          description: The URL to retrieve the thumbnail for this session
+          description: The username for this user.
     Session:
       type: object
       required:
@@ -886,31 +896,14 @@ components:
           type: integer
           description: The percentage from 0-100 of the session watched by the requested user
           format: int32
-    BasicFolder:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
-    ListResponseOfPermission:
+    ListResponseOfFolder:
       type: object
       properties:
         Results:
           type: array
           description: The list of results from the API call
           items:
-            $ref: '#/components/schemas/Permission'
-    PrincipalType:
-      type: string
-      description: ''
-      x-enumNames:
-      - User
-      - Group
-      enum:
-      - User
-      - Group
+            $ref: '#/components/schemas/Folder'
     FolderSettings:
       type: object
       required:
@@ -921,30 +914,14 @@ components:
           format: guid
         AutomaticCaptionProviderName:
           type: string
-    BuiltInRoleType:
-      type: string
-      description: ''
-      x-enumNames:
-      - None
-      - Viewer
-      - Creator
-      - Publisher
-      enum:
-      - None
-      - Viewer
-      - Creator
-      - Publisher
-    PlaylistSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - Name
-      - CreatedDate
-      - Relevance
-      enum:
-      - Name
-      - CreatedDate
-      - Relevance
+    BasicFolder:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
     APIErrorInternal:
       type: object
       required:
@@ -961,6 +938,39 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
+    ListResponseOfPermission:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Permission'
+    SessionSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      - CreatedDate
+      - Relevance
+      enum:
+      - Name
+      - CreatedDate
+      - Relevance
+    ModelBaseOfGuid:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
     Permission:
       type: object
       required:
@@ -975,7 +985,7 @@ components:
         Role:
           description: The role assigned to the principal.
           $ref: '#/components/schemas/Role'
-    SessionSortFields:
+    PlaylistSortFields:
       type: string
       description: ''
       x-enumNames:
@@ -998,47 +1008,6 @@ components:
         ShareSettingsUrl:
           type: string
           description: The URL to change how this folder is shared. May be blank if permission is not granted.
-    AccessLevel:
-      type: string
-      description: ''
-      x-enumNames:
-      - Restricted
-      - OrganizationUnlisted
-      - Organization
-      - PublicUnlisted
-      - Public
-      enum:
-      - Restricted
-      - OrganizationUnlisted
-      - Organization
-      - PublicUnlisted
-      - Public
-    FolderSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - Name
-      - Relevance
-      enum:
-      - Name
-      - Relevance
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
-    ListResponseOfPlaylist:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/Playlist'
     AccessSettings:
       type: object
       required:
@@ -1051,36 +1020,6 @@ components:
         Level:
           description: Indicates the level of access set for this item.
           $ref: '#/components/schemas/AccessLevel'
-    SearchResultContext:
-      type: object
-      properties:
-        Text:
-          type: string
-        Time:
-          type: number
-          format: double
-        ThumbnailUrl:
-          type: string
-    PermissionCreate:
-      type: object
-      required:
-      - PrincipalId
-      - PrincipalType
-      properties:
-        RoleId:
-          type: string
-          description: Id of the role to assign to the user or group. Required when RoleType is null or None.
-          format: guid
-        RoleType:
-          description: Type of the role to assign to the user or group. Required when RoleId is not set.
-          $ref: '#/components/schemas/BuiltInRoleType'
-        PrincipalId:
-          type: string
-          description: Id of the user or group to which the role is being assigned.
-          format: guid
-        PrincipalType:
-          description: Type of principal, either a user or group.
-          $ref: '#/components/schemas/PrincipalType'
     Playlist:
       allOf:
       - $ref: '#/components/schemas/ModelBaseOfGuid'
@@ -1092,18 +1031,6 @@ components:
             $ref: '#/components/schemas/BasicFolder'
           Urls:
             $ref: '#/components/schemas/PlaylistUrls'
-    User:
-      type: object
-      required:
-      - Id
-      properties:
-        Id:
-          type: string
-          description: The id of the user.
-          format: guid
-        Username:
-          type: string
-          description: The username for this user.
     Principal:
       type: object
       required:
@@ -1116,45 +1043,6 @@ components:
         Type:
           description: Type of the principal, either a user or group.
           $ref: '#/components/schemas/PrincipalType'
-    FolderCreate:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: The name of the new folder.
-        Description:
-          type: string
-          description: The description of the new folder.
-        Parent:
-          type: string
-          description: Optional Id of the parent folder to create this under. The folder must already exist, and you must have create permission on the target folder.
-          format: guid
-    PlaylistUrls:
-      type: object
-      properties:
-        ViewerUrl:
-          type: string
-          description: The URL to view this playlist in Panopto
-        EmbedUrl:
-          type: string
-          description: The URL to an embedded version of this playlist
-        ThumbnailUrl:
-          type: string
-          description: The URL to retrieve the thumbnail for this playlist
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
-    ListResponseOfFolder:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/Folder'
     FolderUpdate:
       type: object
       properties:
@@ -1170,6 +1058,72 @@ components:
 
             To move to a top level folder, set this to "00000000-0000-0000-0000-000000000000"'
           format: guid
+    PlaylistUrls:
+      type: object
+      properties:
+        ViewerUrl:
+          type: string
+          description: The URL to view this playlist in Panopto
+        EmbedUrl:
+          type: string
+          description: The URL to an embedded version of this playlist
+        ThumbnailUrl:
+          type: string
+          description: The URL to retrieve the thumbnail for this playlist
+    BuiltInRoleType:
+      type: string
+      description: ''
+      x-enumNames:
+      - None
+      - Viewer
+      - Creator
+      - Publisher
+      enum:
+      - None
+      - Viewer
+      - Creator
+      - Publisher
+    Role:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The unique id that identifies the role.
+          format: guid
+        Name:
+          type: string
+          description: The name of this role.
+    FolderCreate:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: The name of the new folder.
+        Description:
+          type: string
+          description: The description of the new folder.
+        Parent:
+          type: string
+          description: Optional Id of the parent folder to create this under. The folder must already exist, and you must have create permission on the target folder.
+          format: guid
+    ListResponseOfPlaylist:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Playlist'
+    SearchResultContext:
+      type: object
+      properties:
+        Text:
+          type: string
+        Time:
+          type: number
+          format: double
+        ThumbnailUrl:
+          type: string
     PermissionDelete:
       type: object
       required:
@@ -1190,30 +1144,6 @@ components:
         PrincipalType:
           description: Type of principal, either a user or group.
           $ref: '#/components/schemas/PrincipalType'
-    Role:
-      type: object
-      properties:
-        Id:
-          type: string
-          description: The unique id that identifies the role.
-          format: guid
-        Name:
-          type: string
-          description: The name of this role.
-    Folder:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
-        Description:
-          type: string
-        ParentFolder:
-          $ref: '#/components/schemas/BasicFolder'
-        Urls:
-          $ref: '#/components/schemas/FolderUrls'
     ListResponseOfSession:
       type: object
       properties:
@@ -1222,12 +1152,82 @@ components:
           description: The list of results from the API call
           items:
             $ref: '#/components/schemas/Session'
-    ModelBaseOfGuid:
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    FolderSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      - Relevance
+      enum:
+      - Name
+      - Relevance
+    PermissionCreate:
+      type: object
+      required:
+      - PrincipalId
+      - PrincipalType
+      properties:
+        RoleId:
+          type: string
+          description: Id of the role to assign to the user or group. Required when RoleType is null or None.
+          format: guid
+        RoleType:
+          description: Type of the role to assign to the user or group. Required when RoleId is not set.
+          $ref: '#/components/schemas/BuiltInRoleType'
+        PrincipalId:
+          type: string
+          description: Id of the user or group to which the role is being assigned.
+          format: guid
+        PrincipalType:
+          description: Type of principal, either a user or group.
+          $ref: '#/components/schemas/PrincipalType'
+    AccessLevel:
+      type: string
+      description: ''
+      x-enumNames:
+      - Restricted
+      - OrganizationUnlisted
+      - Organization
+      - PublicUnlisted
+      - Public
+      enum:
+      - Restricted
+      - OrganizationUnlisted
+      - Organization
+      - PublicUnlisted
+      - Public
+    SessionUrls:
       type: object
       properties:
-        Id:
+        ViewerUrl:
           type: string
-          format: guid
-        Name:
+          description: The URL to view this session in Panopto
+        EmbedUrl:
           type: string
+          description: The URL to an embedded version of this session
+        ShareSettingsUrl:
+          type: string
+        DownloadUrl:
+          type: string
+          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
+        AudioDescriptionDownloadUrl:
+          type: string
+        CaptionDownloadUrl:
+          type: string
+          description: The URL to download captions for this session, if available.
+        EditorUrl:
+          type: string
+          description: The URL to edit this session in Panopto, if you are a creator.
+        ThumbnailUrl:
+          type: string
+          description: The URL to retrieve the thumbnail for this session
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

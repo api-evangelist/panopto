@@ -168,29 +168,6 @@ paths:
               $ref: '#/components/schemas/ScheduledRecordingCreate'
 components:
   schemas:
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
-    ScheduledRecordingRemoteRecorder:
-      type: object
-      required:
-      - RemoteRecorderId
-      - SuppressPrimary
-      - SuppressSecondary
-      properties:
-        RemoteRecorderId:
-          type: string
-          description: The id of the remote recorder to use for this recording. Only one can be specified at this time.
-          format: guid
-        SuppressPrimary:
-          type: boolean
-          description: True if the primary stream should be suppressed from this recorder. At least one recorder in a scheduled recording must not suppress the primary stream.
-        SuppressSecondary:
-          type: boolean
-          description: True if the secondary stream should be suppressed from this recorder.
     APIErrorInternal:
       type: object
       required:
@@ -207,27 +184,6 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
-    ScheduledRecording:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
-        RecorderScheduleEntries:
-          type: array
-          description: A list of recorders and their associated properties
-          items:
-            $ref: '#/components/schemas/RecorderScheduleEntry'
-        StartTime:
-          type: string
-          description: The start time for the recording
-          format: date-time
-        EndTime:
-          type: string
-          description: The end time for the recording
-          format: date-time
     ScheduledRecordingCreate:
       type: object
       required:
@@ -262,17 +218,6 @@ components:
         IsBroadcast:
           type: boolean
           description: Set to true if this recording should be broadcast live when it starts.
-    ScheduledRecordingUpdate:
-      type: object
-      properties:
-        StartTime:
-          type: string
-          description: The new start time. Times should be UTC. Must be later than the current time
-          format: date-time
-        EndTime:
-          type: string
-          description: The new end time. Times should be UTC. Must be later than the current time
-          format: date-time
     RecorderScheduleEntry:
       type: object
       required:
@@ -294,4 +239,59 @@ components:
           type: boolean
         RecorderDescription:
           type: string
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
+    ScheduledRecordingRemoteRecorder:
+      type: object
+      required:
+      - RemoteRecorderId
+      - SuppressPrimary
+      - SuppressSecondary
+      properties:
+        RemoteRecorderId:
+          type: string
+          description: The id of the remote recorder to use for this recording. Only one can be specified at this time.
+          format: guid
+        SuppressPrimary:
+          type: boolean
+          description: True if the primary stream should be suppressed from this recorder. At least one recorder in a scheduled recording must not suppress the primary stream.
+        SuppressSecondary:
+          type: boolean
+          description: True if the secondary stream should be suppressed from this recorder.
+    ScheduledRecordingUpdate:
+      type: object
+      properties:
+        StartTime:
+          type: string
+          description: The new start time. Times should be UTC. Must be later than the current time
+          format: date-time
+        EndTime:
+          type: string
+          description: The new end time. Times should be UTC. Must be later than the current time
+          format: date-time
+    ScheduledRecording:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+        RecorderScheduleEntries:
+          type: array
+          description: A list of recorders and their associated properties
+          items:
+            $ref: '#/components/schemas/RecorderScheduleEntry'
+        StartTime:
+          type: string
+          description: The start time for the recording
+          format: date-time
+        EndTime:
+          type: string
+          description: The end time for the recording
+          format: date-time
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

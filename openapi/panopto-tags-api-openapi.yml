@@ -243,12 +243,14 @@ paths:
               $ref: '#/components/schemas/TagMerge'
 components:
   schemas:
-    APIError:
+    ListResponseOfTag:
       type: object
       properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Tag'
     APIErrorInternal:
       type: object
       required:
@@ -265,6 +267,12 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
+    TagCreate:
+      type: object
+      properties:
+        Content:
+          type: string
+          description: The content of the tag.
     User:
       type: object
       required:
@@ -277,6 +285,19 @@ components:
         Username:
           type: string
           description: The username for this user.
+    TagUpdate:
+      allOf:
+      - $ref: '#/components/schemas/TagCreate'
+      - type: object
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
     TagMerge:
       type: object
       properties:
@@ -286,6 +307,12 @@ components:
           items:
             type: string
             format: guid
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
     TagSortFields:
       type: string
       description: ''
@@ -301,27 +328,6 @@ components:
       - Content
       - Creator
       - MostRecentUseDate
-    TagUpdate:
-      allOf:
-      - $ref: '#/components/schemas/TagCreate'
-      - type: object
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
-    ListResponseOfTag:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/Tag'
     Tag:
       type: object
       required:
@@ -344,10 +350,4 @@ components:
           format: date-time
         CreatedBy:
           $ref: '#/components/schemas/User'
-    TagCreate:
-      type: object
-      properties:
-        Content:
-          type: string
-          description: The content of the tag.
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

@@ -55,10 +55,6 @@ paths:
                 $ref: '#/components/schemas/SearchIndexSyncContentResponse'
 components:
   schemas:
-    SearchIndexSyncUpdateResponse:
-      allOf:
-      - $ref: '#/components/schemas/ModelBase'
-      - type: object
     SearchIndexSyncContentResponse:
       allOf:
       - $ref: '#/components/schemas/ModelBase'
@@ -73,4 +69,8 @@ components:
         Name:
           type: string
           description: The name of this item.
+    SearchIndexSyncUpdateResponse:
+      allOf:
+      - $ref: '#/components/schemas/ModelBase'
+      - type: object
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

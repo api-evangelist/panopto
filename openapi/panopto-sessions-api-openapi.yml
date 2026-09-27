@@ -1016,148 +1016,6 @@ paths:
               $ref: '#/components/schemas/SessionCopyCreate'
 components:
   schemas:
-    SessionUrls:
-      type: object
-      properties:
-        ViewerUrl:
-          type: string
-          description: The URL to view this session in Panopto
-        EmbedUrl:
-          type: string
-          description: The URL to an embedded version of this session
-        ShareSettingsUrl:
-          type: string
-        DownloadUrl:
-          type: string
-          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
-        AudioDescriptionDownloadUrl:
-          type: string
-        CaptionDownloadUrl:
-          type: string
-          description: The URL to download captions for this session, if available.
-        EditorUrl:
-          type: string
-          description: The URL to edit this session in Panopto, if you are a creator.
-        ThumbnailUrl:
-          type: string
-          description: The URL to retrieve the thumbnail for this session
-    Session:
-      type: object
-      required:
-      - Folder
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
-        Description:
-          type: string
-        StartTime:
-          type: string
-          format: date-time
-        Duration:
-          type: number
-          description: The duration of the session (in seconds)
-          format: double
-        MostRecentViewPosition:
-          type: number
-          format: double
-        CreatedBy:
-          $ref: '#/components/schemas/User'
-        Urls:
-          $ref: '#/components/schemas/SessionUrls'
-        Folder:
-          type: string
-          format: guid
-        FolderDetails:
-          $ref: '#/components/schemas/BasicFolder'
-        Context:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchResultContext'
-        PercentCompleted:
-          type: integer
-          description: The percentage from 0-100 of the session watched by the requested user
-          format: int32
-    BasicFolder:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
-    ListResponseOfPermission:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/Permission'
-    PrincipalType:
-      type: string
-      description: ''
-      x-enumNames:
-      - User
-      - Group
-      enum:
-      - User
-      - Group
-    TagSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - CreateDate
-      - UsageCount
-      - Content
-      - Creator
-      - MostRecentUseDate
-      enum:
-      - CreateDate
-      - UsageCount
-      - Content
-      - Creator
-      - MostRecentUseDate
-    SessionTagUpdate:
-      type: object
-      properties:
-        Tags:
-          type: array
-          description: The tags for the session.
-          items:
-            type: string
-    SessionViewerStats:
-      type: object
-      required:
-      - LastViewedDateTime
-      properties:
-        User:
-          $ref: '#/components/schemas/User'
-        PercentCompleted:
-          type: number
-          format: double
-        LastViewedDateTime:
-          type: string
-          format: date-time
-        MostRecentViewPositionInSeconds:
-          type: number
-          description: The most recent timestamp (in seconds) that was viewed by the user in this session
-          format: float
-    BuiltInRoleType:
-      type: string
-      description: ''
-      x-enumNames:
-      - None
-      - Viewer
-      - Creator
-      - Publisher
-      enum:
-      - None
-      - Viewer
-      - Creator
-      - Publisher
     SessionUpdate:
       type: object
       properties:
@@ -1171,150 +1029,6 @@ components:
           type: string
           description: The id of the folder to move this session to.
           format: guid
-    SessionScormManifestType:
-      type: string
-      description: ''
-      x-enumNames:
-      - Interactive
-      - Embed
-      enum:
-      - Interactive
-      - Embed
-    APIErrorInternal:
-      type: object
-      required:
-      - Success
-      properties:
-        ErrorCode:
-          type: string
-          description: Internal error code
-        Message:
-          type: string
-        Success:
-          type: boolean
-          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
-        ErrorSource:
-          type: string
-          description: Unique identifier of what caused this error
-    Permission:
-      type: object
-      required:
-      - IsInherited
-      properties:
-        IsInherited:
-          type: boolean
-          description: Indicates whether or not the permission is inherited.
-        Principal:
-          description: The principal, either a user or group, to which the role is assigned.
-          $ref: '#/components/schemas/Principal'
-        Role:
-          description: The role assigned to the principal.
-          $ref: '#/components/schemas/Role'
-    SessionCopyResponse:
-      type: object
-      properties:
-        NewDeliveryId:
-          type: string
-          format: guid
-        NewSessionId:
-          type: string
-          format: guid
-    SessionSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - Name
-      - CreatedDate
-      - Relevance
-      enum:
-      - Name
-      - CreatedDate
-      - Relevance
-    AccessLevel:
-      type: string
-      description: ''
-      x-enumNames:
-      - Restricted
-      - OrganizationUnlisted
-      - Organization
-      - PublicUnlisted
-      - Public
-      enum:
-      - Restricted
-      - OrganizationUnlisted
-      - Organization
-      - PublicUnlisted
-      - Public
-    ListResponseOfSessionViewerStats:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/SessionViewerStats'
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
-    AccessSettings:
-      type: object
-      required:
-      - IsInherited
-      - Level
-      properties:
-        IsInherited:
-          type: boolean
-          description: Indicates whether or not the access settings are inherited.
-        Level:
-          description: Indicates the level of access set for this item.
-          $ref: '#/components/schemas/AccessLevel'
-    SearchResultContext:
-      type: object
-      properties:
-        Text:
-          type: string
-        Time:
-          type: number
-          format: double
-        ThumbnailUrl:
-          type: string
-    PermissionCreate:
-      type: object
-      required:
-      - PrincipalId
-      - PrincipalType
-      properties:
-        RoleId:
-          type: string
-          description: Id of the role to assign to the user or group. Required when RoleType is null or None.
-          format: guid
-        RoleType:
-          description: Type of the role to assign to the user or group. Required when RoleId is not set.
-          $ref: '#/components/schemas/BuiltInRoleType'
-        PrincipalId:
-          type: string
-          description: Id of the user or group to which the role is being assigned.
-          format: guid
-        PrincipalType:
-          description: Type of principal, either a user or group.
-          $ref: '#/components/schemas/PrincipalType'
-    SessionCopyType:
-      type: string
-      description: ''
-      x-enumNames:
-      - Reference
-      - Full
-      - Destructive
-      enum:
-      - Reference
-      - Full
-      - Destructive
     ContentLanguage:
       type: string
       description: Language of content such as sessions, streams, or captions.
@@ -1382,6 +1096,15 @@ components:
       - French_CAN
       - Hebrew
       - Vietnamese
+    PrincipalType:
+      type: string
+      description: ''
+      x-enumNames:
+      - User
+      - Group
+      enum:
+      - User
+      - Group
     User:
       type: object
       required:
@@ -1394,48 +1117,119 @@ components:
         Username:
           type: string
           description: The username for this user.
-    ListResponseOfTag:
+    Session:
+      type: object
+      required:
+      - Folder
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+        Description:
+          type: string
+        StartTime:
+          type: string
+          format: date-time
+        Duration:
+          type: number
+          description: The duration of the session (in seconds)
+          format: double
+        MostRecentViewPosition:
+          type: number
+          format: double
+        CreatedBy:
+          $ref: '#/components/schemas/User'
+        Urls:
+          $ref: '#/components/schemas/SessionUrls'
+        Folder:
+          type: string
+          format: guid
+        FolderDetails:
+          $ref: '#/components/schemas/BasicFolder'
+        Context:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResultContext'
+        PercentCompleted:
+          type: integer
+          description: The percentage from 0-100 of the session watched by the requested user
+          format: int32
+    SessionTagUpdate:
+      type: object
+      properties:
+        Tags:
+          type: array
+          description: The tags for the session.
+          items:
+            type: string
+    TagSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - CreateDate
+      - UsageCount
+      - Content
+      - Creator
+      - MostRecentUseDate
+      enum:
+      - CreateDate
+      - UsageCount
+      - Content
+      - Creator
+      - MostRecentUseDate
+    BasicFolder:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+    ListResponseOfSessionViewerStats:
       type: object
       properties:
         Results:
           type: array
           description: The list of results from the API call
           items:
-            $ref: '#/components/schemas/Tag'
-    Principal:
+            $ref: '#/components/schemas/SessionViewerStats'
+    APIErrorInternal:
       type: object
       required:
-      - Type
+      - Success
       properties:
-        Id:
+        ErrorCode:
           type: string
-          description: The unique id that represents this principal.
-          format: guid
-        Type:
-          description: Type of the principal, either a user or group.
-          $ref: '#/components/schemas/PrincipalType'
-    Tag:
+          description: Internal error code
+        Message:
+          type: string
+        Success:
+          type: boolean
+          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+        ErrorSource:
+          type: string
+          description: Unique identifier of what caused this error
+    ListResponseOfPermission:
       type: object
-      required:
-      - UsageCount
-      - CreateDate
       properties:
-        Id:
-          type: string
-          format: guid
-        Content:
-          type: string
-        UsageCount:
-          type: integer
-          format: int64
-        CreateDate:
-          type: string
-          format: date-time
-        MostRecentUseDate:
-          type: string
-          format: date-time
-        CreatedBy:
-          $ref: '#/components/schemas/User'
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Permission'
+    SessionSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      - CreatedDate
+      - Relevance
+      enum:
+      - Name
+      - CreatedDate
+      - Relevance
     APIError:
       type: object
       properties:
@@ -1459,6 +1253,20 @@ components:
         Name:
           type: string
           description: The name of the new session.
+    Permission:
+      type: object
+      required:
+      - IsInherited
+      properties:
+        IsInherited:
+          type: boolean
+          description: Indicates whether or not the permission is inherited.
+        Principal:
+          description: The principal, either a user or group, to which the role is assigned.
+          $ref: '#/components/schemas/Principal'
+        Role:
+          description: The role assigned to the principal.
+          $ref: '#/components/schemas/Role'
     SessionViewerStatsSortFields:
       type: string
       description: ''
@@ -1468,6 +1276,97 @@ components:
       enum:
       - UserName
       - LastViewedDateTime
+    SessionScormManifestType:
+      type: string
+      description: ''
+      x-enumNames:
+      - Interactive
+      - Embed
+      enum:
+      - Interactive
+      - Embed
+    SessionViewerStats:
+      type: object
+      required:
+      - LastViewedDateTime
+      properties:
+        User:
+          $ref: '#/components/schemas/User'
+        PercentCompleted:
+          type: number
+          format: double
+        LastViewedDateTime:
+          type: string
+          format: date-time
+        MostRecentViewPositionInSeconds:
+          type: number
+          description: The most recent timestamp (in seconds) that was viewed by the user in this session
+          format: float
+    ListResponseOfTag:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Tag'
+    AccessSettings:
+      type: object
+      required:
+      - IsInherited
+      - Level
+      properties:
+        IsInherited:
+          type: boolean
+          description: Indicates whether or not the access settings are inherited.
+        Level:
+          description: Indicates the level of access set for this item.
+          $ref: '#/components/schemas/AccessLevel'
+    Principal:
+      type: object
+      required:
+      - Type
+      properties:
+        Id:
+          type: string
+          description: The unique id that represents this principal.
+          format: guid
+        Type:
+          description: Type of the principal, either a user or group.
+          $ref: '#/components/schemas/PrincipalType'
+    BuiltInRoleType:
+      type: string
+      description: ''
+      x-enumNames:
+      - None
+      - Viewer
+      - Creator
+      - Publisher
+      enum:
+      - None
+      - Viewer
+      - Creator
+      - Publisher
+    Role:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The unique id that identifies the role.
+          format: guid
+        Name:
+          type: string
+          description: The name of this role.
+    SearchResultContext:
+      type: object
+      properties:
+        Text:
+          type: string
+        Time:
+          type: number
+          format: double
+        ThumbnailUrl:
+          type: string
     PermissionDelete:
       type: object
       required:
@@ -1488,16 +1387,6 @@ components:
         PrincipalType:
           description: Type of principal, either a user or group.
           $ref: '#/components/schemas/PrincipalType'
-    Role:
-      type: object
-      properties:
-        Id:
-          type: string
-          description: The unique id that identifies the role.
-          format: guid
-        Name:
-          type: string
-          description: The name of this role.
     ListResponseOfSession:
       type: object
       properties:
@@ -1506,4 +1395,115 @@ components:
           description: The list of results from the API call
           items:
             $ref: '#/components/schemas/Session'
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    PermissionCreate:
+      type: object
+      required:
+      - PrincipalId
+      - PrincipalType
+      properties:
+        RoleId:
+          type: string
+          description: Id of the role to assign to the user or group. Required when RoleType is null or None.
+          format: guid
+        RoleType:
+          description: Type of the role to assign to the user or group. Required when RoleId is not set.
+          $ref: '#/components/schemas/BuiltInRoleType'
+        PrincipalId:
+          type: string
+          description: Id of the user or group to which the role is being assigned.
+          format: guid
+        PrincipalType:
+          description: Type of principal, either a user or group.
+          $ref: '#/components/schemas/PrincipalType'
+    SessionCopyResponse:
+      type: object
+      properties:
+        NewDeliveryId:
+          type: string
+          format: guid
+        NewSessionId:
+          type: string
+          format: guid
+    SessionCopyType:
+      type: string
+      description: ''
+      x-enumNames:
+      - Reference
+      - Full
+      - Destructive
+      enum:
+      - Reference
+      - Full
+      - Destructive
+    AccessLevel:
+      type: string
+      description: ''
+      x-enumNames:
+      - Restricted
+      - OrganizationUnlisted
+      - Organization
+      - PublicUnlisted
+      - Public
+      enum:
+      - Restricted
+      - OrganizationUnlisted
+      - Organization
+      - PublicUnlisted
+      - Public
+    Tag:
+      type: object
+      required:
+      - UsageCount
+      - CreateDate
+      properties:
+        Id:
+          type: string
+          format: guid
+        Content:
+          type: string
+        UsageCount:
+          type: integer
+          format: int64
+        CreateDate:
+          type: string
+          format: date-time
+        MostRecentUseDate:
+          type: string
+          format: date-time
+        CreatedBy:
+          $ref: '#/components/schemas/User'
+    SessionUrls:
+      type: object
+      properties:
+        ViewerUrl:
+          type: string
+          description: The URL to view this session in Panopto
+        EmbedUrl:
+          type: string
+          description: The URL to an embedded version of this session
+        ShareSettingsUrl:
+          type: string
+        DownloadUrl:
+          type: string
+          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
+        AudioDescriptionDownloadUrl:
+          type: string
+        CaptionDownloadUrl:
+          type: string
+          description: The URL to download captions for this session, if available.
+        EditorUrl:
+          type: string
+          description: The URL to edit this session in Panopto, if you are a creator.
+        ThumbnailUrl:
+          type: string
+          description: The URL to retrieve the thumbnail for this session
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))
