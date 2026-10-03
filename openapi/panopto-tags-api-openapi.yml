@@ -251,6 +251,46 @@ components:
           description: The list of results from the API call
           items:
             $ref: '#/components/schemas/Tag'
+    TagUpdate:
+      allOf:
+      - $ref: '#/components/schemas/TagCreate'
+      - type: object
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    TagCreate:
+      type: object
+      properties:
+        Content:
+          type: string
+          description: The content of the tag.
+    TagSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - CreateDate
+      - UsageCount
+      - Content
+      - Creator
+      - MostRecentUseDate
+      enum:
+      - CreateDate
+      - UsageCount
+      - Content
+      - Creator
+      - MostRecentUseDate
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
     APIErrorInternal:
       type: object
       required:
@@ -267,67 +307,6 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
-    TagCreate:
-      type: object
-      properties:
-        Content:
-          type: string
-          description: The content of the tag.
-    User:
-      type: object
-      required:
-      - Id
-      properties:
-        Id:
-          type: string
-          description: The id of the user.
-          format: guid
-        Username:
-          type: string
-          description: The username for this user.
-    TagUpdate:
-      allOf:
-      - $ref: '#/components/schemas/TagCreate'
-      - type: object
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
-    TagMerge:
-      type: object
-      properties:
-        TagIdsToMerge:
-          type: array
-          description: The IDs of the tags that should be merged and then deleted.
-          items:
-            type: string
-            format: guid
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
-    TagSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - CreateDate
-      - UsageCount
-      - Content
-      - Creator
-      - MostRecentUseDate
-      enum:
-      - CreateDate
-      - UsageCount
-      - Content
-      - Creator
-      - MostRecentUseDate
     Tag:
       type: object
       required:
@@ -350,4 +329,25 @@ components:
           format: date-time
         CreatedBy:
           $ref: '#/components/schemas/User'
+    TagMerge:
+      type: object
+      properties:
+        TagIdsToMerge:
+          type: array
+          description: The IDs of the tags that should be merged and then deleted.
+          items:
+            type: string
+            format: guid
+    User:
+      type: object
+      required:
+      - Id
+      properties:
+        Id:
+          type: string
+          description: The id of the user.
+          format: guid
+        Username:
+          type: string
+          description: The username for this user.
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

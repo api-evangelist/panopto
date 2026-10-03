@@ -349,19 +349,83 @@ paths:
           description: The user is not authorized to perform the requested action
 components:
   schemas:
-    PlaylistSessionSortFields:
+    SessionUrls:
+      type: object
+      properties:
+        ViewerUrl:
+          type: string
+          description: The URL to view this session in Panopto
+        EmbedUrl:
+          type: string
+          description: The URL to an embedded version of this session
+        ShareSettingsUrl:
+          type: string
+        DownloadUrl:
+          type: string
+          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
+        AudioDescriptionDownloadUrl:
+          type: string
+        CaptionDownloadUrl:
+          type: string
+          description: The URL to download captions for this session, if available.
+        EditorUrl:
+          type: string
+          description: The URL to edit this session in Panopto, if you are a creator.
+        ThumbnailUrl:
+          type: string
+          description: The URL to retrieve the thumbnail for this session
+    Playlist:
+      allOf:
+      - $ref: '#/components/schemas/ModelBaseOfGuid'
+      - type: object
+        properties:
+          Description:
+            type: string
+          Folder:
+            $ref: '#/components/schemas/BasicFolder'
+          Urls:
+            $ref: '#/components/schemas/PlaylistUrls'
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    PlaylistAddSession:
+      type: object
+      required:
+      - SessionId
+      properties:
+        SessionId:
+          type: string
+          description: The id of the session to add to this playlist.
+          format: guid
+        Index:
+          type: integer
+          description: The index to insert the item at (starting with 0 as the beginning of the list). If this is not specified, the session will be added to the end.
+          format: int32
+    PlaylistSortFields:
       type: string
       description: ''
       x-enumNames:
       - Name
       - CreatedDate
       - Relevance
-      - Order
       enum:
       - Name
       - CreatedDate
       - Relevance
-      - Order
+    ListResponseOfPlaylist:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Playlist'
     PlaylistUpdate:
       type: object
       properties:
@@ -375,6 +439,72 @@ components:
           type: string
           description: The id of the folder to move this playlist to.
           format: guid
+    PlaylistCreate:
+      type: object
+      required:
+      - FolderId
+      properties:
+        Name:
+          type: string
+          description: The name of the playlist.
+        Description:
+          type: string
+          description: An optional description for the playlist.
+        FolderId:
+          type: string
+          description: The folder to add this playlist to.
+          format: guid
+        Sessions:
+          type: array
+          description: A list of session IDs to add to this playlist. They will be added in order.
+          items:
+            type: string
+            format: guid
+    ModelBaseOfGuid:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+    SearchResultContext:
+      type: object
+      properties:
+        Text:
+          type: string
+        Time:
+          type: number
+          format: double
+        ThumbnailUrl:
+          type: string
+    ListResponseOfSession:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/Session'
+    PlaylistSessionSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      - CreatedDate
+      - Relevance
+      - Order
+      enum:
+      - Name
+      - CreatedDate
+      - Relevance
+      - Order
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
     APIErrorInternal:
       type: object
       required:
@@ -391,50 +521,14 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
-    Playlist:
-      allOf:
-      - $ref: '#/components/schemas/ModelBaseOfGuid'
-      - type: object
-        properties:
-          Description:
-            type: string
-          Folder:
-            $ref: '#/components/schemas/BasicFolder'
-          Urls:
-            $ref: '#/components/schemas/PlaylistUrls'
-    PlaylistAddSession:
+    BasicFolder:
       type: object
-      required:
-      - SessionId
-      properties:
-        SessionId:
-          type: string
-          description: The id of the session to add to this playlist.
-          format: guid
-        Index:
-          type: integer
-          description: The index to insert the item at (starting with 0 as the beginning of the list). If this is not specified, the session will be added to the end.
-          format: int32
-    ListResponseOfSession:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/Session'
-    User:
-      type: object
-      required:
-      - Id
       properties:
         Id:
           type: string
-          description: The id of the user.
           format: guid
-        Username:
+        Name:
           type: string
-          description: The username for this user.
     PlaylistUrls:
       type: object
       properties:
@@ -447,23 +541,18 @@ components:
         ThumbnailUrl:
           type: string
           description: The URL to retrieve the thumbnail for this playlist
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
-    ModelBaseOfGuid:
+    User:
       type: object
+      required:
+      - Id
       properties:
         Id:
           type: string
+          description: The id of the user.
           format: guid
-        Name:
+        Username:
           type: string
+          description: The username for this user.
     Session:
       type: object
       required:
@@ -503,93 +592,4 @@ components:
           type: integer
           description: The percentage from 0-100 of the session watched by the requested user
           format: int32
-    SearchResultContext:
-      type: object
-      properties:
-        Text:
-          type: string
-        Time:
-          type: number
-          format: double
-        ThumbnailUrl:
-          type: string
-    PlaylistCreate:
-      type: object
-      required:
-      - FolderId
-      properties:
-        Name:
-          type: string
-          description: The name of the playlist.
-        Description:
-          type: string
-          description: An optional description for the playlist.
-        FolderId:
-          type: string
-          description: The folder to add this playlist to.
-          format: guid
-        Sessions:
-          type: array
-          description: A list of session IDs to add to this playlist. They will be added in order.
-          items:
-            type: string
-            format: guid
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
-    ListResponseOfPlaylist:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/Playlist'
-    PlaylistSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - Name
-      - CreatedDate
-      - Relevance
-      enum:
-      - Name
-      - CreatedDate
-      - Relevance
-    BasicFolder:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
-    SessionUrls:
-      type: object
-      properties:
-        ViewerUrl:
-          type: string
-          description: The URL to view this session in Panopto
-        EmbedUrl:
-          type: string
-          description: The URL to an embedded version of this session
-        ShareSettingsUrl:
-          type: string
-        DownloadUrl:
-          type: string
-          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
-        AudioDescriptionDownloadUrl:
-          type: string
-        CaptionDownloadUrl:
-          type: string
-          description: The URL to download captions for this session, if available.
-        EditorUrl:
-          type: string
-          description: The URL to edit this session in Panopto, if you are a creator.
-        ThumbnailUrl:
-          type: string
-          description: The URL to retrieve the thumbnail for this session
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

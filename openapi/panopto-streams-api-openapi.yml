@@ -83,6 +83,12 @@ paths:
                   - Vietnamese
 components:
   schemas:
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
     APIErrorInternal:
       type: object
       required:
@@ -99,10 +105,4 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

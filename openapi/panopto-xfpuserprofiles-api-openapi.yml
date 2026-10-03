@@ -227,38 +227,6 @@ paths:
           description: Unauthorized access
 components:
   schemas:
-    XfpUserRole:
-      type: string
-      description: ''
-      x-enumNames:
-      - Viewer
-      - PortalManager
-      enum:
-      - Viewer
-      - PortalManager
-    ModelBaseOfGuid:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
-    XfpUserProfileCreate:
-      type: object
-      required:
-      - XfpRole
-      properties:
-        FirstName:
-          type: string
-        LastName:
-          type: string
-        EmailAddress:
-          type: string
-        XfpRole:
-          $ref: '#/components/schemas/XfpUserRole'
-        TemporaryPassword:
-          type: string
     XfpUserProfile:
       allOf:
       - $ref: '#/components/schemas/ModelBaseOfGuid'
@@ -293,5 +261,37 @@ components:
         FirstName:
           type: string
         LastName:
+          type: string
+    ModelBaseOfGuid:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+    XfpUserRole:
+      type: string
+      description: ''
+      x-enumNames:
+      - Viewer
+      - PortalManager
+      enum:
+      - Viewer
+      - PortalManager
+    XfpUserProfileCreate:
+      type: object
+      required:
+      - XfpRole
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        EmailAddress:
+          type: string
+        XfpRole:
+          $ref: '#/components/schemas/XfpUserRole'
+        TemporaryPassword:
           type: string
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

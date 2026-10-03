@@ -86,6 +86,35 @@ components:
       - Faulted
       - Disconnected
       - RecorderRunning
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
+    RemoteRecorder:
+      type: object
+      required:
+      - State
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+        State:
+          $ref: '#/components/schemas/RemoteRecorderState'
+        DefaultRecordingFolder:
+          $ref: '#/components/schemas/BasicFolder'
     APIErrorInternal:
       type: object
       required:
@@ -102,35 +131,6 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
-    RemoteRecorder:
-      type: object
-      required:
-      - State
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
-        State:
-          $ref: '#/components/schemas/RemoteRecorderState'
-        DefaultRecordingFolder:
-          $ref: '#/components/schemas/BasicFolder'
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
     ListResponseOfRemoteRecorder:
       type: object
       properties:

@@ -173,14 +173,64 @@ paths:
           description: The user is not authorized to perform the requested action
 components:
   schemas:
-    ListResponseOfUser:
+    SessionUrls:
+      type: object
+      properties:
+        ViewerUrl:
+          type: string
+          description: The URL to view this session in Panopto
+        EmbedUrl:
+          type: string
+          description: The URL to an embedded version of this session
+        ShareSettingsUrl:
+          type: string
+        DownloadUrl:
+          type: string
+          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
+        AudioDescriptionDownloadUrl:
+          type: string
+        CaptionDownloadUrl:
+          type: string
+          description: The URL to download captions for this session, if available.
+        EditorUrl:
+          type: string
+          description: The URL to edit this session in Panopto, if you are a creator.
+        ThumbnailUrl:
+          type: string
+          description: The URL to retrieve the thumbnail for this session
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    SearchResultContext:
+      type: object
+      properties:
+        Text:
+          type: string
+        Time:
+          type: number
+          format: double
+        ThumbnailUrl:
+          type: string
+    ListResponseOfSession:
       type: object
       properties:
         Results:
           type: array
           description: The list of results from the API call
           items:
-            $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/Session'
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
     APIErrorInternal:
       type: object
       required:
@@ -197,14 +247,33 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
-    ListResponseOfSession:
+    SessionSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      - CreatedDate
+      - Relevance
+      enum:
+      - Name
+      - CreatedDate
+      - Relevance
+    BasicFolder:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
+    ListResponseOfUser:
       type: object
       properties:
         Results:
           type: array
           description: The list of results from the API call
           items:
-            $ref: '#/components/schemas/Session'
+            $ref: '#/components/schemas/User'
     User:
       type: object
       required:
@@ -217,32 +286,6 @@ components:
         Username:
           type: string
           description: The username for this user.
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
-    SessionSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - Name
-      - CreatedDate
-      - Relevance
-      enum:
-      - Name
-      - CreatedDate
-      - Relevance
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
     Session:
       type: object
       required:
@@ -282,47 +325,4 @@ components:
           type: integer
           description: The percentage from 0-100 of the session watched by the requested user
           format: int32
-    SearchResultContext:
-      type: object
-      properties:
-        Text:
-          type: string
-        Time:
-          type: number
-          format: double
-        ThumbnailUrl:
-          type: string
-    SessionUrls:
-      type: object
-      properties:
-        ViewerUrl:
-          type: string
-          description: The URL to view this session in Panopto
-        EmbedUrl:
-          type: string
-          description: The URL to an embedded version of this session
-        ShareSettingsUrl:
-          type: string
-        DownloadUrl:
-          type: string
-          description: The URL to download this session. This URL is intended for one-time download only, and is not appropriate for direct streaming or playback. May be blank if not allowed.
-        AudioDescriptionDownloadUrl:
-          type: string
-        CaptionDownloadUrl:
-          type: string
-          description: The URL to download captions for this session, if available.
-        EditorUrl:
-          type: string
-          description: The URL to edit this session in Panopto, if you are a creator.
-        ThumbnailUrl:
-          type: string
-          description: The URL to retrieve the thumbnail for this session
-    BasicFolder:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))
