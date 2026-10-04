@@ -55,10 +55,6 @@ paths:
                 $ref: '#/components/schemas/SearchIndexSyncContentResponse'
 components:
   schemas:
-    SearchIndexSyncContentResponse:
-      allOf:
-      - $ref: '#/components/schemas/ModelBase'
-      - type: object
     ModelBase:
       type: object
       properties:
@@ -69,6 +65,10 @@ components:
         Name:
           type: string
           description: The name of this item.
+    SearchIndexSyncContentResponse:
+      allOf:
+      - $ref: '#/components/schemas/ModelBase'
+      - type: object
     SearchIndexSyncUpdateResponse:
       allOf:
       - $ref: '#/components/schemas/ModelBase'

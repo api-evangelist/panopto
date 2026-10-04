@@ -243,6 +243,10 @@ paths:
               $ref: '#/components/schemas/TagMerge'
 components:
   schemas:
+    TagUpdate:
+      allOf:
+      - $ref: '#/components/schemas/TagCreate'
+      - type: object
     ListResponseOfTag:
       type: object
       properties:
@@ -251,46 +255,6 @@ components:
           description: The list of results from the API call
           items:
             $ref: '#/components/schemas/Tag'
-    TagUpdate:
-      allOf:
-      - $ref: '#/components/schemas/TagCreate'
-      - type: object
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
-    TagCreate:
-      type: object
-      properties:
-        Content:
-          type: string
-          description: The content of the tag.
-    TagSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - CreateDate
-      - UsageCount
-      - Content
-      - Creator
-      - MostRecentUseDate
-      enum:
-      - CreateDate
-      - UsageCount
-      - Content
-      - Creator
-      - MostRecentUseDate
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
     APIErrorInternal:
       type: object
       required:
@@ -307,6 +271,27 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
+    TagCreate:
+      type: object
+      properties:
+        Content:
+          type: string
+          description: The content of the tag.
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
     Tag:
       type: object
       required:
@@ -350,4 +335,19 @@ components:
         Username:
           type: string
           description: The username for this user.
+    TagSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - CreateDate
+      - UsageCount
+      - Content
+      - Creator
+      - MostRecentUseDate
+      enum:
+      - CreateDate
+      - UsageCount
+      - Content
+      - Creator
+      - MostRecentUseDate
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

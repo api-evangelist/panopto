@@ -67,6 +67,22 @@ paths:
           description: The user is not authorized to perform the requested action
 components:
   schemas:
+    APIErrorInternal:
+      type: object
+      required:
+      - Success
+      properties:
+        ErrorCode:
+          type: string
+          description: Internal error code
+        Message:
+          type: string
+        Success:
+          type: boolean
+          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+        ErrorSource:
+          type: string
+          description: Unique identifier of what caused this error
     RemoteRecorderState:
       type: string
       description: ''
@@ -95,12 +111,14 @@ components:
       enum:
       - Asc
       - Desc
-    APIError:
+    ListResponseOfRemoteRecorder:
       type: object
       properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/RemoteRecorder'
     RemoteRecorder:
       type: object
       required:
@@ -115,30 +133,6 @@ components:
           $ref: '#/components/schemas/RemoteRecorderState'
         DefaultRecordingFolder:
           $ref: '#/components/schemas/BasicFolder'
-    APIErrorInternal:
-      type: object
-      required:
-      - Success
-      properties:
-        ErrorCode:
-          type: string
-          description: Internal error code
-        Message:
-          type: string
-        Success:
-          type: boolean
-          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
-        ErrorSource:
-          type: string
-          description: Unique identifier of what caused this error
-    ListResponseOfRemoteRecorder:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/RemoteRecorder'
     RemoteRecorderSortFields:
       type: string
       description: ''
@@ -146,6 +140,12 @@ components:
       - Name
       enum:
       - Name
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
     BasicFolder:
       type: object
       properties:

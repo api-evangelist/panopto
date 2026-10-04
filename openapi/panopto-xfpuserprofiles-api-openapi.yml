@@ -253,23 +253,6 @@ components:
           CreatedDate:
             type: string
             format: date-time
-    XfpUserProfileUpdate:
-      type: object
-      properties:
-        XfpRole:
-          type: string
-        FirstName:
-          type: string
-        LastName:
-          type: string
-    ModelBaseOfGuid:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
     XfpUserRole:
       type: string
       description: ''
@@ -293,5 +276,22 @@ components:
         XfpRole:
           $ref: '#/components/schemas/XfpUserRole'
         TemporaryPassword:
+          type: string
+    XfpUserProfileUpdate:
+      type: object
+      properties:
+        XfpRole:
+          type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+    ModelBaseOfGuid:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
           type: string
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))
