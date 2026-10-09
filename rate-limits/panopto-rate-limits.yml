@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: Panopto REST API Rate Limits
 description: Panopto enforces rate limits on its public REST API per endpoint per OAuth2 client ID or IP address. Limits apply separately to each API endpoint, so simultaneous calls to different endpoints each count independently against their own limits.
 url: https://community.panopto.com/discussion/2265/current-rate-limits-for-the-rest-api

@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: Panopto Plans and Pricing
 description: Panopto uses custom enterprise pricing with no publicly listed tiers. All enterprise plans include the full Video CMS feature set. A separate entry-level product called Panopto Essential is available for smaller teams.
 url: https://www.panopto.com/pricing/
@@ -47,3 +51,22 @@ notes:
   - Higher education institutions may receive discounted tier-based pricing
   - Free speech-to-text captioning and no-cost integrations available for academic agreements
 contact: https://www.panopto.com/plans/
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units: []
+  plans:
+  - name: Panopto Essential
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
