@@ -15,3 +15,42 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: panopto-1edtech
+  label: 1EdTech
+  partner_name: 1EdTech
+  category: 1EdTech certified products
+  type: contract
+  channel: standard-directory
+  evidence: https://site.imsglobal.org/certifications
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: 1EdTech certified product directory (TrustEd Apps)
+    spec_file: null
+    standard: 1EdTech
+    role: Contributing Member
+    registered_name: Panopto, Inc.
+    matched_domain: panopto.com
+    matched_by: domain
+    standards:
+    - LTI Advantage
+    - Learning Tools Interoperability (LTI) v1.3
+    certified_products:
+    - product: Panopto
+      version: v16.3.1.00028
+      standards:
+      - LTI Advantage
+      - Learning Tools Interoperability (LTI) v1.3
+      implementation:
+      - 'Extension: LTI Assignment & Grade Services 2.0'
+      - 'Extension: LTI Deep Linking 2.0'
+      - 'Type: Tool'
+      attributes:
+      - Certified Product
+      - Vetted
+      lapsed: false
+      url: https://site.imsglobal.org/certifications/panopto-inc/panopto/v163100028
+    detected_by: sweep-edtech.py
+    detected: '2026-10-14'
+  status: not-a-workflow
+  arazzo: null
