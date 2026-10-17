@@ -69,6 +69,30 @@ components:
           format: guid
         Name:
           type: string
+    SortOrder:
+      type: string
+      description: ''
+      x-enumNames:
+      - Asc
+      - Desc
+      enum:
+      - Asc
+      - Desc
+    ListResponseOfTranscriptionProviderInstance:
+      type: object
+      properties:
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/TranscriptionProviderInstance'
+    TranscriptionProviderInstanceSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      enum:
+      - Name
     APIErrorInternal:
       type: object
       required:
@@ -85,29 +109,12 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
-    SortOrder:
-      type: string
-      description: ''
-      x-enumNames:
-      - Asc
-      - Desc
-      enum:
-      - Asc
-      - Desc
     APIError:
       type: object
       properties:
         Error:
           description: Error result returned if an error occurs in Panopto, otherwise null or missing
           $ref: '#/components/schemas/APIErrorInternal'
-    ListResponseOfTranscriptionProviderInstance:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/TranscriptionProviderInstance'
     TranscriptionProviderInstance:
       allOf:
       - $ref: '#/components/schemas/ModelBaseOfGuid'
@@ -119,11 +126,4 @@ components:
             type: boolean
           DisplayName:
             type: string
-    TranscriptionProviderInstanceSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - Name
-      enum:
-      - Name
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

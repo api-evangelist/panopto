@@ -40,6 +40,14 @@ paths:
           description: The user is not authorized to perform the requested action
 components:
   schemas:
+    ModelBaseOfGuid:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: guid
+        Name:
+          type: string
     APIErrorInternal:
       type: object
       required:
@@ -56,24 +64,6 @@ components:
         ErrorSource:
           type: string
           description: Unique identifier of what caused this error
-    Group:
-      allOf:
-      - $ref: '#/components/schemas/ModelBaseOfGuid'
-      - type: object
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
-    ModelBaseOfGuid:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: guid
-        Name:
-          type: string
     ListResponseOfGroup:
       type: object
       properties:
@@ -82,4 +72,14 @@ components:
           description: The list of results from the API call
           items:
             $ref: '#/components/schemas/Group'
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
+    Group:
+      allOf:
+      - $ref: '#/components/schemas/ModelBaseOfGuid'
+      - type: object
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

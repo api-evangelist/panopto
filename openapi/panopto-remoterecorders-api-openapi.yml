@@ -67,22 +67,14 @@ paths:
           description: The user is not authorized to perform the requested action
 components:
   schemas:
-    APIErrorInternal:
+    ListResponseOfRemoteRecorder:
       type: object
-      required:
-      - Success
       properties:
-        ErrorCode:
-          type: string
-          description: Internal error code
-        Message:
-          type: string
-        Success:
-          type: boolean
-          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
-        ErrorSource:
-          type: string
-          description: Unique identifier of what caused this error
+        Results:
+          type: array
+          description: The list of results from the API call
+          items:
+            $ref: '#/components/schemas/RemoteRecorder'
     RemoteRecorderState:
       type: string
       description: ''
@@ -111,14 +103,6 @@ components:
       enum:
       - Asc
       - Desc
-    ListResponseOfRemoteRecorder:
-      type: object
-      properties:
-        Results:
-          type: array
-          description: The list of results from the API call
-          items:
-            $ref: '#/components/schemas/RemoteRecorder'
     RemoteRecorder:
       type: object
       required:
@@ -133,19 +117,6 @@ components:
           $ref: '#/components/schemas/RemoteRecorderState'
         DefaultRecordingFolder:
           $ref: '#/components/schemas/BasicFolder'
-    RemoteRecorderSortFields:
-      type: string
-      description: ''
-      x-enumNames:
-      - Name
-      enum:
-      - Name
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
     BasicFolder:
       type: object
       properties:
@@ -154,4 +125,33 @@ components:
           format: guid
         Name:
           type: string
+    APIErrorInternal:
+      type: object
+      required:
+      - Success
+      properties:
+        ErrorCode:
+          type: string
+          description: Internal error code
+        Message:
+          type: string
+        Success:
+          type: boolean
+          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+        ErrorSource:
+          type: string
+          description: Unique identifier of what caused this error
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
+    RemoteRecorderSortFields:
+      type: string
+      description: ''
+      x-enumNames:
+      - Name
+      enum:
+      - Name
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

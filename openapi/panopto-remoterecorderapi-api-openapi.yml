@@ -638,6 +638,52 @@ paths:
               $ref: '#/components/schemas/WebRtcSdpOfferPostData'
 components:
   schemas:
+    RemoteRecorderConfiguration:
+      type: object
+      required:
+      - CaptureScreen
+      - CaptureSlides
+      - CaptureSystemAudio
+      - HighlightMouseCursor
+      properties:
+        PrimaryVideoDevice:
+          type: string
+        PrimaryAudioDevice:
+          type: string
+        DevicesToIgnore:
+          type: array
+          items:
+            type: string
+        DevicesToCapture:
+          type: array
+          items:
+            type: string
+        CaptureScreen:
+          type: boolean
+        CaptureSlides:
+          type: boolean
+        CaptureSystemAudio:
+          type: boolean
+        HighlightMouseCursor:
+          type: boolean
+    RemoteRecorderAudioHistogramType:
+      type: string
+      description: ''
+      x-enumNames:
+      - Automatic
+      - AlwaysStereoHistograms
+      - AlwaysMonoHistograms
+      enum:
+      - Automatic
+      - AlwaysStereoHistograms
+      - AlwaysMonoHistograms
+    WebRtcIceCandidates:
+      type: object
+      properties:
+        Candidates:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebRtcIceCandidate'
     RemoteRecorderURL:
       type: object
       required:
@@ -648,6 +694,22 @@ components:
         URL:
           type: string
           description: Must be a well formed URL
+    APIErrorInternal:
+      type: object
+      required:
+      - Success
+      properties:
+        ErrorCode:
+          type: string
+          description: Internal error code
+        Message:
+          type: string
+        Success:
+          type: boolean
+          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+        ErrorSource:
+          type: string
+          description: Unique identifier of what caused this error
     RemoteRecorderError:
       type: object
       required:
@@ -672,24 +734,63 @@ components:
           type: string
           description: If this error is associated with a session, which session
           format: guid
-    RemoteRecorderSchedule:
-      allOf:
-      - $ref: '#/components/schemas/APIError'
-      - type: object
-        required:
-        - ScheduleId
-        - ServerTime
-        properties:
-          ScheduleId:
-            type: string
-            format: guid
-          ServerTime:
-            type: number
-            format: double
-          Recordings:
-            type: array
-            items:
-              $ref: '#/components/schemas/RemoteRecorderScheduledRecording'
+    DeviceDescriptionWithPreview:
+      type: object
+      properties:
+        Device:
+          $ref: '#/components/schemas/Device'
+        Preview:
+          $ref: '#/components/schemas/RemoteRecorderDevicePreview'
+    LiveMonitoringMode:
+      type: string
+      description: ''
+      x-enumNames:
+      - Disabled
+      - WebRtcPrimaryAudio
+      enum:
+      - Disabled
+      - WebRtcPrimaryAudio
+    RemoteRecorderURLType:
+      type: string
+      description: ''
+      x-enumNames:
+      - Management
+      - PrimaryPreview
+      - SecondaryPreview
+      - Support
+      - SecondaryPreview2
+      - SecondaryPreview3
+      - SecondaryPreview4
+      enum:
+      - Management
+      - PrimaryPreview
+      - SecondaryPreview
+      - Support
+      - SecondaryPreview2
+      - SecondaryPreview3
+      - SecondaryPreview4
+    WebRtcConnectPostData:
+      type: object
+      required:
+      - OperationType
+      properties:
+        OperationType:
+          $ref: '#/components/schemas/WebRtcConnectOperationType'
+    RemoteRecorderErrorType:
+      type: string
+      description: ''
+      x-enumNames:
+      - Invalid
+      - General
+      - Device
+      - Network
+      - Storage
+      enum:
+      - Invalid
+      - General
+      - Device
+      - Network
+      - Storage
     WebRtcEventsResponse:
       allOf:
       - $ref: '#/components/schemas/APIError'
@@ -708,12 +809,41 @@ components:
           PingSlowInterval:
             type: integer
             format: int32
-    WebRtcSdpOfferPostData:
+    APIError:
       type: object
       properties:
-        SessionDescription:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
+    RemoteRecorderSchedule:
+      allOf:
+      - $ref: '#/components/schemas/APIError'
+      - type: object
+        required:
+        - ScheduleId
+        - ServerTime
+        properties:
+          ScheduleId:
+            type: string
+            format: guid
+          ServerTime:
+            type: number
+            format: double
+          Recordings:
+            type: array
+            items:
+              $ref: '#/components/schemas/RemoteRecorderScheduledRecording'
+    Device:
+      type: object
+      required:
+      - Type
+      properties:
+        DeviceId:
           type: string
-          description: The session description document, as defined by the Session Description Protocol (SDP) standard.
+        Name:
+          type: string
+        Type:
+          $ref: '#/components/schemas/DeviceType'
     RemoteRecorderErrorSeverity:
       type: string
       description: ''
@@ -727,63 +857,6 @@ components:
       - Critical
       - Error
       - Warning
-    WebRtcIceCandidate:
-      type: object
-      required:
-      - Index
-      properties:
-        Candidate:
-          type: string
-        Index:
-          type: integer
-    QualitySettings:
-      type: object
-      required:
-      - AudioBitrate
-      - Framerate
-      - MultipleBitrateCount
-      - PixelCount
-      - VideoBitrate
-      properties:
-        AudioBitrate:
-          type: integer
-          format: int32
-        Framerate:
-          type: integer
-          format: int32
-        MultipleBitrateCount:
-          type: integer
-          format: int32
-        PixelCount:
-          type: integer
-          format: int32
-        VideoBitrate:
-          type: integer
-          format: int32
-    DeviceDescriptionWithPreview:
-      type: object
-      properties:
-        Device:
-          $ref: '#/components/schemas/Device'
-        Preview:
-          $ref: '#/components/schemas/RemoteRecorderDevicePreview'
-    RemoteRecorderDevicePreview:
-      type: object
-      required:
-      - AudioFormat
-      - VideoFormat
-      properties:
-        AudioFormat:
-          $ref: '#/components/schemas/DeviceThumbnailFormat'
-        AudioPreviewData:
-          type: string
-        VideoFormat:
-          $ref: '#/components/schemas/DeviceThumbnailFormat'
-        VideoPreviewData:
-          type: string
-        StreamID:
-          type: string
-          format: guid
     RemoteRecorderPauseRecordingRequest:
       type: object
       required:
@@ -793,229 +866,30 @@ components:
           type: number
           description: Pause recording time in UTC file time seconds
           format: double
-    WebRtcDisconnectOperationType:
+    WebRtcSdpOfferPostData:
+      type: object
+      properties:
+        SessionDescription:
+          type: string
+          description: The session description document, as defined by the Session Description Protocol (SDP) standard.
+    WebRtcIceCandidate:
+      type: object
+      required:
+      - Index
+      properties:
+        Candidate:
+          type: string
+        Index:
+          type: integer
+    WebRtcConnectOperationType:
       type: string
       description: ''
       x-enumNames:
       - Unknown
-      - Destroy
+      - Initialize
       enum:
       - Unknown
-      - Destroy
-    RemoteRecorderState:
-      type: string
-      description: ''
-      x-enumNames:
-      - Stopped
-      - Previewing
-      - Recording
-      - Paused
-      - Faulted
-      - Disconnected
-      - RecorderRunning
-      enum:
-      - Stopped
-      - Previewing
-      - Recording
-      - Paused
-      - Faulted
-      - Disconnected
-      - RecorderRunning
-    WebRtcDisconnectPostData:
-      type: object
-      required:
-      - OperationType
-      properties:
-        OperationType:
-          description: The type of operation.
-          $ref: '#/components/schemas/WebRtcDisconnectOperationType'
-    RemoteRecorderURLsUpdateRequest:
-      type: object
-      properties:
-        URLs:
-          type: array
-          items:
-            $ref: '#/components/schemas/RemoteRecorderURL'
-    RemoteRecorderResumeRecordingRequest:
-      type: object
-      required:
-      - ResumeRecordingTime
-      properties:
-        ResumeRecordingTime:
-          type: number
-          description: Resume recording time in UTC file time seconds
-          format: double
-    LiveMonitoringHeartbeatResponseData:
-      type: object
-      required:
-      - Mode
-      properties:
-        Mode:
-          $ref: '#/components/schemas/LiveMonitoringMode'
-        Id:
-          type: string
-    WebRtcConnectPostData:
-      type: object
-      required:
-      - OperationType
-      properties:
-        OperationType:
-          $ref: '#/components/schemas/WebRtcConnectOperationType'
-    RemoteRecorderRegistrationRequest:
-      type: object
-      properties:
-        MachineUniqueIdentifier:
-          type: string
-          description: Static, non-changing value uniquely identifing this remote recorder
-        RecorderVersion:
-          type: string
-          description: Must be in the format of "Vendor.Product.Major.Minor.Servicing"
-        RecorderBuild:
-          type: string
-          description: Vendor specfic build version. Format is up to the vendor but must be less than 255 characters
-        Capabilities:
-          type: array
-          description: 'Capabilities of this recorder. Options include: screencapture, slidecapture, highlightmousecursor, capturesystemaudio, 1080p, devicetemplates'
-          items:
-            type: string
-        Description:
-          type: string
-          description: Description of this remote recorder - the name presented to users
-    APIErrorInternal:
-      type: object
-      required:
-      - Success
-      properties:
-        ErrorCode:
-          type: string
-          description: Internal error code
-        Message:
-          type: string
-        Success:
-          type: boolean
-          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
-        ErrorSource:
-          type: string
-          description: Unique identifier of what caused this error
-    WebRtcEvent:
-      type: object
-      required:
-      - EventType
-      properties:
-        EventType:
-          $ref: '#/components/schemas/WebRtcEventType'
-        Payload:
-          type: string
-    RemoteRecorderRegistrationResponse:
-      allOf:
-      - $ref: '#/components/schemas/APIError'
-      - type: object
-        required:
-        - RemoteRecorderPublicId
-        - ClientKey
-        properties:
-          RemoteRecorderPublicId:
-            type: string
-            format: guid
-          ClientKey:
-            type: string
-            format: guid
-          ClientSecret:
-            type: string
-    RemoteRecorderErrorType:
-      type: string
-      description: ''
-      x-enumNames:
-      - Invalid
-      - General
-      - Device
-      - Network
-      - Storage
-      enum:
-      - Invalid
-      - General
-      - Device
-      - Network
-      - Storage
-    WebRtcEventType:
-      type: string
-      description: ''
-      x-enumNames:
-      - Unknown
-      - IceCandidate
-      - SdpAnswer
-      - TemporaryFailure
-      - PermanentFailure
-      enum:
-      - Unknown
-      - IceCandidate
-      - SdpAnswer
-      - TemporaryFailure
-      - PermanentFailure
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
-    WebRtcIceCandidates:
-      type: object
-      properties:
-        Candidates:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebRtcIceCandidate'
-    Device:
-      type: object
-      required:
-      - Type
-      properties:
-        DeviceId:
-          type: string
-        Name:
-          type: string
-        Type:
-          $ref: '#/components/schemas/DeviceType'
-    LiveMonitoringMode:
-      type: string
-      description: ''
-      x-enumNames:
-      - Disabled
-      - WebRtcPrimaryAudio
-      enum:
-      - Disabled
-      - WebRtcPrimaryAudio
-    RemoteRecorderExtendedConfiguration:
-      type: object
-      required:
-      - AudioHistogramModeType
-      properties:
-        SecondsToUseNextRecordingTemplate:
-          type: number
-          description: The number of seconds prior to the start of the next scheduled recording to apply the recording's template configurations.
-          format: double
-        SecondsToDeleteRecordingAfterUpload:
-          type: number
-          description: The number of seconds to retain the recording on the client after successful upload of the recording
-          format: double
-        ServerTime:
-          type: number
-          description: The server time in UTC file seconds
-          format: double
-        AudioHistogramModeType:
-          description: Preferred audio histogram type
-          $ref: '#/components/schemas/RemoteRecorderAudioHistogramType'
-    RemoteRecorderAudioHistogramType:
-      type: string
-      description: ''
-      x-enumNames:
-      - Automatic
-      - AlwaysStereoHistograms
-      - AlwaysMonoHistograms
-      enum:
-      - Automatic
-      - AlwaysStereoHistograms
-      - AlwaysMonoHistograms
+      - Initialize
     RemoteRecorderHeartbeatResponse:
       allOf:
       - $ref: '#/components/schemas/APIError'
@@ -1052,6 +926,91 @@ components:
           ExtendedConfiguration:
             description: Extended configuration for the client. The configuration is only returned if the client specified 'extendedConfigurations' in the request's included options.
             $ref: '#/components/schemas/RemoteRecorderExtendedConfiguration'
+    DeviceType:
+      type: string
+      description: ''
+      x-enumNames:
+      - Unknown
+      - Audio
+      - Video
+      - AudioVideo
+      enum:
+      - Unknown
+      - Audio
+      - Video
+      - AudioVideo
+    WebRtcDisconnectPostData:
+      type: object
+      required:
+      - OperationType
+      properties:
+        OperationType:
+          description: The type of operation.
+          $ref: '#/components/schemas/WebRtcDisconnectOperationType'
+    QualitySettings:
+      type: object
+      required:
+      - AudioBitrate
+      - Framerate
+      - MultipleBitrateCount
+      - PixelCount
+      - VideoBitrate
+      properties:
+        AudioBitrate:
+          type: integer
+          format: int32
+        Framerate:
+          type: integer
+          format: int32
+        MultipleBitrateCount:
+          type: integer
+          format: int32
+        PixelCount:
+          type: integer
+          format: int32
+        VideoBitrate:
+          type: integer
+          format: int32
+    WebRtcDisconnectOperationType:
+      type: string
+      description: ''
+      x-enumNames:
+      - Unknown
+      - Destroy
+      enum:
+      - Unknown
+      - Destroy
+    WebRtcEventType:
+      type: string
+      description: ''
+      x-enumNames:
+      - Unknown
+      - IceCandidate
+      - SdpAnswer
+      - TemporaryFailure
+      - PermanentFailure
+      enum:
+      - Unknown
+      - IceCandidate
+      - SdpAnswer
+      - TemporaryFailure
+      - PermanentFailure
+    WebRtcEvent:
+      type: object
+      required:
+      - EventType
+      properties:
+        EventType:
+          $ref: '#/components/schemas/WebRtcEventType'
+        Payload:
+          type: string
+    RemoteRecorderURLsUpdateRequest:
+      type: object
+      properties:
+        URLs:
+          type: array
+          items:
+            $ref: '#/components/schemas/RemoteRecorderURL'
     RemoteRecorderHeartbeatData:
       type: object
       required:
@@ -1075,47 +1034,25 @@ components:
         LiveMonitoringBlocked:
           type: boolean
           description: If supported, whether or not live audio monitoring is currently blocked.
-    DeviceThumbnailFormat:
+    RemoteRecorderState:
       type: string
       description: ''
       x-enumNames:
-      - None
-      - AudioHist
-      - VideoJpeg
-      - AudioHist2Channel
+      - Stopped
+      - Previewing
+      - Recording
+      - Paused
+      - Faulted
+      - Disconnected
+      - RecorderRunning
       enum:
-      - None
-      - AudioHist
-      - VideoJpeg
-      - AudioHist2Channel
-    RemoteRecorderConfiguration:
-      type: object
-      required:
-      - CaptureScreen
-      - CaptureSlides
-      - CaptureSystemAudio
-      - HighlightMouseCursor
-      properties:
-        PrimaryVideoDevice:
-          type: string
-        PrimaryAudioDevice:
-          type: string
-        DevicesToIgnore:
-          type: array
-          items:
-            type: string
-        DevicesToCapture:
-          type: array
-          items:
-            type: string
-        CaptureScreen:
-          type: boolean
-        CaptureSlides:
-          type: boolean
-        CaptureSystemAudio:
-          type: boolean
-        HighlightMouseCursor:
-          type: boolean
+      - Stopped
+      - Previewing
+      - Recording
+      - Paused
+      - Faulted
+      - Disconnected
+      - RecorderRunning
     RemoteRecorderScheduledRecording:
       type: object
       required:
@@ -1161,45 +1098,108 @@ components:
           $ref: '#/components/schemas/QualitySettings'
         Configuration:
           $ref: '#/components/schemas/RemoteRecorderConfiguration'
-    WebRtcConnectOperationType:
+    RemoteRecorderDevicePreview:
+      type: object
+      required:
+      - AudioFormat
+      - VideoFormat
+      properties:
+        AudioFormat:
+          $ref: '#/components/schemas/DeviceThumbnailFormat'
+        AudioPreviewData:
+          type: string
+        VideoFormat:
+          $ref: '#/components/schemas/DeviceThumbnailFormat'
+        VideoPreviewData:
+          type: string
+        StreamID:
+          type: string
+          format: guid
+    RemoteRecorderResumeRecordingRequest:
+      type: object
+      required:
+      - ResumeRecordingTime
+      properties:
+        ResumeRecordingTime:
+          type: number
+          description: Resume recording time in UTC file time seconds
+          format: double
+    RemoteRecorderRegistrationRequest:
+      type: object
+      properties:
+        MachineUniqueIdentifier:
+          type: string
+          description: Static, non-changing value uniquely identifing this remote recorder
+        RecorderVersion:
+          type: string
+          description: Must be in the format of "Vendor.Product.Major.Minor.Servicing"
+        RecorderBuild:
+          type: string
+          description: Vendor specfic build version. Format is up to the vendor but must be less than 255 characters
+        Capabilities:
+          type: array
+          description: 'Capabilities of this recorder. Options include: screencapture, slidecapture, highlightmousecursor, capturesystemaudio, 1080p, devicetemplates'
+          items:
+            type: string
+        Description:
+          type: string
+          description: Description of this remote recorder - the name presented to users
+    RemoteRecorderRegistrationResponse:
+      allOf:
+      - $ref: '#/components/schemas/APIError'
+      - type: object
+        required:
+        - RemoteRecorderPublicId
+        - ClientKey
+        properties:
+          RemoteRecorderPublicId:
+            type: string
+            format: guid
+          ClientKey:
+            type: string
+            format: guid
+          ClientSecret:
+            type: string
+    LiveMonitoringHeartbeatResponseData:
+      type: object
+      required:
+      - Mode
+      properties:
+        Mode:
+          $ref: '#/components/schemas/LiveMonitoringMode'
+        Id:
+          type: string
+    RemoteRecorderExtendedConfiguration:
+      type: object
+      required:
+      - AudioHistogramModeType
+      properties:
+        SecondsToUseNextRecordingTemplate:
+          type: number
+          description: The number of seconds prior to the start of the next scheduled recording to apply the recording's template configurations.
+          format: double
+        SecondsToDeleteRecordingAfterUpload:
+          type: number
+          description: The number of seconds to retain the recording on the client after successful upload of the recording
+          format: double
+        ServerTime:
+          type: number
+          description: The server time in UTC file seconds
+          format: double
+        AudioHistogramModeType:
+          description: Preferred audio histogram type
+          $ref: '#/components/schemas/RemoteRecorderAudioHistogramType'
+    DeviceThumbnailFormat:
       type: string
       description: ''
       x-enumNames:
-      - Unknown
-      - Initialize
+      - None
+      - AudioHist
+      - VideoJpeg
+      - AudioHist2Channel
       enum:
-      - Unknown
-      - Initialize
-    DeviceType:
-      type: string
-      description: ''
-      x-enumNames:
-      - Unknown
-      - Audio
-      - Video
-      - AudioVideo
-      enum:
-      - Unknown
-      - Audio
-      - Video
-      - AudioVideo
-    RemoteRecorderURLType:
-      type: string
-      description: ''
-      x-enumNames:
-      - Management
-      - PrimaryPreview
-      - SecondaryPreview
-      - Support
-      - SecondaryPreview2
-      - SecondaryPreview3
-      - SecondaryPreview4
-      enum:
-      - Management
-      - PrimaryPreview
-      - SecondaryPreview
-      - Support
-      - SecondaryPreview2
-      - SecondaryPreview3
-      - SecondaryPreview4
+      - None
+      - AudioHist
+      - VideoJpeg
+      - AudioHist2Channel
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))

@@ -65,78 +65,44 @@ paths:
               $ref: '#/components/schemas/AccessibilityBulkScheduleRequest'
 components:
   schemas:
-    AccessibilityOverwriteBehavior:
+    EligibilityState:
       type: string
       description: ''
       x-enumNames:
-      - DoNotOverwrite
-      - OverwriteAD
-      - OverwriteASR
-      - OverwriteAnyCaptions
+      - Eligible
+      - ConditionallyEligible
+      - Excluded
       enum:
-      - DoNotOverwrite
-      - OverwriteAD
-      - OverwriteASR
-      - OverwriteAnyCaptions
-    AccessibilityProviderPreview:
-      type: object
-      required:
-      - ProviderInstanceId
-      - PriceKnown
-      properties:
-        ProviderInstanceId:
-          type: integer
-          description: Provider instance identifier, used when scheduling an accessibility request.
-          format: int32
-        DisplayName:
-          type: string
-          description: Display name of the provider (e.g. "Captions Service").
-        PricePerMinute:
-          type: number
-          description: Price per minute in caption credits. Null when pricing is not applicable.
-          format: double
-        PriceKnown:
-          type: boolean
-          description: Whether the price is known.
-    AccessibilityBulkScheduleResponse:
+      - Eligible
+      - ConditionallyEligible
+      - Excluded
+    AccessibilityBulkScheduleRequest:
       type: object
       required:
       - Type
-      - ScheduledCount
-      - SkippedCount
+      - ProviderInstanceId
       properties:
         Type:
-          description: The accessibility request type that was scheduled.
+          description: 'The accessibility request type: AudioDescription, Transcription, or Translation.'
           $ref: '#/components/schemas/AccessibilityRequestType'
-        Results:
+        SessionIds:
           type: array
-          description: Per-session scheduling outcomes.
+          description: List of session or delivery public IDs (GUIDs) to schedule. Duplicates are de-duplicated. Maximum 100 IDs.
           items:
-            $ref: '#/components/schemas/AccessibilityScheduleResult'
-        ScheduledCount:
+            type: string
+            format: guid
+        ProviderInstanceId:
           type: integer
-          description: Number of sessions that were successfully scheduled.
+          description: The provider instance ID to use, from the preview response's Providers list.
           format: int32
-        SkippedCount:
-          type: integer
-          description: Number of sessions that were skipped.
-          format: int32
-    APIErrorInternal:
-      type: object
-      required:
-      - Success
-      properties:
-        ErrorCode:
-          type: string
-          description: Internal error code
-        Message:
-          type: string
-        Success:
-          type: boolean
-          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
-        ErrorSource:
-          type: string
-          description: Unique identifier of what caused this error
+        SourceLanguage:
+          description: 'Translation only: the source caption language to translate from.'
+          $ref: '#/components/schemas/ContentLanguage'
+        TargetLanguages:
+          type: array
+          description: 'Translation only: the target languages to translate to.'
+          items:
+            $ref: '#/components/schemas/ContentLanguage'
     AccessibilityPreviewSummary:
       type: object
       required:
@@ -166,121 +132,26 @@ components:
           type: number
           description: Total duration of all evaluated sessions in seconds.
           format: double
-    AccessibilityBulkPreviewResponse:
+    AccessibilityProviderPreview:
       type: object
       required:
-      - Type
-      - SiteOverwriteBehavior
-      properties:
-        Type:
-          description: 'The normalized accessibility type: AudioDescription, Transcription, or Translation.'
-          $ref: '#/components/schemas/AccessibilityRequestType'
-        SiteOverwriteBehavior:
-          description: 'The site-level overwrite behavior. For AudioDescription: DoNotOverwrite or Overwrite. For Transcription/Translation: DoNotOverwrite, OverwriteASR, or OverwriteAny.'
-          $ref: '#/components/schemas/AccessibilityOverwriteBehavior'
-        AvailableCaptionCredits:
-          type: number
-          description: Remaining caption credits for the active transcription contract. Null when no finite credit pool applies (no active contract, or unlimited credits). Zero means the contract's finite pool has been fully consumed.
-          format: double
-        Providers:
-          type: array
-          description: Available providers for the requested type, with display names and pricing metadata.
-          items:
-            $ref: '#/components/schemas/AccessibilityProviderPreview'
-        SessionEvaluations:
-          type: array
-          description: Per-session eligibility evaluation results.
-          items:
-            $ref: '#/components/schemas/AccessibilitySessionPreview'
-        Summary:
-          description: Aggregate counts of eligible, conditionally eligible, and excluded sessions with total duration.
-          $ref: '#/components/schemas/AccessibilityPreviewSummary'
-    APIError:
-      type: object
-      properties:
-        Error:
-          description: Error result returned if an error occurs in Panopto, otherwise null or missing
-          $ref: '#/components/schemas/APIErrorInternal'
-    AccessibilityBulkScheduleRequest:
-      type: object
-      required:
-      - Type
       - ProviderInstanceId
+      - PriceKnown
       properties:
-        Type:
-          description: 'The accessibility request type: AudioDescription, Transcription, or Translation.'
-          $ref: '#/components/schemas/AccessibilityRequestType'
-        SessionIds:
-          type: array
-          description: List of session or delivery public IDs (GUIDs) to schedule. Duplicates are de-duplicated. Maximum 100 IDs.
-          items:
-            type: string
-            format: guid
         ProviderInstanceId:
           type: integer
-          description: The provider instance ID to use, from the preview response's Providers list.
+          description: Provider instance identifier, used when scheduling an accessibility request.
           format: int32
-        SourceLanguage:
-          description: 'Translation only: the source caption language to translate from.'
-          $ref: '#/components/schemas/ContentLanguage'
-        TargetLanguages:
-          type: array
-          description: 'Translation only: the target languages to translate to.'
-          items:
-            $ref: '#/components/schemas/ContentLanguage'
-    AccessibilityScheduleResult:
-      type: object
-      required:
-      - SessionId
-      - Scheduled
-      - ReasonCode
-      - RequestCount
-      properties:
-        SessionId:
+        DisplayName:
           type: string
-          description: The public ID of the session.
-          format: guid
-        SessionName:
-          type: string
-          description: The display name of the session. Null if the session was not found.
-        Scheduled:
-          type: boolean
-          description: Whether accessibility requests were created for this session.
-        ReasonCode:
-          description: The reason the session was skipped. None when Scheduled is true.
-          $ref: '#/components/schemas/ExclusionReason'
-        RequestCount:
-          type: integer
-          description: Number of transcription requests created for this session.
-          format: int32
-    AccessibilitySessionPreview:
-      type: object
-      required:
-      - SessionId
-      - DurationSeconds
-      - EligibilityState
-      - ReasonCode
-      properties:
-        SessionId:
-          type: string
-          description: The public ID of the evaluated session.
-          format: guid
-        SessionName:
-          type: string
-          description: The display name of the session. Null if the session was not found.
-        DurationSeconds:
+          description: Display name of the provider (e.g. "Captions Service").
+        PricePerMinute:
           type: number
-          description: Total duration in seconds of the session's streams. Zero if the session was not found or has no primary streams.
+          description: Price per minute in caption credits. Null when pricing is not applicable.
           format: double
-        EligibilityState:
-          description: 'The eligibility classification: Eligible, ConditionallyEligible, or Excluded.'
-          $ref: '#/components/schemas/EligibilityState'
-        ReasonCode:
-          description: The reason the session is not fully eligible. None when EligibilityState is Eligible.
-          $ref: '#/components/schemas/ExclusionReason'
-        Details:
-          description: Translation-specific details (source languages, existing captions, pending translations). Null for AudioDescription and Transcription types.
-          $ref: '#/components/schemas/TranslationDetails'
+        PriceKnown:
+          type: boolean
+          description: Whether the price is known.
     TranslationDetails:
       type: object
       properties:
@@ -299,50 +170,19 @@ components:
           description: Target languages with in-flight translation requests, useful for preventing duplicate requests.
           items:
             $ref: '#/components/schemas/ContentLanguage'
-    ExclusionReason:
+    AccessibilityOverwriteBehavior:
       type: string
       description: ''
       x-enumNames:
-      - None
-      - NotFound
-      - InsufficientPermissions
-      - InvalidTranscriptionRequestType
-      - NoActiveDelivery
-      - NoPrimaryStream
-      - PendingEdits
-      - PendingRequest
-      - UnsupportedLanguage
-      - AlreadyHasAudioDescription
-      - AlreadyHasCaptions
-      - AlreadyHasAsrCaptions
-      - NoSourceCaptions
-      - SchedulingFailed
+      - DoNotOverwrite
+      - OverwriteAD
+      - OverwriteASR
+      - OverwriteAnyCaptions
       enum:
-      - None
-      - NotFound
-      - InsufficientPermissions
-      - InvalidTranscriptionRequestType
-      - NoActiveDelivery
-      - NoPrimaryStream
-      - PendingEdits
-      - PendingRequest
-      - UnsupportedLanguage
-      - AlreadyHasAudioDescription
-      - AlreadyHasCaptions
-      - AlreadyHasAsrCaptions
-      - NoSourceCaptions
-      - SchedulingFailed
-    AccessibilityRequestType:
-      type: string
-      description: ''
-      x-enumNames:
-      - AudioDescription
-      - Transcription
-      - Translation
-      enum:
-      - AudioDescription
-      - Transcription
-      - Translation
+      - DoNotOverwrite
+      - OverwriteAD
+      - OverwriteASR
+      - OverwriteAnyCaptions
     ContentLanguage:
       type: string
       description: Language of content such as sessions, streams, or captions.
@@ -410,6 +250,144 @@ components:
       - French_CAN
       - Hebrew
       - Vietnamese
+    AccessibilitySessionPreview:
+      type: object
+      required:
+      - SessionId
+      - DurationSeconds
+      - EligibilityState
+      - ReasonCode
+      properties:
+        SessionId:
+          type: string
+          description: The public ID of the evaluated session.
+          format: guid
+        SessionName:
+          type: string
+          description: The display name of the session. Null if the session was not found.
+        DurationSeconds:
+          type: number
+          description: Total duration in seconds of the session's streams. Zero if the session was not found or has no primary streams.
+          format: double
+        EligibilityState:
+          description: 'The eligibility classification: Eligible, ConditionallyEligible, or Excluded.'
+          $ref: '#/components/schemas/EligibilityState'
+        ReasonCode:
+          description: The reason the session is not fully eligible. None when EligibilityState is Eligible.
+          $ref: '#/components/schemas/ExclusionReason'
+        Details:
+          description: Translation-specific details (source languages, existing captions, pending translations). Null for AudioDescription and Transcription types.
+          $ref: '#/components/schemas/TranslationDetails'
+    AccessibilityBulkScheduleResponse:
+      type: object
+      required:
+      - Type
+      - ScheduledCount
+      - SkippedCount
+      properties:
+        Type:
+          description: The accessibility request type that was scheduled.
+          $ref: '#/components/schemas/AccessibilityRequestType'
+        Results:
+          type: array
+          description: Per-session scheduling outcomes.
+          items:
+            $ref: '#/components/schemas/AccessibilityScheduleResult'
+        ScheduledCount:
+          type: integer
+          description: Number of sessions that were successfully scheduled.
+          format: int32
+        SkippedCount:
+          type: integer
+          description: Number of sessions that were skipped.
+          format: int32
+    APIErrorInternal:
+      type: object
+      required:
+      - Success
+      properties:
+        ErrorCode:
+          type: string
+          description: Internal error code
+        Message:
+          type: string
+        Success:
+          type: boolean
+          description: If true the call succeed and this is a partial failure (or warning). If false the call failed overall
+        ErrorSource:
+          type: string
+          description: Unique identifier of what caused this error
+    AccessibilityScheduleResult:
+      type: object
+      required:
+      - SessionId
+      - Scheduled
+      - ReasonCode
+      - RequestCount
+      properties:
+        SessionId:
+          type: string
+          description: The public ID of the session.
+          format: guid
+        SessionName:
+          type: string
+          description: The display name of the session. Null if the session was not found.
+        Scheduled:
+          type: boolean
+          description: Whether accessibility requests were created for this session.
+        ReasonCode:
+          description: The reason the session was skipped. None when Scheduled is true.
+          $ref: '#/components/schemas/ExclusionReason'
+        RequestCount:
+          type: integer
+          description: Number of transcription requests created for this session.
+          format: int32
+    AccessibilityRequestType:
+      type: string
+      description: ''
+      x-enumNames:
+      - AudioDescription
+      - Transcription
+      - Translation
+      enum:
+      - AudioDescription
+      - Transcription
+      - Translation
+    APIError:
+      type: object
+      properties:
+        Error:
+          description: Error result returned if an error occurs in Panopto, otherwise null or missing
+          $ref: '#/components/schemas/APIErrorInternal'
+    AccessibilityBulkPreviewResponse:
+      type: object
+      required:
+      - Type
+      - SiteOverwriteBehavior
+      properties:
+        Type:
+          description: 'The normalized accessibility type: AudioDescription, Transcription, or Translation.'
+          $ref: '#/components/schemas/AccessibilityRequestType'
+        SiteOverwriteBehavior:
+          description: 'The site-level overwrite behavior. For AudioDescription: DoNotOverwrite or Overwrite. For Transcription/Translation: DoNotOverwrite, OverwriteASR, or OverwriteAny.'
+          $ref: '#/components/schemas/AccessibilityOverwriteBehavior'
+        AvailableCaptionCredits:
+          type: number
+          description: Remaining caption credits for the active transcription contract. Null when no finite credit pool applies (no active contract, or unlimited credits). Zero means the contract's finite pool has been fully consumed.
+          format: double
+        Providers:
+          type: array
+          description: Available providers for the requested type, with display names and pricing metadata.
+          items:
+            $ref: '#/components/schemas/AccessibilityProviderPreview'
+        SessionEvaluations:
+          type: array
+          description: Per-session eligibility evaluation results.
+          items:
+            $ref: '#/components/schemas/AccessibilitySessionPreview'
+        Summary:
+          description: Aggregate counts of eligible, conditionally eligible, and excluded sessions with total duration.
+          $ref: '#/components/schemas/AccessibilityPreviewSummary'
     AccessibilityBulkPreviewRequest:
       type: object
       required:
@@ -424,15 +402,37 @@ components:
           items:
             type: string
             format: guid
-    EligibilityState:
+    ExclusionReason:
       type: string
       description: ''
       x-enumNames:
-      - Eligible
-      - ConditionallyEligible
-      - Excluded
+      - None
+      - NotFound
+      - InsufficientPermissions
+      - InvalidTranscriptionRequestType
+      - NoActiveDelivery
+      - NoPrimaryStream
+      - PendingEdits
+      - PendingRequest
+      - UnsupportedLanguage
+      - AlreadyHasAudioDescription
+      - AlreadyHasCaptions
+      - AlreadyHasAsrCaptions
+      - NoSourceCaptions
+      - SchedulingFailed
       enum:
-      - Eligible
-      - ConditionallyEligible
-      - Excluded
+      - None
+      - NotFound
+      - InsufficientPermissions
+      - InvalidTranscriptionRequestType
+      - NoActiveDelivery
+      - NoPrimaryStream
+      - PendingEdits
+      - PendingRequest
+      - UnsupportedLanguage
+      - AlreadyHasAudioDescription
+      - AlreadyHasCaptions
+      - AlreadyHasAsrCaptions
+      - NoSourceCaptions
+      - SchedulingFailed
 x-generator: NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))
