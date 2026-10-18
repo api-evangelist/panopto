@@ -3,6 +3,9 @@ method: searched
 checked:
 - https://aws.amazon.com/marketplace/
 - https://site.imsglobal.org/certifications
+- microsoft-teams/integrations/microsoft-teams-integration-edges.yml
+- slack/integrations/slack-integration-edges.yml
+- zoom/integrations/zoom-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -58,3 +61,60 @@ edges:
       url: https://site.imsglobal.org/certifications/panopto-inc/panopto/v163100028
     detected_by: sweep-edtech.py
     detected: '2026-10-14'
+- partner_name: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200003801
+  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
+  apps:
+  - Panopto for Microsoft Teams
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Microsoft Teams app
+  publisher_verified:
+  - Microsoft 365 Certified
+- partner_name: Slack (own)
+  partner: slack
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://slack.com/marketplace/APDBCM55H-panopto
+  mirror_of: slack/integrations/slack-integration-edges.yml
+  apps:
+  - Panopto
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Slack app
+- partner_name: Zoom (own)
+  partner: zoom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.zoom.us/apps/bC4tcDVYT-KfHip--cznQQ
+  mirror_of: zoom/integrations/zoom-integration-edges.yml
+  apps:
+  - Panopto
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Zoom app
+source:
+- microsoft-teams/integrations/microsoft-teams-integration-edges.yml
+- slack/integrations/slack-integration-edges.yml
+- zoom/integrations/zoom-integration-edges.yml
