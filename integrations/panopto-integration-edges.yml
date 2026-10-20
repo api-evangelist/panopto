@@ -2,6 +2,8 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://aws.amazon.com/marketplace/
+- https://cloudsecurityalliance.org/star/registry
+- https://eucoc.cloud/en/public-register/list-of-adherent-services
 - https://site.imsglobal.org/certifications
 - microsoft-teams/integrations/microsoft-teams-integration-edges.yml
 - slack/integrations/slack-integration-edges.yml
@@ -25,42 +27,6 @@ edges:
   seller_name: Panopto
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
-- partner_name: 1EdTech
-  partner: null
-  type: contract
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://site.imsglobal.org/certifications
-  category: 1EdTech certified products
-  contract_reference:
-    register: 1EdTech certified product directory (TrustEd Apps)
-    spec_file: null
-    standard: 1EdTech
-    role: Contributing Member
-    registered_name: Panopto, Inc.
-    matched_domain: panopto.com
-    matched_by: domain
-    standards:
-    - LTI Advantage
-    - Learning Tools Interoperability (LTI) v1.3
-    certified_products:
-    - product: Panopto
-      version: v16.3.1.00028
-      standards:
-      - LTI Advantage
-      - Learning Tools Interoperability (LTI) v1.3
-      implementation:
-      - 'Extension: LTI Assignment & Grade Services 2.0'
-      - 'Extension: LTI Deep Linking 2.0'
-      - 'Type: Tool'
-      attributes:
-      - Certified Product
-      - Vetted
-      lapsed: false
-      url: https://site.imsglobal.org/certifications/panopto-inc/panopto/v163100028
-    detected_by: sweep-edtech.py
-    detected: '2026-10-14'
 - partner_name: Microsoft Teams (own)
   partner: microsoft-teams
   partner_match: mirror
@@ -114,6 +80,72 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
+- partner_name: Cloud Security Alliance STAR Registry
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://cloudsecurityalliance.org/star/registry/panopto/services/panopto
+  category: Cloud security assurance
+  contract_reference:
+    register: CSA STAR Registry (cloudsecurityalliance.org/star/registry)
+    spec_file: null
+    standard: CSA STAR
+    role: star-level-1
+    registered_name: Panopto
+    registry_id: panopto
+    service_url: http://www.panopto.com/
+    matched_domain: panopto.com
+    matched_by: domain
+    identity_source: the service URL the organisation filed on its STAR listing (no lookup)
+    levels:
+    - STAR Level 1
+    certified_products: []
+    signal_note: STAR Level 1 (CAIQ self-assessment) = participation; certified_products = one entry per STAR Level
+      2 / STAR for AI Level 2 assessment TYPE (third-party certification, attestation, C-STAR, ValidAIted); lapsed
+      = every instance marked (Deprecated) by the registry; service counts never recorded
+    detected_by: sweep-compliance-assurance.py
+    detected: '2026-10-20'
+  detected_by: sweep-compliance-assurance.py
+  first_seen: '2026-10-20'
+- partner_name: 1EdTech
+  partner: null
+  type: contract
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://site.imsglobal.org/certifications
+  category: 1EdTech certified products
+  contract_reference:
+    register: 1EdTech certified product directory (TrustEd Apps)
+    spec_file: null
+    standard: 1EdTech
+    role: Contributing Member
+    registered_name: Panopto, Inc.
+    matched_domain: panopto.com
+    matched_by: domain
+    standards:
+    - LTI Advantage
+    - Learning Tools Interoperability (LTI) v1.3
+    certified_products:
+    - product: Panopto
+      version: v16.3.1.00028
+      standards:
+      - LTI Advantage
+      - Learning Tools Interoperability (LTI) v1.3
+      implementation:
+      - 'Extension: LTI Assignment & Grade Services 2.0'
+      - 'Extension: LTI Deep Linking 2.0'
+      - 'Type: Tool'
+      attributes:
+      - Certified Product
+      - Vetted
+      lapsed: false
+      url: https://site.imsglobal.org/certifications/panopto-inc/panopto/v163100028
+    detected_by: sweep-edtech.py
+    detected: '2026-10-14'
 source:
 - microsoft-teams/integrations/microsoft-teams-integration-edges.yml
 - slack/integrations/slack-integration-edges.yml
